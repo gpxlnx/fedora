@@ -148,6 +148,11 @@ function pid {
   ps -aux | grep "$1" | grep -v grep | awk '{print$2}'
 }
 
+bicon_on=$(ps -aux | grep bicon | grep -v grep | awk '{print$2}')
+if [[ -z "${bicon_on// }" ]]; then
+  /usr/bin/bicon.bin
+fi
+
 REPORTTIME=4
 STARDICT_DATA_DIR="/home/bloodstalker/.stardict"
 export STARDICT_DATA_DIR
