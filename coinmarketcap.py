@@ -10,6 +10,7 @@ import csv
 import time
 import atexit
 import signal
+from abc import ABCMeta, abstractmethod
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
@@ -179,7 +180,9 @@ class Argparser(object):
         parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
         self.args = parser.parse_args()
 
-class daemon:
+class Demon_Father:
+    __metalclass__ = ABCMeta
+
     def __init__(self, pidfile):
         self.pidfile = pidfile
 
@@ -212,6 +215,7 @@ class daemon:
         with open(self.pidfile,'w+') as f: f.write(pid + '\n')
 
     def delpid(self):
+        self.pidfile.close()
         os.remove(self.pidfile)
 
     def start(self):
@@ -254,6 +258,7 @@ class daemon:
         self.stop()
         self.start()
 
+    @abstractmethod
     def run(self):
         pass
 
