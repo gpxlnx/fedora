@@ -137,8 +137,12 @@ alias fixurls="cp ~/scripts/urls ~/.newsbeuter/urls"
 alias qtrc="vim ~/scripts/qtbrowser/config.py"
 alias fixqtrc="cp ~/scripts/qtbrowser/config.py ~/.config/qutebrowser/config.py"
 alias dropcextra="cp ~/scripts/c/devi_extra.h ./devi_extra.h"
+alias dropcmain="cp ~/scripts/c/main.c ./"
+alias dropcppmain="cp ~/scripts/c/main.cpp ./"
 alias tg="telegram-cli"
 alias telebot="/home/bloodstalker/scripts/telebot.py > /dev/null 2>&1 &"
+alias dwarv="~/df/df_linux/df"
+
 function gdd {
   #git --no-pager diff --numstat | gawk \'{print$1$2}\'
   git --no-pager diff --numstat | gawk '{sum1+=$1;sum2+=$2}END{print "additions:"sum1"  ""deletions:"sum2}'
