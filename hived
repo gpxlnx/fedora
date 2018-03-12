@@ -7,6 +7,7 @@ import requests
 import os
 import sys
 import csv
+import socket
 import time
 import atexit
 import signal
@@ -186,6 +187,9 @@ class Demon_Father:
 
     def __init__(self, pidfile):
         self.pidfile = pidfile
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_address = ('localhost', 10000)
+        self.socket.bind(self.server_address)
 
     def daemonize(self):
         try:
@@ -263,6 +267,10 @@ class Demon_Father:
     def run(self):
         pass
 
+class Demon(Demon_Father):
+    def run(self):
+        connection, client_address = self.socket.accept()
+
 def networth():
     net = float()
     assets = json.load(open(assets_file))
@@ -275,7 +283,8 @@ def alert_1():
     res1 = get_info_w_name(api_url_base, "dogecoin")[0]["price_usd"]
     res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
     value = 575000
-    if value*float(res1)/float(res2) > 4: print("A1")
+    #if value*float(res1)/float(res2) > 4: print("A1")
+    print("%.2f" %(value*float(res1)/float(res2)))
 
 def highpercentdump_bot():
     return highpercentdump(22)

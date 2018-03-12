@@ -7,7 +7,9 @@ import signal
 import sys
 from telegram.ext import Updater, CommandHandler
 import logging
-from coinmarketcap import networth, highpercentdump_bot
+import imp
+hived = imp.load_source("hived", "./hived")
+from hived import networth, highpercentdump_bot
 import json
 
 telekey_json = "/home/bloodstalker/scripts/telekey.json"
