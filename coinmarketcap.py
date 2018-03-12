@@ -178,6 +178,7 @@ class Argparser(object):
         parser.add_argument("--ss", type=str, nargs="+", help="watchlist on shapeshift")
         parser.add_argument("--dy", type=int, help="lazy")
         parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
+        parser.add_argument("--al1", action="store_true", help="alert1", default=False)
         self.args = parser.parse_args()
 
 class Demon_Father:
@@ -270,6 +271,12 @@ def networth():
         net += assets[asset] * float(price)
     return int(net)
 
+def alert_1():
+    res1 = get_info_w_name(api_url_base, "dogecoin")[0]["price_usd"]
+    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    value = 575000
+    if value*float(res1)/float(res2) > 4: print("A1")
+
 def highpercentdump_bot():
     return highpercentdump(22)
 
@@ -331,6 +338,9 @@ def main():
                 print ("YES")
                 return
         print("NO")
+
+    if argparser.args.al1:
+        alert_1()
 
     if argparser.args.avass:
         currencies = get_info_w_name(api_url_base_shapeshift, "")
