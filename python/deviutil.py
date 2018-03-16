@@ -5,6 +5,7 @@ import code
 import readline
 import signal
 import sys
+from abc import ABCMeta, abstractmethod
 
 class Colors:
     purple = '\033[95m'
@@ -73,14 +74,97 @@ def ffs(offset,header_list, numbered, *args):
         dummy.clear()
     return lines
 
+class Demon_Father:
+    __metalclass__ = ABCMeta
+
+    def __init__(self, pidfile):
+        self.pidfile = pidfile
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_address = ('localhost', 10000)
+
+    def daemonize(self):
+        try:
+            pid = os.fork()
+            if pid > 0: sys.exit(0)
+        except OSError as err:
+            sys.stderr.write('fork #1 failed: {0}\n'.format(err))
+            sys.exit(1)
+        os.chdir('/')
+        os.setsid()
+        os.umask(0)
+        try:
+            pid = os.fork()
+            if pid > 0: sys.exit(0)
+        except OSError as err:
+            sys.stderr.write('fork #2 failed: {0}\n'.format(err))
+            sys.exit(1)
+        sys.stdout.flush()
+        sys.stderr.flush()
+        si = open(os.devnull, 'r')
+        so = open(os.devnull, 'a+')
+        se = open(os.devnull, 'a+')
+        os.dup2(si.fileno(), sys.stdin.fileno())
+        os.dup2(so.fileno(), sys.stdout.fileno())
+        os.dup2(se.fileno(), sys.stderr.fileno())
+        atexit.register(self.delpid)
+        pid = str(os.getpid())
+        with open(self.pidfile,'w+') as f: f.write(pid + '\n')
+
+    def delpid(self):
+        self.pidfile.close()
+        os.remove(self.pidfile)
+
+    def start(self):
+        try:
+            with open(self.pidfile,'r') as pf:
+                pid = int(pf.read().strip())
+        except IOError:
+            pid = None
+        if pid:
+            message = "pidfile {0} already exist. " + "Daemon already running?\n"
+            sys.stderr.write(message.format(self.pidfile))
+            sys.exit(1)
+        self.daemonize()
+        self.run()
+
+    def stop(self):
+        try:
+            with open(self.pidfile,'r') as pf:
+                pid = int(pf.read().strip())
+        except IOError:
+            pid = None
+        if not pid:
+            message = "pidfile {0} does not exist. " + "Daemon not running?\n"
+            sys.stderr.write(message.format(self.pidfile))
+            return
+        try:
+            while 1:
+                os.kill(pid, signal.SIGTERM)
+                time.sleep(0.1)
+        except OSError as err:
+            e = str(err.args)
+            if e.find("No such process") > 0:
+                if os.path.exists(self.pidfile):
+                    os.remove(self.pidfile)
+            else:
+                print (str(err.args))
+                sys.exit(1)
+
+    def restart(self):
+        self.stop()
+        self.start()
+
+    @abstractmethod
+    def run(self):
+        pass
+
 # write code here
 def premain(argparser):
     signal.signal(signal.SIGINT, SigHandler_SIGINT)
     #here
     header_list = ["name", "age", "heigt", "weight"]
-    args = [["farzad", "mahsa"],[29,26],[1.75, 1.55],[82, 54]]
-    arg1 = ["farzad", "mahsa"]
-    arg2 = [29,26]
+    arg1 = ["farzad", "farzad"]
+    arg2 = [28,26]
     arg3 = [1.75, 1.55]
     arg4 = [82, 54]
     lines = ffs(2, header_list, True, arg1, arg2, arg3, arg4)

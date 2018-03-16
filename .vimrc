@@ -42,7 +42,7 @@ set smartcase
 "set cursorcolumn
 set lazyredraw
 set synmaxcol=128
-syntax sync minlines=256
+syntax sync minlines=64
 set ttyfast
 
 set relativenumber

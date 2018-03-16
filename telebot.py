@@ -12,7 +12,7 @@ hived = imp.load_source("hived", "./hived")
 from hived import networth, highpercentdump_bot
 import json
 
-telekey_json = "/home/bloodstalker/scripts/telekey.json"
+telekey_json = "./telekey.json"
 json_key = json.load(open(telekey_json))
 API_TOKEN = json_key['telekey']
 

@@ -132,7 +132,7 @@ alias dropcmake="cp ~/scripts/makefilec ./makefile"
 alias dropcppmake="cp ~/scripts/makefilecpp ./makefile"
 alias droppy="cp ~/scripts/python/main.py ./main.py"
 alias diff="colordiff"
-alias yy="~/scripts/coinmarketcap.py"
+alias yy="~/scripts/hived"
 alias fixurls="cp ~/scripts/urls ~/.newsbeuter/urls"
 alias qtrc="vim ~/scripts/qtbrowser/config.py"
 alias fixqtrc="cp ~/scripts/qtbrowser/config.py ~/.config/qutebrowser/config.py"
@@ -141,7 +141,8 @@ alias dropcmain="cp ~/scripts/c/main.c ./"
 alias dropcppmain="cp ~/scripts/c/main.cpp ./"
 alias tg="telegram-cli"
 alias telebot="/home/bloodstalker/scripts/telebot.py > /dev/null 2>&1 &"
-alias dwarv="~/df/df_linux/df"
+alias dw="~/df/df_linux/df"
+alias clean="clear"
 
 function gdd {
   #git --no-pager diff --numstat | gawk \'{print$1$2}\'

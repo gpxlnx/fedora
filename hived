@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 import argparse
 import hashlib
 import hmac
@@ -14,7 +14,7 @@ import signal
 from abc import ABCMeta, abstractmethod
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
-assets_file = "/home/bloodstalker/scripts/assets.json"
+assets_file = "./assets.json"
 api_url_base_shapeshift = "https://shapeshift.io/getcoins"
 test_url = "https://api.coinmarketcap.com/v1/ticker/?start=0&limit=300"
 
@@ -163,7 +163,7 @@ def highpercentdump(number):
 class Argparser(object):
     def __init__(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument("--name", type=str, help="path to the wasm text file")
+        parser.add_argument("--name", type=str, help="price of the chose crypto")
         parser.add_argument("--worth", type=str, help="single asset worth")
         parser.add_argument("--xx", type=str, nargs=2, help="convert")
         parser.add_argument("--xxv", type=float, help="xx multiplier")
@@ -189,7 +189,6 @@ class Demon_Father:
         self.pidfile = pidfile
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_address = ('localhost', 10000)
-        self.socket.bind(self.server_address)
 
     def daemonize(self):
         try:
@@ -268,8 +267,17 @@ class Demon_Father:
         pass
 
 class Demon(Demon_Father):
+    def __init__(self):
+        self.connection = []
+        self.client_address = []
+
     def run(self):
-        connection, client_address = self.socket.accept()
+        try:
+            self.socket.bind(self.server_address)
+            while True:
+                connection, client_address = self.socket.accept()
+        except:
+            self.socket.close()
 
 def networth():
     net = float()
@@ -289,104 +297,127 @@ def alert_1():
 def highpercentdump_bot():
     return highpercentdump(22)
 
-def main():
-    argparser = Argparser()
+def com_name(name):
+    res = get_info_w_name(api_url_base, name)
+    if res is not None: print(res[0]['price_usd'])
 
-    if argparser.args.name:
-        name = argparser.args.name
-        res = get_info_w_name(api_url_base, name)
-        if res is not None: print(res[0]['price_usd'])
-
-    if argparser.args.cap:
-        name = argparser.args.cap
+def com_cap(name):
         res = get_info_w_name(api_url_base, name)
         if res is not None: print(res[0]['market_cap_usd'])
 
-    if argparser.args.rank:
-        name = argparser.args.rank
+def com_rank(name):
         res = get_info_w_name(api_url_base, name)
         if res is not None: print(res[0]['rank'])
 
-    if argparser.args.gen:
-        name = argparser.args.gen[0]
-        cat = argparser.args.gen[1]
-        res = get_info_w_name(api_url_base, name)
-        if res is not None: print(res[0][cat])
+def com_gen(argparser):
+    name = argparser.args.gen[0]
+    cat = argparser.args.gen[1]
+    res = get_info_w_name(api_url_base, name)
+    if res is not None: print(res[0][cat])
 
-    if argparser.args.worth:
-        net = float()
-        assets = json.load(open(assets_file))
-        for asset in assets:
-            if asset == argparser.args.worth:
-                price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
-                net = assets[asset] * float(price)
-                print(int(net))
-                break
-
-    if argparser.args.total:
-        net = float()
-        assets = json.load(open(assets_file))
-        for asset in assets:
+def com_worth(argparser):
+    net = float()
+    assets = json.load(open(assets_file))
+    for asset in assets:
+        if asset == argparser.args.worth:
             price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
-            net += assets[asset] * float(price)
-        print("{:,}".format(int(net)))
+            net = assets[asset] * float(price)
+            print(int(net))
+            break
 
+def com_total(argparser):
+    net = float()
+    assets = json.load(open(assets_file))
+    for asset in assets:
+        price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
+        net += assets[asset] * float(price)
+    print("{:,}".format(int(net)))
+
+def com_xx(argparser):
+    value = 1.0
+    name1 = argparser.args.xx[0]
+    name2 = argparser.args.xx[1]
+    res1 = get_info_w_name(api_url_base, name1)[0]["price_usd"]
+    res2 = get_info_w_name(api_url_base, name2)[0]["price_usd"]
+    if argparser.args.xxv: value = argparser.args.xxv
+    print(value*float(res1)/float(res2))
+
+def com_ava(argparser):
+    currencies = changelly()
+    for currency in currencies:
+        if currency == argparser.args.ava:
+            print ("YES")
+            return
+    print("NO")
+
+def com_avass(argparser):
+    currencies = get_info_w_name(api_url_base_shapeshift, "")
+    for currency in currencies:
+        if currency.lower() == argparser.args.avass:
+            print ("YES")
+            return
+    print("NO")
+
+def com_cglistall(argparser):
+    currencies = changelly()
+    for currency in currencies:
+        print(currency + " ", end="")
+    print()
+
+def com_watchlist(argparser):
+    ret = []
+    currencies = changelly()
+    for currency in currencies:
+        for item in argparser.args.watchlist:
+            if currency == item:
+                ret.append(item)
+    for item in ret:
+        print(item.upper() + " ", end="")
+    print()
+
+def com_ss(argparser):
+    ret = []
+    result = get_info_w_name(api_url_base_shapeshift, "")
+    for currency in result:
+        for item in argparser.args.ss:
+            if currency.lower() == item and result[currency]['status'] == "available":
+                ret.append(item)
+    for item in ret:
+        print(item.upper() + " ", end="")
+    print()
+
+def main():
+    argparser = Argparser()
+
+    if argparser.args.demon:
+        demon = Demon()
+        demon.start()
+    if argparser.args.name:
+        com_name(argparser.args.name)
+    if argparser.args.cap:
+        com_cap(argparser.args.cap)
+    if argparser.args.rank:
+        com_rank(argparser.args.rank)
+    if argparser.args.gen:
+        com_gen(argparser)
+    if argparser.args.worth:
+        com_worth(argparser)
+    if argparser.args.total:
+        com_total(argparser)
     if argparser.args.xx:
-        value = 1.0
-        name1 = argparser.args.xx[0]
-        name2 = argparser.args.xx[1]
-        res1 = get_info_w_name(api_url_base, name1)[0]["price_usd"]
-        res2 = get_info_w_name(api_url_base, name2)[0]["price_usd"]
-        if argparser.args.xxv: value = argparser.args.xxv
-        print(value*float(res1)/float(res2))
-
+        com_xx(argparser)
     if argparser.args.ava:
-        currencies = changelly()
-        for currency in currencies:
-            if currency == argparser.args.ava:
-                print ("YES")
-                return
-        print("NO")
-
+        com_ava(argparser)
     if argparser.args.al1:
         alert_1()
-
     if argparser.args.avass:
-        currencies = get_info_w_name(api_url_base_shapeshift, "")
-        for currency in currencies:
-            if currency.lower() == argparser.args.avass:
-                print ("YES")
-                return
-        print("NO")
-
+        com_avass(argparser)
     if argparser.args.cglistall:
-        currencies = changelly()
-        for currency in currencies:
-            print(currency + " ", end="")
-        print()
-
+        com_cglistall(argparser)
     if argparser.args.watchlist:
-        ret = []
-        currencies = changelly()
-        for currency in currencies:
-            for item in argparser.args.watchlist:
-                if currency == item:
-                    ret.append(item)
-        for item in ret:
-            print(item.upper() + " ", end="")
-        print()
-
+        com_watchlist(argparser)
     if argparser.args.ss:
-        ret = []
-        result = get_info_w_name(api_url_base_shapeshift, "")
-        for currency in result:
-            for item in argparser.args.ss:
-                if currency.lower() == item and result[currency]['status'] == "available":
-                    ret.append(item)
-        for item in ret:
-            print(item.upper() + " ", end="")
-        print()
-
+        com_ss(argparser)
     if argparser.args.dy:
         highpercentdump(argparser.args.dy)
 
