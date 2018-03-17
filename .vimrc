@@ -291,7 +291,10 @@ let g:rbpt_colorpairs = [
 
 au BufEnter,FileType cpp set syntax=cpp.doxygen
 au BufEnter,FileType c set syntax=cpp.doxygen
+" elm autocommands
+au BufNewFile,BufEnter *.elm colorscheme iceberg
 au BufEnter * IndentLinesReset
+au BufNewFile,BufEnter *.s set ft=nasm
 au BufEnter * RainbowParenthesesActivate
 au BufEnter * RainbowParenthesesLoadRound
 au BufEnter * RainbowParenthesesLoadSquare
@@ -309,10 +312,6 @@ au BufNewFile,BufEnter *.py set textwidth=79
 au BufNewFile,BufEnter *.py set expandtab
 au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
-au BufNewFile,BufEnter *.s set ft=nasm
-
-" elm autocommands
-au BufNewFile,BufEnter *.elm colorscheme iceberg
 
 "highlight BadWhitespace ctermbg=red
 "au BufRead,BufNewFile,BufEnter *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
