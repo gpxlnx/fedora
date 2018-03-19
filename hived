@@ -14,7 +14,7 @@ import signal
 from abc import ABCMeta, abstractmethod
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
-assets_file = "./assets.json"
+assets_file = "/home/bloodstalker/scripts/assets.json"
 api_url_base_shapeshift = "https://shapeshift.io/getcoins"
 test_url = "https://api.coinmarketcap.com/v1/ticker/?start=0&limit=300"
 

@@ -111,6 +111,8 @@ Plugin 'easymotion/vim-easymotion'
 
 Plugin 'tpope/vim-speeddating'
 
+Plugin 'neovimhaskell/haskell-vim'
+
 Plugin 'xolox/vim-notes'
 
 Plugin 'majutsushi/tagbar'
