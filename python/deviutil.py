@@ -5,6 +5,7 @@ import code
 import readline
 import signal
 import sys
+import socket
 from abc import ABCMeta, abstractmethod
 
 class Colors:
