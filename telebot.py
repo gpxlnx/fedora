@@ -17,17 +17,32 @@ sys.path.insert(0, "/home/bloodstalker/extra/kaminokumo")
 kaminokumo = imp.load_source("kaminokumo", "/home/bloodstalker/extra/kaminokumo/kaminokumo")
 from kaminokumo import mrg
 import json
+import threading
 
 telekey_json = "./telekey.json"
 json_key = json.load(open(telekey_json))
 API_TOKEN = json_key['telekey']
+
+class Mg_thread(threading.Thread):
+    def __init__(self, bot, update):
+        self.bot = bot
+        self.update = update
+
+    def run(self):
+        url = json.load(open("/home/bloodstalker/extra/kaminokumo/data.json"))
+        res = mrg(url["url"])
+        text_str = str()
+        if res: text_str = "marge is up"
+        else: text_str = "no marge"
+        self.bot.send_message(chat_id=self.update.message.chat_id, text=text_str)
+
 
 def SigHandler_SIGINT(signum, frame):
     print()
     sys.exit(0)
 
 def start(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="Hi... I'm devi's bot, nice to make your acquaintance.")
+    bot.send_message(chat_id=update.message.chat_id, text="Hey... nice to make your acquaintance.")
 
 def net(bot, update):
     total = networth()
@@ -57,6 +72,7 @@ class Argparser(object):
 class Demon(Demon_Father):
     def run(self):
         updater = Updater(token=API_TOKEN)
+        bot = updater.bot
         dispatcher = updater.dispatcher
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
         start_handler = CommandHandler("start", start)
