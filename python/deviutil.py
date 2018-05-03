@@ -159,18 +159,38 @@ class Demon_Father:
     def run(self):
         pass
 
+def hexdump(obj):
+    count = int()
+    strrep = []
+    for byte in obj:
+        if count%16 == 0:
+            for ch in strrep:
+                if ord(ch) > 32 and ord(ch) < 127: print(ch, end = '')
+                else: pass
+            print()
+            strrep = []
+            print(format(count, "06x"), ': ', end='')
+            strrep.append(str(chr(byte)))
+            print(format(byte, '02x') + ' ', end='')
+        else:
+            pass
+            strrep += str(chr(byte))
+            print(format(byte, '02x') + ' ', end='')
+        count += 1
+    for i in range(0, 16-count%16): print("   ", end="")
+    for ch in strrep:
+            if ord(ch) > 32 and ord(ch) < 127: print(ch, end = '')
+            else: pass
+    print()
+
+
 # write code here
 def premain(argparser):
     signal.signal(signal.SIGINT, SigHandler_SIGINT)
     #here
-    header_list = ["name", "age", "heigt", "weight"]
-    arg1 = ["farzad", "farzad"]
-    arg2 = [28,26]
-    arg3 = [1.75, 1.55]
-    arg4 = [82, 54]
-    lines = ffs(2, header_list, True, arg1, arg2, arg3, arg4)
-    for line in lines:
-        print(line)
+    a = [0x2f, 0x6c, 0x69, 0x62, 0x36, 0x34, 0x2f, 0x6c, 0x64, 0x2d, 0x6c,
+               0x69, 0x6e, 0x75, 0x78, 0x2d, 0x78, 0x38, 0x36, 0x2d, 0x36, 0x34, 0x2e, 0x73, 0x6f, 0x2e, 0x32, 0x00]
+    hexdump(a)
 
 def main():
     argparser = Argparser()
