@@ -30,10 +30,14 @@ class Mg_thread(threading.Thread):
 
     def run(self):
         url = json.load(open("/home/bloodstalker/extra/kaminokumo/data.json"))
-        res = mrg(url["url"])
+        res = mrg(url["1"])
         text_str = str()
         if res: text_str = "marge is up"
         else: text_str = "no marge"
+        res = mrg(url["2"])
+        text_str = str()
+        if res: text_str = "obk is up"
+        else: text_str = "no obk"
         self.bot.send_message(chat_id=self.update.message.chat_id, text=text_str)
 
 
@@ -55,10 +59,13 @@ def high(bot, update):
 
 def mg(bot, update):
     url = json.load(open("/home/bloodstalker/extra/kaminokumo/data.json"))
-    res = mrg(url["url"])
+    res = mrg(url["1"])
     text_str = str()
-    if res: text_str = "marge is up"
-    else: text_str = "no marge"
+    if res: text_str += "marge is up"
+    else: text_str += "no marge\t"
+    res = mrg(url["2"])
+    if res: text_str += "obk is up"
+    else: text_str += "no obk\t"
     bot.send_message(chat_id=update.message.chat_id, text=text_str)
 
 class Argparser(object):
