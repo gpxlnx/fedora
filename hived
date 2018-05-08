@@ -389,12 +389,17 @@ def com_ss(argparser):
         print(item.upper() + " ", end="")
     print()
 
-def premain(argparser):
+def get_socket():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ("localhost", 11111)
     sock.bind(server_address)
     sock.listen(10)
+    return sock
+
+def premain(argparser):
     demon = argparser.args.demon
+    if demon: sock = get_socket()
+    else: sock = None
     try:
         while True:
             if demon:
@@ -444,7 +449,7 @@ def premain(argparser):
                 sys.stdout.close()
                 connection.sendall(bytes(mushi_out, "utf-8"))
     finally:
-        sock.close()
+        if demon: sock.close()
 
 
 def main():
