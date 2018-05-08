@@ -81,6 +81,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
+Plugin 'vim-scripts/Conque-GDB'
+
 Plugin 'flazz/vim-colorschemes'
 
 Plugin 'Rip-Rip/clang_complete'
@@ -237,6 +239,11 @@ if &term =~ '256color'
 	    " work properly when Vim is used inside tmux and GNU screen.
 set t_ut=
 endif
+
+let g:ConquerTerm_Color = 2
+let g:ConquerTerm_Close = 1
+let g:ConquerTerm_StartMessage = 0
+
 
 "set syntax=cpp.doxygen
 

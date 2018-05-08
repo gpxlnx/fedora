@@ -12,11 +12,37 @@ import time
 import atexit
 import signal
 from abc import ABCMeta, abstractmethod
+from io import TextIOWrapper, BytesIO
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
 api_url_base_shapeshift = "https://shapeshift.io/getcoins"
 test_url = "https://api.coinmarketcap.com/v1/ticker/?start=0&limit=300"
+
+class Argparser(object):
+    def __init__(self):
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument("--name", type=str, help="price of the chose crypto")
+        self.parser.add_argument("--worth", type=str, help="single asset worth")
+        self.parser.add_argument("--xx", type=str, nargs=2, help="convert")
+        self.parser.add_argument("--xxv", type=float, help="xx multiplier")
+        self.parser.add_argument("--gen", type=str, nargs=2, help="general option")
+        self.parser.add_argument("--cap", type=str, help="market cap")
+        self.parser.add_argument("--rank", type=str, help="market cap rank")
+        self.parser.add_argument("--total", action="store_true", help="total", default=False)
+        self.parser.add_argument("--ava", type=str, help="is currency available on changelly")
+        self.parser.add_argument("--avass", type=str, help="is currency available on shapeshift")
+        self.parser.add_argument("--cglistall", action="store_true", help="list all currencies available on changelly", default=False)
+        self.parser.add_argument("--test", action="store_true", help="test switch", default=False)
+        self.parser.add_argument("--watchlist", type=str, nargs="+", help="watch list")
+        self.parser.add_argument("--ss", type=str, nargs="+", help="watchlist on shapeshift")
+        self.parser.add_argument("--dy", type=int, help="lazy")
+        self.parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
+        self.parser.add_argument("--al1", action="store_true", help="alert1", default=False)
+        self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
+
+    def parse(self, argv):
+        self.args = self.parser.parse_args(argv)
 
 class Colors:
     purple = '\033[95m'
@@ -158,29 +184,6 @@ def highpercentdump(number):
             one.append("\n")
 
         return one
-
-
-class Argparser(object):
-    def __init__(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--name", type=str, help="price of the chose crypto")
-        parser.add_argument("--worth", type=str, help="single asset worth")
-        parser.add_argument("--xx", type=str, nargs=2, help="convert")
-        parser.add_argument("--xxv", type=float, help="xx multiplier")
-        parser.add_argument("--gen", type=str, nargs=2, help="general option")
-        parser.add_argument("--cap", type=str, help="market cap")
-        parser.add_argument("--rank", type=str, help="market cap rank")
-        parser.add_argument("--total", action="store_true", help="total", default=False)
-        parser.add_argument("--ava", type=str, help="is currency available on changelly")
-        parser.add_argument("--avass", type=str, help="is currency available on shapeshift")
-        parser.add_argument("--cglistall", action="store_true", help="list all currencies available on changelly", default=False)
-        parser.add_argument("--test", action="store_true", help="test switch", default=False)
-        parser.add_argument("--watchlist", type=str, nargs="+", help="watch list")
-        parser.add_argument("--ss", type=str, nargs="+", help="watchlist on shapeshift")
-        parser.add_argument("--dy", type=int, help="lazy")
-        parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
-        parser.add_argument("--al1", action="store_true", help="alert1", default=False)
-        self.args = parser.parse_args()
 
 class Demon_Father:
     __metalclass__ = ABCMeta
@@ -386,40 +389,78 @@ def com_ss(argparser):
         print(item.upper() + " ", end="")
     print()
 
+def premain(argparser):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_address = ("localhost", 11111)
+    sock.bind(server_address)
+    sock.listen(10)
+    demon = argparser.args.demon
+    try:
+        while True:
+            if demon:
+                connection, client_address = sock.accept()
+                command = connection.recv(1024)
+                new_argv = command.decode("utf-8").split(" ")
+                #print(new_argv)
+                argparser.parse(new_argv)
+                #print(repr(command))
+                old_stdout = sys.stdout
+                sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+            if argparser.args.demon:
+                demon = Demon()
+                demon.start()
+            if argparser.args.name:
+                com_name(argparser.args.name)
+            if argparser.args.cap:
+                com_cap(argparser.args.cap)
+            if argparser.args.rank:
+                com_rank(argparser.args.rank)
+            if argparser.args.gen:
+                com_gen(argparser)
+            if argparser.args.worth:
+                com_worth(argparser)
+            if argparser.args.total:
+                com_total(argparser)
+            if argparser.args.xx:
+                com_xx(argparser)
+            if argparser.args.ava:
+                com_ava(argparser)
+            if argparser.args.al1:
+                alert_1()
+            if argparser.args.avass:
+                com_avass(argparser)
+            if argparser.args.cglistall:
+                com_cglistall(argparser)
+            if argparser.args.watchlist:
+                com_watchlist(argparser)
+            if argparser.args.ss:
+                com_ss(argparser)
+            if argparser.args.dy:
+                highpercentdump(argparser.args.dy)
+            if not demon: sys.exit(0)
+            if demon:
+                sys.stdout.seek(0)
+                mushi_out = sys.stdout.read()
+                sys.stdout.close()
+                connection.sendall(bytes(mushi_out, "utf-8"))
+    finally:
+        sock.close()
+
+
 def main():
     argparser = Argparser()
-
-    if argparser.args.demon:
-        demon = Demon()
-        demon.start()
-    if argparser.args.name:
-        com_name(argparser.args.name)
-    if argparser.args.cap:
-        com_cap(argparser.args.cap)
-    if argparser.args.rank:
-        com_rank(argparser.args.rank)
-    if argparser.args.gen:
-        com_gen(argparser)
-    if argparser.args.worth:
-        com_worth(argparser)
-    if argparser.args.total:
-        com_total(argparser)
-    if argparser.args.xx:
-        com_xx(argparser)
-    if argparser.args.ava:
-        com_ava(argparser)
-    if argparser.args.al1:
-        alert_1()
-    if argparser.args.avass:
-        com_avass(argparser)
-    if argparser.args.cglistall:
-        com_cglistall(argparser)
-    if argparser.args.watchlist:
-        com_watchlist(argparser)
-    if argparser.args.ss:
-        com_ss(argparser)
-    if argparser.args.dy:
-        highpercentdump(argparser.args.dy)
+    sys.argv.pop(0)
+    argparser.parse(sys.argv)
+    if argparser.args.dbg:
+        try:
+            premain(argparser)
+        except:
+            variables = globals().copy()
+            variables.update(locals())
+            shell = code.InteractiveConsole(variables)
+            shell.interact(banner="DEBUG REPL")
+    else:
+        premain(argparser)
 
 if __name__ == "__main__":
     main()
