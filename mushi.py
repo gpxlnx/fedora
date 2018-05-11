@@ -11,6 +11,10 @@ def SigHandler_SIGINT(signum, frame):
     print()
     sys.exit(0)
 
+def SigHandler_Timeout(signum, frame):
+    print("mushi timed out.")
+    raise Exception("time out")
+
 class Argparser(object):
     def __init__(self):
         self.parser = argparse.ArgumentParser()
@@ -23,13 +27,8 @@ class Argparser(object):
 
 # write code here
 def premain(argparser):
-    #signal.signal(signal.SIGINT, SigHandler_SIGINT)
-    #here
-    #print(argparser.rest)
-    #sys.argv[0] = "/home/bloodstalker/scripts/hived"
-    #sys.argv.pop(0)
-    #print("argc " + repr(len(sys.argv)))
-    #print("argv " + repr(sys.argv))
+    signal.signal(signal.SIGVTALRM, SigHandler_Timeout)
+    signal.alarm(60)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ("localhost", 11111)
     sock.connect(server_address)

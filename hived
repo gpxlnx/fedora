@@ -40,9 +40,10 @@ class Argparser(object):
         self.parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
         self.parser.add_argument("--al1", action="store_true", help="alert1", default=False)
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
+        self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
 
     def parse(self, argv):
-        self.args = self.parser.parse_args(argv)
+        self.args, self.rest = self.parser.parse_known_args(argv)
 
 class Colors:
     purple = '\033[95m'
@@ -390,6 +391,9 @@ def com_ss(argparser):
         print(item.upper() + " ", end="")
     print()
 
+def alive():
+    print("hived")
+
 def get_socket():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ("localhost", 11111)
@@ -443,12 +447,15 @@ def premain(argparser):
                 com_ss(argparser)
             if argparser.args.dy:
                 highpercentdump(argparser.args.dy)
+            if argparser.args.alive: alive()
             if not demon: sys.exit(0)
             if demon:
                 sys.stdout.seek(0)
                 mushi_out = sys.stdout.read()
                 sys.stdout.close()
                 connection.sendall(bytes(mushi_out, "utf-8"))
+    except:
+        pass
     finally:
         if demon: sock.close()
 
