@@ -13,20 +13,21 @@ def SigHandler_SIGINT(signum, frame):
 
 class Argparser(object):
     def __init__(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--com", type=str, nargs="+", help="string")
-        parser.add_argument("--bool", action="store_true", help="bool", default=False)
-        parser.add_argument("--dbg", action="store_true", help="debug", default=False)
-        #self.args = parser.parse_args()
-        self.args, self.rest = parser.parse_known_args()
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument("--com", type=str, nargs="+", help="string")
+        self.parser.add_argument("--bool", action="store_true", help="bool", default=False)
+        self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
+
+    def parse(self, args):
+        self.args, self.rest = self.parser.parse_known_args(args)
 
 # write code here
 def premain(argparser):
-    signal.signal(signal.SIGINT, SigHandler_SIGINT)
+    #signal.signal(signal.SIGINT, SigHandler_SIGINT)
     #here
     #print(argparser.rest)
     #sys.argv[0] = "/home/bloodstalker/scripts/hived"
-    sys.argv.pop(0)
+    #sys.argv.pop(0)
     #print("argc " + repr(len(sys.argv)))
     #print("argv " + repr(sys.argv))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,8 +44,9 @@ def premain(argparser):
         pass
         #sock.close()
 
-def main():
+def main(argv):
     argparser = Argparser()
+    argparser.parse(argv)
     if argparser.args.dbg:
         try:
             premain(argparser)
@@ -57,4 +59,4 @@ def main():
         premain(argparser)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

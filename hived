@@ -381,6 +381,7 @@ def com_watchlist(argparser):
 def com_ss(argparser):
     ret = []
     result = get_info_w_name(api_url_base_shapeshift, "")
+    if not result: return
     for currency in result:
         for item in argparser.args.ss:
             if currency.lower() == item and result[currency]['status'] == "available":
@@ -450,7 +451,6 @@ def premain(argparser):
                 connection.sendall(bytes(mushi_out, "utf-8"))
     finally:
         if demon: sock.close()
-
 
 def main():
     argparser = Argparser()

@@ -18,6 +18,7 @@ kaminokumo = imp.load_source("kaminokumo", "/home/bloodstalker/extra/kaminokumo/
 from kaminokumo import mrg
 import json
 import threading
+from io import TextIOWrapper, BytesIO
 
 telekey_json = "./telekey.json"
 json_key = json.load(open(telekey_json))
@@ -68,6 +69,19 @@ def mg(bot, update):
     else: text_str += "no obk\t"
     bot.send_message(chat_id=update.message.chat_id, text=text_str)
 
+def generic(bot, update, args):
+    import mushi
+    print(repr(args))
+    old_stdout = sys.stdout
+    sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+    mushi.main(args)
+    sys.stdout.seek(0)
+    out = sys.stdout.read()
+    print(repr(out))
+    bot.send_message(chat_id=update.message.chat_id, text=out)
+    sys.stdout.close()
+    sys.stdout = old_stdout
+
 class Argparser(object):
     def __init__(self):
         parser = argparse.ArgumentParser()
@@ -86,10 +100,12 @@ class Demon(Demon_Father):
         net_handler = CommandHandler("net", net)
         high_handler = CommandHandler("high", high)
         mg_handler = CommandHandler("mg", mg)
+        generic_handler = CommandHandler("cc", generic, pass_args=True)
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(net_handler)
         dispatcher.add_handler(high_handler)
         dispatcher.add_handler(mg_handler)
+        dispatcher.add_handler(generic_handler)
         updater.start_polling()
 
 # write code here

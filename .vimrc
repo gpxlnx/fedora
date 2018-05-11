@@ -137,6 +137,8 @@ Plugin 'rgrinberg/vim-ocaml'
 
 Plugin 'terryma/vim-multiple-cursors'
 
+Plugin 'JuliaEditorSupport/julia-vim'
+
 "its super slow for some reason
 "Plugin 'kshenoy/vim-signature'
 
