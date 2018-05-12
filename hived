@@ -41,6 +41,7 @@ class Argparser(object):
         self.parser.add_argument("--al1", action="store_true", help="alert1", default=False)
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
         self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
+        self.parser.add_argument("--tg", action="store_true", help="tg", default=False)
 
     def parse(self, argv):
         self.args, self.rest = self.parser.parse_known_args(argv)
@@ -402,6 +403,7 @@ def get_socket():
     return sock
 
 def premain(argparser):
+    tg_u = False
     demon = argparser.args.demon
     if demon: sock = get_socket()
     else: sock = None
@@ -411,11 +413,13 @@ def premain(argparser):
                 connection, client_address = sock.accept()
                 command = connection.recv(1024)
                 new_argv = command.decode("utf-8").split(" ")
-                #print(new_argv)
                 argparser.parse(new_argv)
-                #print(repr(command))
+                if (command.decode("utf-8")).find("Mahsa") != 0: tg_u = True
+                else: tg_u = False
                 old_stdout = sys.stdout
                 sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+            if argparser.args.tg:
+                if (tg_u): print("M")
             if argparser.args.demon:
                 demon = Demon()
                 demon.start()
@@ -454,6 +458,7 @@ def premain(argparser):
                 mushi_out = sys.stdout.read()
                 sys.stdout.close()
                 connection.sendall(bytes(mushi_out, "utf-8"))
+                sys.stdout = old_stdout
     except:
         pass
     finally:

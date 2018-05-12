@@ -41,11 +41,6 @@ class Mg_thread(threading.Thread):
         else: text_str = "no obk"
         self.bot.send_message(chat_id=self.update.message.chat_id, text=text_str)
 
-
-def SigHandler_SIGINT(signum, frame):
-    print()
-    sys.exit(0)
-
 def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Hey... nice to make your acquaintance.")
 
@@ -110,7 +105,6 @@ class Demon(Demon_Father):
 
 # write code here
 def premain(argparser):
-    signal.signal(signal.SIGINT, SigHandler_SIGINT)
     #here
     pidfile = open("/tmp/telebot_temp", "w")
     demon = Demon(pidfile)
