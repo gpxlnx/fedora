@@ -459,8 +459,9 @@ def premain(argparser):
                 sys.stdout.close()
                 connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
-    except:
-        pass
+    except Exception as e:
+        print(e.__doc__)
+        print(e.messasge)
     finally:
         if demon: sock.close()
 
