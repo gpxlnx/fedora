@@ -28,7 +28,7 @@ def main():
     if argparser.args.dbg:
         try:
             premain(argparser)
-        except:
+        except Exception:
             variables = globals().copy()
             variables.update(locals())
             shell = code.InteractiveConsole(variables)
