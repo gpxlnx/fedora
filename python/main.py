@@ -28,7 +28,9 @@ def main():
     if argparser.args.dbg:
         try:
             premain(argparser)
-        except Exception:
+        except Exception as e:
+            print(e.__doc__)
+            print(e.message)
             variables = globals().copy()
             variables.update(locals())
             shell = code.InteractiveConsole(variables)

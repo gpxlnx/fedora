@@ -276,13 +276,8 @@ class Demon(Demon_Father):
         self.connection = []
         self.client_address = []
 
-    def run(self):
-        try:
-            self.socket.bind(self.server_address)
-            while True:
-                connection, client_address = self.socket.accept()
-        except:
-            self.socket.close()
+    def run(self, argparser):
+        premain(argparser)
 
 def networth():
     net = float()
@@ -420,6 +415,7 @@ def premain(argparser):
                 sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
             if argparser.args.tg:
                 if (tg_u): print("M")
+                else: print("W")
             if argparser.args.demon:
                 demon = Demon()
                 demon.start()
@@ -461,7 +457,7 @@ def premain(argparser):
                 sys.stdout = old_stdout
     except Exception as e:
         print(e.__doc__)
-        print(e.messasge)
+        #print(e.messasge)
     finally:
         if demon: sock.close()
 
@@ -478,7 +474,9 @@ def main():
             shell = code.InteractiveConsole(variables)
             shell.interact(banner="DEBUG REPL")
     else:
-        premain(argparser)
+        demon = Demon()
+        demon.run(argparser)
+        #premain(argparser)
 
 if __name__ == "__main__":
     main()

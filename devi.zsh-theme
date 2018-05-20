@@ -188,11 +188,11 @@ batbad=33
 
 batcolor=$batgreen
 
-if [[ $batcharge > $batgood || $batcharge == $batgood || $batcharge==$batfull ]]; then
+if [[ ($batcharge > $batgood) || ($batcharge == $batgood) || ($batcharge == $batfull) ]]; then
 	batcolor=$batgreen
-elif [[ ($batcharge < $batgood && $batcharge > $batbad) || $batcharge == $batbad ]]; then
+elif [[ ($batcharge < $batgood) && ($batcharge > $batbad) || ($batcharge == $batbad) ]]; then
 	batcolor=$batyellow
-elif [[ $batcharge < $batbad ]]; then
+elif [[ ($batcharge < $batbad) ]]; then
 	batcolor=$batred
 else
 	batcolor=$purple
