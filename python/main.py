@@ -30,7 +30,7 @@ def main():
             premain(argparser)
         except Exception as e:
             print(e.__doc__)
-            print(e.message)
+            if e.message: print(e.message)
             variables = globals().copy()
             variables.update(locals())
             shell = code.InteractiveConsole(variables)

@@ -13,6 +13,7 @@ import atexit
 import signal
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
+import subprocess
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
@@ -80,6 +81,10 @@ def changelly():
     headers = {'api-key': API_KEY, 'sign': sign, 'Content-type': 'application/json'}
     response = requests.post(API_URL, headers=headers, data=serialized_data)
     return (response.json()['result'])
+
+def vocalize(sound):
+    subprocess.call([os.path.expanduser("~")+"/scripts/voice.sh", sound])
+    #subprocess.call(["./voice.sh " + sound])
 
 def highpercentdump(number):
         dic_7d = {}
@@ -400,6 +405,7 @@ def get_socket():
 def premain(argparser):
     tg_u = False
     demon = argparser.args.demon
+    vocalize("./mila/hiveup.ogg")
     if demon: sock = get_socket()
     else: sock = None
     try:
@@ -456,8 +462,9 @@ def premain(argparser):
                 connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
     except Exception as e:
+        vocalize("./mila/hivedown.ogg")
         print(e.__doc__)
-        #print(e.messasge)
+        if e.message: print(e.messasge)
     finally:
         if demon: sock.close()
 
