@@ -399,7 +399,7 @@ def get_socket():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ("localhost", 11111)
     sock.bind(server_address)
-    sock.listen(10)
+    sock.listen(15)
     return sock
 
 def premain(argparser):
@@ -408,65 +408,67 @@ def premain(argparser):
     vocalize("./mila/hiveup.ogg")
     if demon: sock = get_socket()
     else: sock = None
-    try:
-        while True:
-            if demon:
-                connection, client_address = sock.accept()
-                command = connection.recv(1024)
-                new_argv = command.decode("utf-8").split(" ")
-                argparser.parse(new_argv)
-                if (command.decode("utf-8")).find("Mahsa") != 0: tg_u = True
-                else: tg_u = False
-                old_stdout = sys.stdout
-                sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
-            if argparser.args.tg:
-                if (tg_u): print("M")
-                else: print("W")
-            if argparser.args.demon:
-                demon = Demon()
-                demon.start()
-            if argparser.args.name:
-                com_name(argparser.args.name)
-            if argparser.args.cap:
-                com_cap(argparser.args.cap)
-            if argparser.args.rank:
-                com_rank(argparser.args.rank)
-            if argparser.args.gen:
-                com_gen(argparser)
-            if argparser.args.worth:
-                com_worth(argparser)
-            if argparser.args.total:
-                com_total(argparser)
-            if argparser.args.xx:
-                com_xx(argparser)
-            if argparser.args.ava:
-                com_ava(argparser)
-            if argparser.args.al1:
-                alert_1()
-            if argparser.args.avass:
-                com_avass(argparser)
-            if argparser.args.cglistall:
-                com_cglistall(argparser)
-            if argparser.args.watchlist:
-                com_watchlist(argparser)
-            if argparser.args.ss:
-                com_ss(argparser)
-            if argparser.args.dy:
-                highpercentdump(argparser.args.dy)
-            if argparser.args.alive: alive()
-            if not demon: sys.exit(0)
-            if demon:
-                sys.stdout.seek(0)
-                mushi_out = sys.stdout.read()
-                sys.stdout.close()
-                connection.sendall(bytes(mushi_out, "utf-8"))
+    while True:
+        try:
+            while True:
+                if demon:
+                    connection, client_address = sock.accept()
+                    command = connection.recv(1024)
+                    new_argv = command.decode("utf-8").split(" ")
+                    argparser.parse(new_argv)
+                    if (command.decode("utf-8")).find("Mahsa") != 0: tg_u = True
+                    else: tg_u = False
+                    old_stdout = sys.stdout
+                    sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+                if argparser.args.tg:
+                    if (tg_u): print("M")
+                    else: print("W")
+                if argparser.args.demon:
+                    demon = Demon()
+                    demon.start()
+                if argparser.args.name:
+                    com_name(argparser.args.name)
+                if argparser.args.cap:
+                    com_cap(argparser.args.cap)
+                if argparser.args.rank:
+                    com_rank(argparser.args.rank)
+                if argparser.args.gen:
+                    com_gen(argparser)
+                if argparser.args.worth:
+                    com_worth(argparser)
+                if argparser.args.total:
+                    com_total(argparser)
+                if argparser.args.xx:
+                    com_xx(argparser)
+                if argparser.args.ava:
+                    com_ava(argparser)
+                if argparser.args.al1:
+                    alert_1()
+                if argparser.args.avass:
+                    com_avass(argparser)
+                if argparser.args.cglistall:
+                    com_cglistall(argparser)
+                if argparser.args.watchlist:
+                    com_watchlist(argparser)
+                if argparser.args.ss:
+                    com_ss(argparser)
+                if argparser.args.dy:
+                    highpercentdump(argparser.args.dy)
+                if argparser.args.alive: alive()
+                if not demon: sys.exit(0)
+                if demon:
+                    sys.stdout.seek(0)
+                    mushi_out = sys.stdout.read()
+                    sys.stdout.close()
+                    connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
-    except Exception as e:
-        vocalize("./mila/hivedown.ogg")
-        print(e.__doc__)
-        if e.message: print(e.messasge)
-    finally:
-        if demon: sock.close()
+        except Exception as e:
+            vocalize("./mila/hiveexcept.ogg")
+            print(e.__doc__)
+            #if e.message: print(e.messasge)
+        finally:
+            vocalize("./mila/hivedown.ogg")
+            #if demon: sock.close()
 
 def main():
     argparser = Argparser()

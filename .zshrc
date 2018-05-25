@@ -143,6 +143,12 @@ alias tg="telegram-cli"
 alias telebot="/home/bloodstalker/scripts/telebot.py > /dev/null 2>&1 &"
 alias dw="~/df/df_linux/df"
 alias clean="clear"
+alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
+alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
+
+function mdvv {
+  mdv "$1" -t 469.8089
+}
 
 function gdd {
   #git --no-pager diff --numstat | gawk \'{print$1$2}\'
