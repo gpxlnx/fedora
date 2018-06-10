@@ -7,7 +7,7 @@ CC_FLAGS+=$(CC_EXTRA)
 
 SRCS=$(wildcard *.c)
 
-.DEFAULT:all clean
+.DEFAULT:all
 
 .PHONY:all clean help
 
@@ -33,5 +33,4 @@ clean:
 
 help:
 	@echo "all is the default target"
-	@echo "there is delete."
 	@echo "there is clean."

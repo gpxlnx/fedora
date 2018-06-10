@@ -122,7 +122,6 @@ alias solide="vim ~/scripts/makefile"
 alias dropsolide="cp ~/scripts/makefile ./"
 alias genjctags="find . -type f -iregex \".*\.js$\" -not -path \"./node_modules/*\" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags"
 alias isup="ps -aux | grep "
-alias devi-wasm="/home/bloodstalker/devi/devi-python-offchain/argparser.py"
 alias ipfsd="ipfs daemon > /dev/null 2>&1 &; disown"
 alias i3rc="vim ~/scripts/.config/i3/config"
 alias fixi3rc="cp ~/scripts/.config/i3/config ~/.config/i3/config && i3-msg restart"
@@ -145,6 +144,7 @@ alias dw="~/df/df_linux/df"
 alias clean="clear"
 alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
 alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
+alias tt="transmission-cli -u 1 -w ~/winshare/"
 
 function mdvv {
   mdv "$1" -t 469.8089

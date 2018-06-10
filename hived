@@ -403,12 +403,12 @@ def get_socket():
     return sock
 
 def premain(argparser):
-    tg_u = False
-    demon = argparser.args.demon
-    vocalize("./mila/hiveup.ogg")
-    if demon: sock = get_socket()
-    else: sock = None
     while True:
+        tg_u = False
+        demon = argparser.args.demon
+        if demon: sock = get_socket()
+        if demon: vocalize("./mila/hiveup.ogg")
+        else: sock = None
         try:
             while True:
                 if demon:
@@ -463,10 +463,12 @@ def premain(argparser):
                     connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
         except Exception as e:
+            time.sleep(60)
             vocalize("./mila/hiveexcept.ogg")
             print(e.__doc__)
             #if e.message: print(e.messasge)
         finally:
+            time.sleep(60)
             vocalize("./mila/hivedown.ogg")
             #if demon: sock.close()
 
