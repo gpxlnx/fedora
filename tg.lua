@@ -25,6 +25,10 @@ end
 
 
 function on_msg_receive(msg)
+  local socket = require("socket")
+  local host, port = "localhost", "11111"
+  local tcp = assert(socket.tcp())
+  tcp:connect(host, port)
   get_contact_list(ok_cb, false)
   get_dialog_list(ok_cb, true)
   if started == 0 then
@@ -42,13 +46,10 @@ function on_msg_receive(msg)
   end
   if (msg.from.print_name == "Mahsa") then
     print(msg.from.print_name)
-    local socket = require("socket")
-    local host, port = "localhost", "11111"
-    local tcp = assert(socket.tcp())
-    tcp:connect(host, port)
     --tcp:send("Mahsa".."\0")
     tcp:send("Mahsa".."\n")
-    tcp:close()
+  else
+    tcp:send("")
   end
 
   if (msg.text == 'fuck') then
@@ -60,4 +61,5 @@ function on_msg_receive(msg)
     return
   end
   --safe_quit()
+  tcp:close()
 end
