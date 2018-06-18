@@ -125,6 +125,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # run on startup
 exec /home/bloodstalker/scripts/hived --demon &
 exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
+exec setxkbmap -option ctrl:nocaps
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

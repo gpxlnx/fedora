@@ -145,6 +145,9 @@ alias clean="clear"
 alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
 alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
 alias tt="transmission-cli -u 1 -w ~/winshare/"
+alias make="colormake"
+alias gcc="COLORMAKE_COMMAND=gcc colormake"
+alias clang="COLORMAKE_COMMAND=clang colormake"
 
 function mdvv {
   mdv "$1" -t 469.8089

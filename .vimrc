@@ -101,7 +101,8 @@ Plugin 'rhysd/vim-wasm'
 
 Plugin 'tomlion/vim-solidity'
 
-Plugin 'https://github.com/rhysd/open-pdf.vim'
+Plugin 'rhysd/open-pdf.vim'
+"Plugin 'https://github.com/rhysd/open-pdf.vim'
 
 Plugin 'PotatoesMaster/i3-vim-syntax'
 
@@ -458,3 +459,10 @@ let g:tagbar_type_rust = {
         \'i:impls,trait implementations',
     \]
     \}
+
+let g:tagbar_type_make = {
+            \ 'kinds':[
+                \ 'm:macros',
+                \ 't:targets'
+            \ ]
+\}

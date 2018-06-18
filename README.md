@@ -1,5 +1,6 @@
 # fedora
-just my personal stuff/settings i use on my fedora.<br/>
+Just my personal stuff/settings i use on my fedora.<br/>
 
-the ctsgs file is from a gist by shuangjj.<br/>
-the lesscolor script is by someone from stackoverflow. cant remember who.<br/>
+The ctsgs file's rust portion is from a gist by shuangjj.<br/>
+The lesscolor script is by someone from stackoverflow. cant remember who.<br/>
+For script that are not by me, refer to their own licenses.<br/>
