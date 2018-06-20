@@ -27,8 +27,8 @@ class Argparser(object):
 
 # write code here
 def premain(argparser):
-    #signal.signal(signal.SIGVTALRM, SigHandler_Timeout)
-    #signal.alarm(60)
+    signal.signal(signal.SIGVTALRM, SigHandler_Timeout)
+    signal.alarm(60)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = ("localhost", 11111)
     sock.connect(server_address)
@@ -36,7 +36,7 @@ def premain(argparser):
     #print(msg)
     try:
         sock.sendall(bytes(msg, "utf-8"))
-        output = sock.recv(1024)
+        output = sock.recv(32768)
         #out2 = [c for c in output.decode("utf-8") if c != "\n"]
         out2 = [c for c in output.decode("utf-8") if c != "\0"]
         print("".join(out2))
