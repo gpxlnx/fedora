@@ -412,7 +412,7 @@ def premain(argparser):
         while True:
             if demon:
                 connection, client_address = sock.accept()
-                command = connection.recv(32768)
+                command = connection.recv(1024)
                 new_argv = command.decode("utf-8").split(" ")
                 argparser.parse(new_argv)
                 if (command.decode("utf-8")).find("Mahsa") != 0: tg_u = True
