@@ -98,7 +98,6 @@ alias la="ls -A"
 alias ee="nautilus ."
 #aliias "clang-format"="/home/bloodstalker/llvm/llvm/build/bin/clang-format"
 alias updaterc="cp ~/scripts/.zshrc ~/.zshrc"
-alias mutivim="vim ./test/main.c ./test/testFuncs2.h ./test/testFuncs1.h ./test/testFuncs3.h ./test/testFuncs2.c ./test/testFuncs1.c ./test/testFuncs3.c ./mutator-lvl0.cpp ./mutator-lvl1.cpp ./mutator-lvl2.cpp ./mutator_aux.cpp ./mutator_aux.h ./test/auto-refac-tdd/auto-refac-tdd01.h ./test/auto-refac-tdd/auto-refac-tdd01.c ./makefile .travis.yml ./mutator.sh ./tinyxml2/makefile ./json/makefile ./extra-tools/dumper.sh ./extra-tools/ReportPrintPretty.sh ./test/misrareport.json ./test/misrareport.xml ./samples/mutator0-report-schema.xsd ./README.md ./docs/tests.md ./mutator-lvl0.h ./macros.mk" 
 alias fixvimrc='cp ~/scripts/.vimrc ~/.vimrc'
 alias fixtmuxrc='cp ~/scripts/.tmux.conf ~/.tmux.conf'
 alias fixtmuxpowerline='cp ~/scripts/default.sh ~/tmux-powerline/themes/default.sh'
@@ -199,6 +198,7 @@ export PATH=:$PATH:/home/bloodstalker/extra/wasm-jit-prototype/build/bin
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.37.22
 export PATH=:$PATH:/home/bloodstalker/scripts/bin
 export PATH=:$PATH:/home/bloodstalker/extra/android-ndk/android-ndk-r16b
+export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
 export EDITOR=vim
 
 function dig {

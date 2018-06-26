@@ -1,64 +1,44 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
 set showmatch
 set list
-
 " show existing tab with 2 spaces width
 set tabstop=2
 " " when indenting with '>', use 2 spaces width
 set shiftwidth=2
 " " On pressing tab, insert 2 spaces
 set expandtab
-
 set smarttab
-
 set autoindent
-
 set cindent
-
 set complete=.,w,b,u,t
-
 set foldmethod=manual
-
 set nofoldenable
-
 "reload a file if changed externally
 set autoread
-
 "make seraches case-sensitive unless they contain uppercase letters
 set ignorecase smartcase
-
 " show line numbers
 set number
 set numberwidth=5
-
 set laststatus=2
-
 set smartcase
-
 " for faster scrolling
 "set cursorline
 "set cursorcolumn
 set lazyredraw
-set synmaxcol=128
+set synmaxcol=200
 syntax sync minlines=64
 set ttyfast
-
 set relativenumber
-
 set confirm
-
 set wildmenu
-
 set magic
-
 " no annoying sounds
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-
 " indentation options
 set ai
 set si
@@ -72,113 +52,69 @@ call vundle#begin()
 "
 " " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
-
 Plugin 'ElmCast/elm-vim'
-
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-
 Plugin 'octol/vim-cpp-enhanced-highlight'
-
 Plugin 'vim-scripts/Conque-GDB'
-
 Plugin 'flazz/vim-colorschemes'
-
 Plugin 'Rip-Rip/clang_complete'
-
 Plugin 'kien/rainbow_parentheses.vim'
-
 "Plugin 'craigemery/vim-autotag'
-
 Plugin 'Yggdroot/indentLine'
-
 Plugin 'Lokaltog/vim-powerline'
-
 "Plugin 'powerline/powerline'
-"
 Plugin 'rhysd/vim-wasm'
-
 Plugin 'tomlion/vim-solidity'
-
 Plugin 'rhysd/open-pdf.vim'
 "Plugin 'https://github.com/rhysd/open-pdf.vim'
-
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
-
 "Bundle 'gabrielelana/vim-markdown'
-"
 Plugin 'chrisbra/NrrwRgn'
-
 Plugin 'easymotion/vim-easymotion'
-
 Plugin 'tpope/vim-speeddating'
-
 Plugin 'neovimhaskell/haskell-vim'
-
 Plugin 'xolox/vim-notes'
-
 Plugin 'majutsushi/tagbar'
-
 Plugin 'chrisbra/csv.vim'
-
 "Plugin 'xolox/vim-easytags'
-
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
 Plugin 'xolox/vim-misc'
-
 Plugin 'jpalardy/vim-slime'
-
 Plugin 'ternjs/tern_for_vim'
-
 Plugin 'Valloric/YouCompleteMe'
-
 Plugin 'ervandew/supertab'
-
 Plugin 'rgrinberg/vim-ocaml'
-
 Plugin 'terryma/vim-multiple-cursors'
-
 Plugin 'JuliaEditorSupport/julia-vim'
-
 "its super slow for some reason
 "Plugin 'kshenoy/vim-signature'
-
 Plugin 'Konfekt/vim-scratchpad'
-
 Plugin 'python-mode/python-mode'
-
 Plugin 'hdima/python-syntax'
-
 Plugin 'tmux-plugins/vim-tmux'
-
 Plugin 'camelcasemotion'
-
 Plugin 'rust-lang/rust.vim'
-
+Plugin 'cespare/vim-toml'
+Plugin 'maralla/vim-toml-enhance'
+Plugin 'Valloric/ListToggle'
+Plugin 'racer-rust/vim-racer'
+Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
-
 Plugin 'chiel92/vim-autoformat'
-
 Plugin 'wakatime/vim-wakatime'
-
 Plugin 'terryma/vim-expand-region'
-
 "Plugin 'scrooloose/syntastic'
-
 "Plugin 'vim-scripts/indentpython.vim'
-"
 "Plugin 'nvie/vim-flake8'
-
 "Plugin 'Yggdroot/hiPairs'
-
 Plugin 'maxbrunsfeld/vim-yankstack'
-
 "Plugin 'gcmt/wildfire.vim'
-
 Plugin 'tpope/vim-surround'
-
 Plugin 'vim-scripts/DoxyGen-Syntax'
-
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
 " " The following are examples of different formats supported.
@@ -466,3 +402,42 @@ let g:tagbar_type_make = {
                 \ 't:targets'
             \ ]
 \}
+
+" listtoggle options
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+
+" rust options
+let g:autofmt_autosave = 1
+let g:racer_experimental_completer = 1
+let g:racer_cmd = "/home/bloodstalker/.cargo/bin/racer"
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+
+" LSP registrations
+if executable('ocaml-language-server')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'ocaml-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocaml-language-server --stdio']},
+          \ 'whitelist': ['reason', 'ocaml'],
+          \ })
+  endif
+
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+  endif
