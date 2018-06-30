@@ -147,6 +147,8 @@ alias tt="transmission-cli -u 1 -w ~/winshare/"
 alias make="colormake"
 alias gcc="COLORMAKE_COMMAND=gcc colormake"
 alias clang="COLORMAKE_COMMAND=clang colormake"
+alias mv="mv -i"
+alias cp="cp -i"
 
 function mdvv {
   mdv "$1" -t 469.8089
