@@ -1,7 +1,7 @@
 TARGET=
 CXX=clang++
 CXX?=clang++
-CXX_FLAGS=-std=c++11
+CXX_FLAGS=-std=c++11 -fpic
 CXX_EXTRA?=
 CXX_FLAGS+=$(CXX_EXTRA)
 LD_FLAGS=
@@ -19,7 +19,7 @@ SRCS=$(wildcard *.cpp)
 
 .DEFAULT:all
 
-.PHONY:all clean help
+.PHONY:all clean help ASM SO
 
 all:$(TARGET)
 
@@ -37,10 +37,22 @@ depend:.depend
 $(TARGET): $(TARGET).o
 	$(CXX) $^ $(LD_FLAGS) -o $@
 
+ASM:$(TARGET).asm
+
+SO:$(TARGET).so
+
+$(TARGET).asm: $(TARGET).o
+	objdump -r -d -M intel -S $(TARGET).o > $(TARGET).asm
+
+$(TARGET).so: $(TARGET).o
+	$(CXX) $^ $(LD_FLAGS) -shared -o $@
+
 clean:
-	rm -f *.o *~ $(TARGET)
+	rm -f *.o *~ $(TARGET) $(TARGET).so $(TARGET).asm
 	rm .depend
 
 help:
 	@echo "all is the default target"
-	@echo "there is clean."
+	@echo "SO will generate the so"
+	@echo "ASM will generate assembly files"
+	@echo "clean"
