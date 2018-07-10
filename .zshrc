@@ -150,6 +150,16 @@ alias clang="COLORMAKE_COMMAND=clang colormake"
 alias mv="mv -i"
 alias cp="cp -i"
 
+function docpp {
+  cp ~/scripts/makefilecpp ./makefile
+  cp ~/scripts/c/main.cpp ./
+}
+
+function docc {
+  cp ~/scripts/makefilec ./makefile
+  cp ~/scripts/c/main.c ./
+}
+
 function mdvv {
   mdv "$1" -t 469.8089
 }

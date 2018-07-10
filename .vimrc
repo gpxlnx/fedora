@@ -4,6 +4,7 @@ set showmatch
 set list
 " show existing tab with 2 spaces width
 set tabstop=2
+set conceallevel=0
 " " when indenting with '>', use 2 spaces width
 set shiftwidth=2
 " " On pressing tab, insert 2 spaces
@@ -168,7 +169,7 @@ let g:indentLine_indentLevel = 6
 
 let g:indentLine_leadingSpaceChar = '.'
 
-set conceallevel=1
+"set conceallevel=1
 let g:indentLine_conceallevel = 1
 
 let g:clang_library_path = '/home/bloodstalker/extra/llvm-6/build/lib'
