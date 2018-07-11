@@ -60,6 +60,6 @@ function on_msg_receive(msg)
     end
     return
   end
-  --safe_quit()
+  safe_quit()
   tcp:close()
 end
