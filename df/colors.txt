@@ -19,7 +19,7 @@ These are the display colors in RGB.  The game is actually displaying extended A
 [MAGENTA_G:152]
 [MAGENTA_B:204]
 [BROWN_R:153]
-[BROWN_G:102]
+[BROWN_G:51]
 [BROWN_B:0]
 [LGRAY_R:153]
 [LGRAY_G:153]

@@ -169,6 +169,10 @@ function gdd {
   git --no-pager diff --numstat | gawk '{sum1+=$1;sum2+=$2}END{print "additions:"sum1"  ""deletions:"sum2}'
 }
 
+function math {
+  echo $(($1))
+}
+
 function pid {
   ps -aux | grep "$1" | grep -v grep | awk '{print$2}'
 }
