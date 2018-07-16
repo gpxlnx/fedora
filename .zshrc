@@ -149,6 +149,7 @@ alias gcc="COLORMAKE_COMMAND=gcc colormake"
 alias clang="COLORMAKE_COMMAND=clang colormake"
 alias mv="mv -i"
 alias cp="cp -i"
+alias nuke="rm -rf * .[!.]* ..?*"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile

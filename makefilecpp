@@ -1,4 +1,4 @@
-TARGET=
+TARGET=main
 CXX=clang++
 CXX?=clang++
 CXX_FLAGS=-std=c++11 -fpic
