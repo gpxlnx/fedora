@@ -150,6 +150,7 @@ alias clang="COLORMAKE_COMMAND=clang colormake"
 alias mv="mv -i"
 alias cp="cp -i"
 alias nuke="rm -rf * .[!.]* ..?*"
+alias lynx="lynx -lss ~/scripts/lynx.lss -prettysrc "
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -192,8 +193,8 @@ export LESS='-R'
 export LESSOPEN='|~/scripts/lesscolor.sh %s'
 
 function fixrc {
-	cp ~/scripts/.zshrc ~/.zshrc
-	source ~/.zshrc
+  cp ~/scripts/.zshrc ~/.zshrc
+  source ~/.zshrc
 }
 
 function fixtheme {
