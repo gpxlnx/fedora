@@ -1,5 +1,13 @@
 set number
 set relativenumber
+set noerrorbells
+set novisualbell
+set expandtab
+set smarttab
+set autoindent
+set autoread
+set ignorecase smartcase
+set lazyredraw
 syntax on
 colo elflord
 nmap <Backspace> <Nop>

@@ -45,6 +45,9 @@ set ai
 set si
 set wrap
 
+" don't use sh
+let g:is_posix = 1
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -52,6 +55,8 @@ call vundle#begin()
 " "call vundle#begin('~/some/path/here')
 "
 " " let Vundle manage Vundle, required
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
@@ -64,7 +69,7 @@ Plugin 'Rip-Rip/clang_complete'
 Plugin 'kien/rainbow_parentheses.vim'
 "Plugin 'craigemery/vim-autotag'
 Plugin 'Yggdroot/indentLine'
-Plugin 'Lokaltog/vim-powerline'
+"Plugin 'Lokaltog/vim-powerline'
 "Plugin 'powerline/powerline'
 Plugin 'rhysd/vim-wasm'
 Plugin 'tomlion/vim-solidity'
@@ -157,7 +162,7 @@ let g:indentLine_setColors = 20
 
 let g:indentLine_enabled = 1
 
-let g:indentLine_char = '┊' 
+let g:indentLine_char = '┊'
 
 let g:indentLine_showFirstIndentLevel = 1
 
@@ -175,10 +180,18 @@ let g:indentLine_conceallevel = 1
 let g:clang_library_path = '/home/bloodstalker/extra/llvm-6/build/lib'
 
 if &term =~ '256color'
-	    " Disable Background Color Erase (BCE) so that color schemes
-	    " work properly when Vim is used inside tmux and GNU screen.
+      " Disable Background Color Erase (BCE) so that color schemes
+      " work properly when Vim is used inside tmux and GNU screen.
 set t_ut=
 endif
+
+" airline options
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline_theme = "jellybeans"
 
 let g:ConquerTerm_Color = 2
 let g:ConquerTerm_Close = 1
@@ -317,7 +330,7 @@ map <C-e> :q<cr>
 map <F8> :TagbarToggle<CR>
 
 " ocaml/merlin/ocp
-let no_ocaml_comments = 1
+let no_ocaml_comments = 0
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 set rtp^="/home/bloodstalker/.opam/4.05.0/share/ocp-indent/vim"
