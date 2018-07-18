@@ -56,6 +56,7 @@ call vundle#begin()
 "
 " " let Vundle manage Vundle, required
 Plugin 'vim-airline/vim-airline'
+Plugin 'Townk/vim-autoclose'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
