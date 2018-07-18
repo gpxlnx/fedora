@@ -1,5 +1,5 @@
 # fedora
-Just my personal stuff/settings i use on my fedora.<br/>
+My config files and some random lazy scripts.<br/>
 
 The ctsgs file's rust portion is from a gist by shuangjj.<br/>
 The lesscolor script is by someone from stackoverflow. cant remember who.<br/>
