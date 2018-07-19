@@ -3,6 +3,7 @@ CXX=clang++
 CXX?=clang++
 CXX_FLAGS=-std=c++11 -fpic
 CXX_EXTRA?=
+CTAGS_I_PATH?=./
 LD_FLAGS=
 EXTRA_LD_FLAGS?=
 ADD_SANITIZERS_CC= -g -fsanitize=address -fno-omit-frame-pointer
@@ -36,13 +37,14 @@ endif
 CXX_EXTRA+=$(UB_SANITIZERS_CC)
 EXTRA_LD_FLAGS+=$(UB_SANITIZERS_LD)
 endif
+
+SRCS:=$(wildcard *.cpp)
 CXX_FLAGS+=$(CXX_EXTRA)
 LD_FLAGS+=$(EXTRA_LD_FLAGS)
-SRCS=$(wildcard *.cpp)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO
+.PHONY:all clean help ASM SO TAGS
 
 all:$(TARGET)
 
@@ -55,7 +57,7 @@ depend:.depend
 -include ./.depend
 
 .cpp.o:
-	$(CXX) $(CXX_FLAGS) -c $< -o $@ 
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 $(TARGET): $(TARGET).o
 	$(CXX) $^ $(LD_FLAGS) -o $@
@@ -63,6 +65,13 @@ $(TARGET): $(TARGET).o
 ASM:$(TARGET).asm
 
 SO:$(TARGET).so
+
+TAGS:tags
+
+tags:$(SRCS)
+	$(shell $(CXX) -c -I $(CTAGS_I_PATH) -M $(SRCS)|\
+		sed -e 's/[\\ ]/\n/g'|sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d'|\
+		ctags -L - --c++-kinds=+p --fields=+iaS --extra=+q)
 
 $(TARGET).asm: $(TARGET).o
 	objdump -r -d -M intel -S $(TARGET).o > $(TARGET).asm
@@ -72,10 +81,15 @@ $(TARGET).so: $(TARGET).o
 
 clean:
 	rm -f *.o *~ $(TARGET) $(TARGET).so $(TARGET).asm
+
+deepclean:
+	rm -f *.o *~ $(TARGET) $(TARGET).so $(TARGET).asm tags
 	rm .depend
 
 help:
 	@echo "all is the default target"
 	@echo "SO will generate the so"
 	@echo "ASM will generate assembly files"
+	@echo "TAGS will generate tags file"
 	@echo "clean"
+	@echo "deepclean will clean almost everything"

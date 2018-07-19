@@ -56,7 +56,8 @@ call vundle#begin()
 "
 " " let Vundle manage Vundle, required
 Plugin 'vim-airline/vim-airline'
-Plugin 'Townk/vim-autoclose'
+Plugin 'mbbill/undotree'
+"Plugin 'Townk/vim-autoclose'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
@@ -98,7 +99,7 @@ Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'JuliaEditorSupport/julia-vim'
 "its super slow for some reason
-"Plugin 'kshenoy/vim-signature'
+Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/vim-scratchpad'
 Plugin 'python-mode/python-mode'
 Plugin 'hdima/python-syntax'
@@ -326,6 +327,7 @@ map <F3> :bp<CR>
 map <F4> :bn<CR>
 map <F5> <C-w>
 map <C-e> :q<cr>
+nnoremap <F12> :UndotreeToggle<cr>
 
 " tagbar toggle
 map <F8> :TagbarToggle<CR>
