@@ -57,6 +57,7 @@ call vundle#begin()
 " " let Vundle manage Vundle, required
 Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
+Plugin 'mhinz/vim-startify'
 "Plugin 'Townk/vim-autoclose'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'VundleVim/Vundle.vim'
@@ -321,6 +322,13 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 " end of python configs
 
+"mapping fast keycodes
+set timeoutlen=1000 ttimeoutlen=100
+"Shift+F10
+set <F13>=^[[21;2~
+map <F13> <S-F10>
+map! <F13> <S-F10>
+
 map <F2> <Plug>(expand_region_expand)
 map <F1> <Plug>(expand_region_shrink)
 map <F3> :bp<CR>
@@ -328,6 +336,9 @@ map <F4> :bn<CR>
 map <F5> <C-w>
 map <C-e> :q<cr>
 nnoremap <F12> :UndotreeToggle<cr>
+nnoremap <F10> :vsp<cr>
+nnoremap <S-F10> :sp<cr>
+
 
 " tagbar toggle
 map <F8> :TagbarToggle<CR>

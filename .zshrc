@@ -151,6 +151,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias nuke="rm -rf * .[!.]* ..?*"
 alias lynx="lynx -lss ~/scripts/lynx.lss -prettysrc "
+alias bruiser="bruiser --history ~/.bruiser/history.lua"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
