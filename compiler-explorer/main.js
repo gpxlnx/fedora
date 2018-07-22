@@ -23,5 +23,5 @@ function compiler_explorer(path, options) {
 }
 
 const config = JSON.parse(fs.readFileSync("./ceconfig.json"))
-if (process.argv.length < 4) {console.log("you didnt specify the path to source")}
+if (process.argv.length < 3) {console.log("you didnt specify the path to source")}
 else {compiler_explorer(process.argv[2], process.argv[3])}

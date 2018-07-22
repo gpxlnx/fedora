@@ -91,6 +91,7 @@ Plugin 'chrisbra/csv.vim'
 "Plugin 'xolox/vim-easytags'
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
+Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 Plugin 'jpalardy/vim-slime'
 Plugin 'ternjs/tern_for_vim'
@@ -329,6 +330,10 @@ set <F13>=^[[21;2~
 map <F13> <S-F10>
 map! <F13> <S-F10>
 
+set <F14>=^[[20;2~
+map <F14> <S-F9>
+map! <F14> <S-F9>
+
 map <F2> <Plug>(expand_region_expand)
 map <F1> <Plug>(expand_region_shrink)
 map <F3> :bp<CR>
@@ -342,6 +347,10 @@ nnoremap <S-F10> :sp<cr>
 
 " tagbar toggle
 map <F8> :TagbarToggle<CR>
+
+" vim.session options
+let g:session_directory = "~/.vim/session"
+let g:session_autosave = "no"
 
 " ocaml/merlin/ocp
 let no_ocaml_comments = 0
@@ -444,7 +453,7 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-
+"--------------------------------------------------------------------------------------------"
 " LSP registrations
 if executable('ocaml-language-server')
     au User lsp_setup call lsp#register_server({
@@ -469,3 +478,53 @@ if executable('pyls')
         \ 'whitelist': ['python'],
         \ })
   endif
+"--------------------------------------------------------------------------------------------"
+"runs shell command, opens new buffer with syntax=nasm, prints command output
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright vnew
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  set syntax=nasm
+  1
+endfunction
+"vmap <S-F2> call RunShellCommand
+
+" by xolox
+function! s:get_visual_selection()
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+      return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! s:compiler_explorer()
+  let source_code = s:get_visual_selection()
+  echom source_code
+  "execute "!"."node"." "."~/devi/abbatoir/hole93/index.js ".source_code
+  let current_buf_name = bufname("%")
+  botright vnew
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute "$read!"."node"." "."~/scripts/compiler-explorer/main.js ".current_buf_name
+  setlocal nomodifiable
+  set syntax=nasm
+  1
+endfunction
+command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
+map <S-F9> :CompilerExplorer<cr>

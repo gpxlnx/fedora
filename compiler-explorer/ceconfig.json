@@ -1,0 +1,10 @@
+{
+    "source": "Source to compile",
+    "options": {
+        "userArguments": "Compiler flags",
+        "compilerOptions": {},
+        "filters": {
+            "filter": true
+        }
+    }
+}
