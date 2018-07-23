@@ -24,3 +24,10 @@ map <F3> :bp<CR>
 map <F4> :bn<CR>
 map <F5> <C-w>
 map <C-e> :q<cr>
+set timeoutlen=1000 ttimeoutlen=100
+set <F13>=^[[21;2~
+map <F13> <S-F10>
+map! <F13> <S-F10>
+nnoremap <F10> :vsp<cr>
+nnoremap <S-F10> :sp<cr>
+
