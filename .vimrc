@@ -344,6 +344,7 @@ nnoremap <F12> :UndotreeToggle<cr>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
 
+cnoremap help vert help
 
 " tagbar toggle
 map <F8> :TagbarToggle<CR>
@@ -515,16 +516,17 @@ endfunction
 
 function! s:compiler_explorer()
   let source_code = s:get_visual_selection()
-  echom source_code
-  "execute "!"."node"." "."~/devi/abbatoir/hole93/index.js ".source_code
+  let temp_file = tempname()
+  "echom temp_file
+  call writefile(split(substitute(source_code, "\n", "\r", "g"), "\r"), temp_file)
   let current_buf_name = bufname("%")
   botright vnew
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   call setline(3,substitute(getline(2),'.','=','g'))
-  execute "$read!"."node"." "."~/scripts/compiler-explorer/main.js ".current_buf_name
+  execute "$read!"."node"." "."~/scripts/compiler-explorer/main.js ".temp_file
   setlocal nomodifiable
   set syntax=nasm
   1
 endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
-map <S-F9> :CompilerExplorer<cr>
+vmap <S-F9> :<C-U>CompilerExplorer<cr>
