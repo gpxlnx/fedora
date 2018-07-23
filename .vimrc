@@ -258,6 +258,7 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
+au BufRead,BufNewFile .i3blocks.conf set filetype=i3blocks
 au BufEnter,FileType cpp set syntax=cpp.doxygen
 au BufEnter,FileType c set syntax=cpp.doxygen
 " elm autocommands
