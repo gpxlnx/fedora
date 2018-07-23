@@ -9,7 +9,7 @@ set autoread
 set ignorecase smartcase
 set lazyredraw
 syntax on
-colo elflord
+colo peachpuff
 nmap <Backspace> <Nop>
 nmap <Delete> <Nop>
 nmap <Left> <Nop>
