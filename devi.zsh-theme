@@ -189,13 +189,13 @@ batbad=33
 batcolor=$batgreen
 
 if [[ ($batcharge > $batgood) || ($batcharge == $batgood) || ($batcharge == $batfull) ]]; then
-	batcolor=$batgreen
+  batcolor=$batgreen
 elif [[ ($batcharge < $batgood) && ($batcharge > $batbad) || ($batcharge == $batbad) ]]; then
-	batcolor=$batyellow
+  batcolor=$batyellow
 elif [[ ($batcharge < $batbad) ]]; then
-	batcolor=$batred
+  batcolor=$batred
 else
-	batcolor=$purple
+  batcolor=$purple
 fi
 }
 add-zsh-hook precmd battery_charge

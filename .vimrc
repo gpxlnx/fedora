@@ -209,7 +209,7 @@ let g:ConquerTerm_StartMessage = 0
 
 let g:gruvbox_italics = 1
 let g:jellybeans_overrides = {
-\    'background': { 'guibg': '000000' },
+\    'background': { '256ctermbg': '000000' },
 \}
 
 let g:jellybeans_use_term_italics = 1
@@ -259,6 +259,7 @@ let g:rbpt_colorpairs = [
     \ ]
 
 au BufRead,BufNewFile .i3blocks.conf set filetype=i3blocks
+au BufRead,BufNewFile *.zsh-theme set filetype=zsh
 au BufEnter,FileType cpp set syntax=cpp.doxygen
 au BufEnter,FileType c set syntax=cpp.doxygen
 " elm autocommands
@@ -519,11 +520,53 @@ function! s:get_visual_selection()
   return join(lines, "\n")
 endfunction
 
+let s:compiler_explorer_std_c_hdrs = ["#include <assert.h>\r", "#include <complex.h>\r",
+      \"#include <ctype.h>\r","#include <errno.h>\r","#include <fenv.h>\r","#include <float.h>\r",
+      \"#include <inttypes.h>\r","#include <iso646.h>\r","#include <limits.h>\r","#include <locale.h>\r",
+      \"#include <math.h>\r","#include <setjmp.h>\r","#include <signal.h>\r","#include <stdalign.h>\r",
+      \"#include <stdarg.h>\r","#include <stdatomic.h>\r","#include <stdbool.h>\r","#include <stddef.h>\r",
+      \"#include <stdint.h>\r","#include <stdio.h>\r","#include <stdlib.h>\r","#include <stdnoreturn.h>\r",
+      \"#include <string.h>\r","#include <tgmath.h>\r","#include <time.h>\r","#include <uchar.h>\r",
+      \"#include <wchar.h>\r","#include <wctype.h>\r"]
+let s:compiler_explorer_std_cpp_hdrs = ["#include <cstdlib>\r","#include <csignal>\r","#include <csetjmp>\r",
+      \"#include <cstdarg>\r","#include <typeinfo>\r","#include <typeindex>\r","#include <type_traits>\r",
+      \"#include <bitset>\r","#include <functional>\r","#include <utility>\r","#include <ctime>\r",
+      \"#include <chrono>\r","#include <cstddef>\r","#include <initializer_list>\r","#include <tuple>\r",
+      \"#include <new>\r","#include <memory>\r","#include <scoped_allocator>\r","#include <climits>\r",
+      \"#include <cfloat>\r","#include <cstdint>\r","#include <cinttypes>\r","#include <limits>\r",
+      \"#include <exception>\r","#include <stdexcept>\r","#include <cassert>\r","#include <system_error>\r",
+      \"#include <cerrno>\r","#include <cctype>\r","#include <cwctype>\r","#include <cstring>\r",
+      \"#include <cwchar>\r","#include <cuchar>\r","#include <string>\r","#include <array>\r",
+      \"#include <vector>\r","#include <deque>\r","#include <list>\r","#include <forward_list>\r",
+      \"#include <set>\r","#include <map>\r","#include <unordered_set>\r","#include <unordered_map>\r",
+      \"#include <stack>\r","#include <queue>\r","#include <algorithm>\r","#include <iterator>\r",
+      \"#include <cmath>\r","#include <complex>\r","#include <valarray>\r","#include <random>\r",
+      \"#include <numeric>\r","#include <ratio>\r","#include <cfenv>\r","#include <iosfwd>\r",
+      \"#include <ios>\r","#include <istream>\r","#include <ostream>\r","#include <iostream>\r",
+      \"#include <fstream>\r","#include <sstream>\r","#include <strstream>\r","#include <iomanip>\r",
+      \"#include <streambuf>\r","#include <cstdio>\r","#include <locale>\r","#include <clocale>\r",
+      \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
+      \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
+" TODO-attach std C/C++ headers to text before sending to server
 function! s:compiler_explorer()
-  let source_code = s:get_visual_selection()
   let temp_file = tempname()
   "echom temp_file
-  call writefile(split(substitute(source_code, "\n", "\r", "g"), "\r"), temp_file)
+
+  if &filetype == "c"
+    "call writefile(s:compiler_explorer_std_c_hdrs, temp_file, "a")
+  elseif &filetype == "cpp"
+    "call writefile(s:compiler_explorer_std_cpp_hdrs, temp_file, "a")
+  endif
+  "let headers = split(join(header_list, "\r"))
+  "call writefile(headers, temp_file, "a")
+  "call writefile(["fuck you"], temp_file, "a")
+  let fuck_list = ["#include <fcntl.h>\r", "#include <inttypes.h>\r", "#include <stdio.h>\r", "#include <stdlib.h>\r", "#include <unistd.h>\r"]
+  call writefile(fuck_list, temp_file, "a")
+
+  let source_code = s:get_visual_selection()
+  "echom source_code
+  "echom join(headers, "")
+  call writefile(split(substitute(source_code, "\n", "\r", "g"), "\r"), temp_file, "a")
   let current_buf_name = bufname("%")
   botright vnew
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
