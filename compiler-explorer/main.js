@@ -3,6 +3,7 @@ const fetch = require('node-fetch')
 const fs = require("fs")
 const util = require("util")
 const readFile = util.promisify(fs.readFile)
+const path = require("path")
 
 async function read_C_source(path) {
   return await readFile(path)
@@ -22,6 +23,6 @@ function compiler_explorer(path, options) {
         compiler_explorer(path, options))
 }
 
-const config = JSON.parse(fs.readFileSync("./ceconfig.json"))
+const config = JSON.parse(fs.readFileSync(path.resolve(__dirname) + "/ceconfig.json"))
 if (process.argv.length < 3) {console.log("you didnt specify the path to source")}
 else {compiler_explorer(process.argv[2], process.argv[3])}

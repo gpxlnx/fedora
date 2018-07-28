@@ -62,6 +62,9 @@ depend:.depend
 $(TARGET): $(TARGET).o
 	$(CXX) $^ $(LD_FLAGS) -o $@
 
+$(TARGET)-static: $(TARGET).o
+	$(CXX) $^ $(LD_FLAGS) -static -o $@
+
 ASM:$(TARGET).asm
 
 SO:$(TARGET).so
