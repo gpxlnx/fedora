@@ -49,6 +49,8 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 all:$(TARGET)
 
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS
+
 depend:.depend
 
 .depend:$(SRCS)
