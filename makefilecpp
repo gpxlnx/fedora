@@ -12,7 +12,8 @@ MEM_SANITIZERS_CC= -g -fsanitize=memory -fno-omit-frame-pointer
 MEM_SANITIZERS_LD= -g -fsanitize=memory
 UB_SANITIZERS_CC= -g -fsanitize=undefined -fno-omit-frame-pointer
 UB_SANITIZERS_LD= -g -fsanitize=undefined
-BUILD_MODE?=
+# BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
+BUILD_MODE?=RELEASE
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CXX), g++)
@@ -59,11 +60,17 @@ depend:.depend
 .cpp.o:
 	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
+%.odbg:%.cpp
+	$(CXX) $(CXX_FLAGS) -g -c $< -o $@
+
 $(TARGET): $(TARGET).o
 	$(CXX) $^ $(LD_FLAGS) -o $@
 
 $(TARGET)-static: $(TARGET).o
 	$(CXX) $^ $(LD_FLAGS) -static -o $@
+
+$(TARGET)-dbg: $(TARGET).odbg
+	$(CXX) $^ $(LD_FLAGS) -g -o $@
 
 ASM:$(TARGET).asm
 
