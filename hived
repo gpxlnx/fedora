@@ -86,6 +86,22 @@ def vocalize(sound):
     subprocess.call([os.path.expanduser("~")+"/scripts/voice.sh", sound])
     #subprocess.call(["./voice.sh " + sound])
 
+def trim(num, dig):
+    from math import log10, floor, ceil
+    power = ceil(log10(num))
+    power = dig - power
+    result = int(num * pow(10, power))
+    count = ceil(log10(result))
+    digits = list(str(result))
+    if power>ceil(log10(num)):
+        for i in range(0, abs(power)-count): digits.insert(0, "0")
+        digits.insert(ceil(log10(num)) if log10(num) > 0 else 0, ".")
+    elif power<0:
+        for i in range(0, abs(power)): digits.insert(len(digits), "0")
+    else:
+        digits.insert(-abs(power) + count, ".")
+    return("".join(digits))
+
 def highpercentdump(number):
         dic_7d = {}
         dic_7d_sorted = {}
@@ -304,7 +320,7 @@ def highpercentdump_bot():
 
 def com_name(name):
     res = get_info_w_name(api_url_base, name)
-    if res is not None: print(res[0]['price_usd'])
+    if res is not None: print(trim(float(res[0]['price_usd']),4))
 
 def com_cap(name):
         res = get_info_w_name(api_url_base, name)

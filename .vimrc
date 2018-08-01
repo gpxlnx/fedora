@@ -279,7 +279,7 @@ au BufEnter,FileType *.wat set syntax=wast
 au BufNewFile,BufEnter *.py set tabstop=4
 au BufNewFile,BufEnter *.py set softtabstop=4
 au BufNewFile,BufEnter *.py set shiftwidth=4
-au BufNewFile,BufEnter *.py set textwidth=79
+"au BufNewFile,BufEnter *.py set textwidth=79
 au BufNewFile,BufEnter *.py set expandtab
 au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
@@ -401,6 +401,10 @@ hi def InterestingWord3 ctermfg=16 ctermbg=121
 hi def InterestingWord4 ctermfg=16 ctermbg=137
 hi def InterestingWord5 ctermfg=16 ctermbg=211
 hi def InterestingWord6 ctermfg=16 ctermbg=195
+hi def InterestingWord7 ctermfg=16 ctermbg=99
+hi def InterestingWord8 ctermfg=16 ctermbg=35
+hi def InterestingWord9 ctermfg=16 ctermbg=57
+hi def InterestingWord0 ctermfg=16 ctermbg=39
 
 " Steve Losh's highlight function
 function HighInterestingWord(n)
@@ -420,6 +424,10 @@ nnoremap <silent> <leader>3 :call HighInterestingWord(3)<cr>
 nnoremap <silent> <leader>4 :call HighInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HighInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HighInterestingWord(6)<cr>
+nnoremap <silent> <leader>6 :call HighInterestingWord(7)<cr>
+nnoremap <silent> <leader>6 :call HighInterestingWord(8)<cr>
+nnoremap <silent> <leader>6 :call HighInterestingWord(9)<cr>
+nnoremap <silent> <leader>6 :call HighInterestingWord(0)<cr>
 
 " scratchpad
 let g:scratchpad_path = '.scratchpads'
