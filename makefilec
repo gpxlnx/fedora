@@ -12,8 +12,11 @@ MEM_SANITIZERS_CC= -g -fsanitize=memory -fno-omit-frame-pointer
 MEM_SANITIZERS_LD= -g -fsanitize=memory
 UB_SANITIZERS_CC= -g -fsanitize=undefined -fno-omit-frame-pointer
 UB_SANITIZERS_LD= -g -fsanitize=undefined
+COV_CC= -fprofile-instr-generate -fcoverage-mapping
+COV_LD= -fprofile-instr-generate
 # BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
 BUILD_MODE?=RELEASE
+OBJ_LIST:=$(patsubst %.c, %.o, $(wildcard *.c))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CC), gcc)
@@ -49,7 +52,7 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 all:$(TARGET)
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov
 
 depend:.depend
 
@@ -65,6 +68,9 @@ depend:.depend
 %.odbg:%.c
 	$(CC) $(CC_FLAGS) -g -c $< -o $@
 
+%.ocov:%.c
+	$(CC) $(CC_FLAGS) $(COV_CC) -c $< -o $@
+
 $(TARGET): $(TARGET).o
 	$(CC) $^ $(LD_FLAGS) -o $@
 
@@ -73,6 +79,13 @@ $(TARGET)-static: $(TARGET).o
 
 $(TARGET)-dbg: $(TARGET).odbg
 	$(CC) $^ $(LD_FLAGS) -g -o $@
+
+$(TARGET)-cov: $(TARGET).ocov
+	$(CC) $^ $(LD_FLAGS) $(COV_LD) -o $@
+
+cov:
+	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
+	@llvm-cov show $(TARGET)-cov -instr-profile=default.profdata
 
 ASM:$(TARGET).asm
 
@@ -97,10 +110,10 @@ $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
 
 clean:
-	rm -f *.o *.odbg *~ $(TARGET) $(TARGET).so $(TARGET).asm $(TARGET)-static $(TARGET)-dbg $(TARGET).a
+	rm -f *.o *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET).asm $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 
 deepclean:
-	rm -f *.o *.odbg *~ $(TARGET) $(TARGET).so $(TARGET).asm tags $(TARGET)-static $(TARGET)-dbg $(TARGET).a
+	rm -f *.o *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET).asm tags $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 	rm .depend
 
 help:
@@ -112,6 +125,8 @@ help:
 	@echo "--$(TARGET) builds the dynamically-linked executable"
 	@echo "--$(TARGET)-dbg will generate the debug build. BUILD_MODE should be set to DEBUG to work"
 	@echo "--$(TARGET)-static will statically link the executable to the libraries"
+	@echo "--$(TARGET)-cov is the coverage build"
+	@echo "--cov will print the coverage report"
 	@echo "--A will build the static library"
 	@echo "--TAGS will build the tags file"
 	@echo "--clean"
