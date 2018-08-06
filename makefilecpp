@@ -1,3 +1,4 @@
+SHELL?=bash
 TARGET=main
 CXX=clang++
 CXX?=clang++
@@ -59,6 +60,8 @@ depend:.depend
 .depend:$(SRCS)
 	rm -rf .depend
 	$(CXX) -MM $(CXX_FLAGS) $^ > ./.depend
+	echo $(patsubst %.o:, %.odbg:, $(shell $(CXX) -MM $(CXX_FLAGS) $^)) >> ./.depend
+	echo $(patsubst %.o:, %.ocov:, $(shell $(CXX) -MM $(CXX_FLAGS) $^)) >> ./.depend
 
 -include ./.depend
 
