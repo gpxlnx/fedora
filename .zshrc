@@ -266,6 +266,7 @@ function nnpurge {
 }
 
 bindkey -v
+export KEYTIMEOUT=1
 export VIRTUAL_ENV_DISABLE_PROMPT=yes
 
 #nvm
@@ -274,3 +275,7 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 
 # OPAM configuration
 . /home/bloodstalker/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# make normal mode the default mode
+# zle-line-init() {zle -K vicmd;}
+# zle -N zle-line-init

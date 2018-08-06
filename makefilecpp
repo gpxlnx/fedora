@@ -87,6 +87,10 @@ cov:
 	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
 	@llvm-cov show $(TARGET)-cov -instr-profile=default.profdata
 
+covrep:
+	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
+	@llvm-cov report $(TARGET)-cov -instr-profile=default.profdata
+
 ASM:$(TARGET).asm
 
 SO:$(TARGET).so
@@ -126,7 +130,8 @@ help:
 	@echo "--$(TARGET)-dbg will generate the debug build. BUILD_MODE should be set to DEBUG to work"
 	@echo "--$(TARGET)-static will statically link the executable to the libraries"
 	@echo "--$(TARGET)-cov is the coverage build"
-	@echo "--cov will print the coverage report"
+	@echo "--cov will print the line coverage report"
+	@echo "--covrep will print the coverage report"
 	@echo "--A will build the static library"
 	@echo "--TAGS will build the tags file"
 	@echo "--clean"
