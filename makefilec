@@ -1,3 +1,4 @@
+SHELL=bash
 SHELL?=bash
 TARGET=main
 CC=clang
@@ -18,6 +19,7 @@ COV_LD= -fprofile-instr-generate
 # BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
 BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.c, %.o, $(wildcard *.c))
+ASM_LIST:=$(patsubst %.c, %.asm, $(wildcard *.c))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CC), gcc)
@@ -60,8 +62,8 @@ depend:.depend
 .depend:$(SRCS)
 	rm -rf .depend
 	$(CC) -MM $(CC_FLAGS) $^ > ./.depend
-	echo $(patsubst %.o:, %.odbg:, $(shell $(CC) -MM $(CC_FLAGS) $^)) >> ./.depend
-	echo $(patsubst %.o:, %.ocov:, $(shell $(CC) -MM $(CC_FLAGS) $^)) >> ./.depend
+	echo $(patsubst %.o:, %.odbg:, $(shell $(CC) -MM $(CC_FLAGS) $^)) | sed -r 's/[a-z0-9\-\_]+\.odbg/\n&/g' >> ./.depend
+	echo $(patsubst %.o:, %.ocov:, $(shell $(CC) -MM $(CC_FLAGS) $^)) | sed -r 's/[a-z0-9\-\_]+\.ocov/\n&/g' >> ./.depend
 
 -include ./.depend
 
@@ -94,7 +96,7 @@ covrep:
 	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
 	@llvm-cov report $(TARGET)-cov -instr-profile=default.profdata
 
-ASM:$(TARGET).asm
+ASM:$(ASM_LIST)
 
 SO:$(TARGET).so
 
@@ -107,8 +109,8 @@ tags:$(SRCS)
 		sed -e 's/[\\ ]/\n/g'|sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d'|\
 		ctags -L - --c++-kinds=+p --fields=+iaS --extra=+q)
 
-$(TARGET).asm: $(TARGET).o
-	objdump -r -d -M intel -S $(TARGET).o > $(TARGET).asm
+%.asm: %.o
+	objdump -r -d -M intel -S $< > $@
 
 $(TARGET).so: $(TARGET).o
 	$(CC) $^ $(LD_FLAGS) -shared -o $@
