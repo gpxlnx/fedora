@@ -19,7 +19,7 @@ COV_LD= -fprofile-instr-generate
 # BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
 BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.c, %.o, $(wildcard *.c))
-ASM_LIST:=$(patsubst %.c, %.asm, $(wildcard *.c))
+ASM_LIST:=$(patsubst %.c, %.dis, $(wildcard *.c))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CC), gcc)
@@ -109,7 +109,7 @@ tags:$(SRCS)
 		sed -e 's/[\\ ]/\n/g'|sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d'|\
 		ctags -L - --c++-kinds=+p --fields=+iaS --extra=+q)
 
-%.asm: %.o
+%.dis: %.o
 	objdump -r -d -M intel -S $< > $@
 
 $(TARGET).so: $(TARGET).o
@@ -119,10 +119,10 @@ $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
 
 clean:
-	rm -f *.o *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET).asm $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
+	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 
 deepclean:
-	rm -f *.o *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET).asm tags $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
+	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so tags $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 	rm .depend
 
 help:
