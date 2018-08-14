@@ -109,7 +109,7 @@ Plugin 'Konfekt/vim-scratchpad'
 "Plugin 'python-mode/python-mode'
 "Plugin 'hdima/python-syntax'
 Plugin 'tmux-plugins/vim-tmux'
-Plugin 'camelcasemotion'
+"Plugin 'camelcasemotion'
 Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'maralla/vim-toml-enhance'
@@ -424,10 +424,10 @@ nnoremap <silent> <leader>3 :call HighInterestingWord(3)<cr>
 nnoremap <silent> <leader>4 :call HighInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HighInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HighInterestingWord(6)<cr>
-nnoremap <silent> <leader>6 :call HighInterestingWord(7)<cr>
-nnoremap <silent> <leader>6 :call HighInterestingWord(8)<cr>
-nnoremap <silent> <leader>6 :call HighInterestingWord(9)<cr>
-nnoremap <silent> <leader>6 :call HighInterestingWord(0)<cr>
+nnoremap <silent> <leader>7 :call HighInterestingWord(7)<cr>
+nnoremap <silent> <leader>8 :call HighInterestingWord(8)<cr>
+nnoremap <silent> <leader>9 :call HighInterestingWord(9)<cr>
+nnoremap <silent> <leader>0 :call HighInterestingWord(0)<cr>
 
 " scratchpad
 let g:scratchpad_path = '.scratchpads'
@@ -532,7 +532,7 @@ let s:compiler_explorer_std_c_hdrs = ["#include <assert.h>\r", "#include <comple
       \"#include <ctype.h>\r","#include <errno.h>\r","#include <fenv.h>\r","#include <float.h>\r",
       \"#include <inttypes.h>\r","#include <iso646.h>\r","#include <limits.h>\r","#include <locale.h>\r",
       \"#include <math.h>\r","#include <setjmp.h>\r","#include <signal.h>\r","#include <stdalign.h>\r",
-      \"#include <stdarg.h>\r","#include <stdatomic.h>\r","#include <stdbool.h>\r","#include <stddef.h>\r",
+      \"#include <stdarg.h>\r","#include <stdbool.h>\r","#include <stddef.h>\r",
       \"#include <stdint.h>\r","#include <stdio.h>\r","#include <stdlib.h>\r","#include <stdnoreturn.h>\r",
       \"#include <string.h>\r","#include <tgmath.h>\r","#include <time.h>\r","#include <uchar.h>\r",
       \"#include <wchar.h>\r","#include <wctype.h>\r"]
@@ -561,9 +561,9 @@ function! s:compiler_explorer()
   "echom temp_file
 
   if &filetype == "c"
-    "call writefile(s:compiler_explorer_std_c_hdrs, temp_file, "a")
+    call writefile(s:compiler_explorer_std_c_hdrs, temp_file, "a")
   elseif &filetype == "cpp"
-    "call writefile(s:compiler_explorer_std_cpp_hdrs, temp_file, "a")
+    call writefile(s:compiler_explorer_std_cpp_hdrs, temp_file, "a")
   endif
   "let headers = split(join(header_list, "\r"))
   "call writefile(headers, temp_file, "a")

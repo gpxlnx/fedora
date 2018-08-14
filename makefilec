@@ -1,6 +1,6 @@
+TARGET=main
 SHELL=bash
 SHELL?=bash
-TARGET=main
 CC=clang
 CC?=clang
 CC_FLAGS=-fpic
