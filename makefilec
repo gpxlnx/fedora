@@ -119,7 +119,7 @@ $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
 
 valgrind:
-	valgrind --leak-check=yes $(TARGET)
+	- valgrind --leak-check=yes $(TARGET)
 
 clean:
 	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov

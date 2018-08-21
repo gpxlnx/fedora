@@ -17,7 +17,7 @@ function JSON_POST_req(data,options) {
 function compiler_explorer(path, options) {
   read_C_source(path).then(data=>
     JSON_POST_req(data, options)).then(post_arg=>
-    fetch("https://godbolt.org/api/compiler/g63/compile", post_arg)).then(res=>
+    fetch("https://godbolt.org/api/compiler/g82/compile", post_arg)).then(res=>
     res.text()).then(body=>
       console.log(body.split("\n").slice(1,body.split("\n").length).join("\n"))).catch(error=>
         compiler_explorer(path, options))

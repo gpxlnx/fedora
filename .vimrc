@@ -551,7 +551,7 @@ let s:compiler_explorer_std_cpp_hdrs = ["#include <cstdlib>\r","#include <csigna
       \"#include <cmath>\r","#include <complex>\r","#include <valarray>\r","#include <random>\r",
       \"#include <numeric>\r","#include <ratio>\r","#include <cfenv>\r","#include <iosfwd>\r",
       \"#include <ios>\r","#include <istream>\r","#include <ostream>\r","#include <iostream>\r",
-      \"#include <fstream>\r","#include <sstream>\r","#include <strstream>\r","#include <iomanip>\r",
+      \"#include <fstream>\r","#include <sstream>\r","#include <iomanip>\r",
       \"#include <streambuf>\r","#include <cstdio>\r","#include <locale>\r","#include <clocale>\r",
       \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
       \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
@@ -568,8 +568,8 @@ function! s:compiler_explorer()
   "let headers = split(join(header_list, "\r"))
   "call writefile(headers, temp_file, "a")
   "call writefile(["fuck you"], temp_file, "a")
-  let fuck_list = ["#include <fcntl.h>\r", "#include <inttypes.h>\r", "#include <stdio.h>\r", "#include <stdlib.h>\r", "#include <unistd.h>\r"]
-  call writefile(fuck_list, temp_file, "a")
+  "let fuck_list = ["#include <fcntl.h>\r", "#include <inttypes.h>\r", "#include <stdio.h>\r", "#include <stdlib.h>\r", "#include <unistd.h>\r"]
+  "call writefile(fuck_list, temp_file, "a")
 
   let source_code = s:get_visual_selection()
   "echom source_code
