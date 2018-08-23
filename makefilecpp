@@ -118,7 +118,10 @@ $(TARGET).so: $(TARGET).o
 $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
 
-valgrind:
+runcov: $(TARGET)-cov
+	$(TARGET)-cov
+
+valgrind: $(TARGET)
 	- valgrind --leak-check=yes $(TARGET)
 
 clean:
