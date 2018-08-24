@@ -142,7 +142,7 @@ help:
 	@echo "--$(TARGET)-static will statically link the executable to the libraries"
 	@echo "--$(TARGET)-cov is the coverage build"
 	@echo "--cov will print the coverage report"
-	@echo "--covrep will print the coverage report"
+	@echo "--covrep will print the line coverage report"
 	@echo "--A will build the static library"
 	@echo "--TAGS will build the tags file"
 	@echo "--clean"
