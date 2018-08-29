@@ -128,7 +128,7 @@ clean:
 	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 
 deepclean: clean
-	rm tags
+	if [[ -d tags ]];then rm tags;fi
 	rm .depend
 
 help:
