@@ -249,6 +249,12 @@ function dig {
   fi
 }
 
+function clearhalf {
+  size=$(stty size|gawk '{print$1}')
+  size=$(($size/2))
+  tput cup $size 0 && tput ed
+}
+
 function nn {
   echo $1 >> ~/.devi/notes.txt
 }
