@@ -40,6 +40,9 @@ class Argparser(object):
         self.parser.add_argument("--dy", type=int, help="lazy")
         self.parser.add_argument("--demon", action="store_true", help="daemon mode", default=False)
         self.parser.add_argument("--al1", action="store_true", help="alert1", default=False)
+        self.parser.add_argument("--al2", action="store_true", help="alert2", default=False)
+        self.parser.add_argument("--al3", action="store_true", help="alert3", default=False)
+        self.parser.add_argument("--al4", action="store_true", help="alert4", default=False)
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
         self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
         self.parser.add_argument("--tg", action="store_true", help="tg", default=False)
@@ -312,8 +315,29 @@ def alert_1():
     res1 = get_info_w_name(api_url_base, "dogecoin")[0]["price_usd"]
     res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
     value = 575000
-    #if value*float(res1)/float(res2) > 4: print("A1")
     print("%.2f" %(value*float(res1)/float(res2)))
+    if value*float(res1)/float(res2) < 2: vocalize("./mila/alert_1.ogg")
+
+def alert_2():
+    res1 = get_info_w_name(api_url_base, "golem")[0]["price_usd"]
+    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    value = 1765
+    print("%.2f" %(value*float(res1)/float(res2)))
+    if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_2.ogg")
+
+def alert_3():
+    res1 = get_info_w_name(api_url_base, "aragon")[0]["price_usd"]
+    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    value = 196
+    print("%.2f" %(value*float(res1)/float(res2)))
+    if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_3.ogg")
+
+def alert_4():
+    res1 = get_info_w_name(api_url_base, "siacoin")[0]["price_usd"]
+    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    value = 35695
+    print("%.2f" %(value*float(res1)/float(res2)))
+    if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_4.ogg")
 
 def highpercentdump_bot():
     return highpercentdump(22)
@@ -460,6 +484,12 @@ def premain(argparser):
                     com_ava(argparser)
                 if argparser.args.al1:
                     alert_1()
+                if argparser.args.al2:
+                    alert_2()
+                if argparser.args.al3:
+                    alert_3()
+                if argparser.args.al4:
+                    alert_4()
                 if argparser.args.avass:
                     com_avass(argparser)
                 if argparser.args.cglistall:
