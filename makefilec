@@ -1,4 +1,4 @@
-TARGET=main
+TARGET?=main
 SHELL=bash
 SHELL?=bash
 CC=clang
@@ -46,6 +46,7 @@ EXTRA_LD_FLAGS+=$(UB_SANITIZERS_LD)
 endif
 
 SRCS:=$(wildcard *.c)
+HDRS:=$(wildcard *.h)
 CC_FLAGS+=$(CC_EXTRA)
 LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
@@ -77,22 +78,22 @@ depend:.depend
 	$(CC) $(CC_FLAGS) $(COV_CC) -c $< -o $@
 
 $(TARGET): $(TARGET).o
-	$(CC) $^ $(LD_FLAGS) -o $@
+	$(CC) $(LD_FLAGS) $^ -o $@
 
 $(TARGET)-static: $(TARGET).o
-	$(CC) $^ $(LD_FLAGS) -static -o $@
+	$(CC) $(LD_FLAGS) $^ -static -o $@
 
 $(TARGET)-dbg: $(TARGET).odbg
-	$(CC) $^ $(LD_FLAGS) -g -o $@
+	$(CC) $(LD_FLAGS) $^ -g -o $@
 
 $(TARGET)-cov: $(TARGET).ocov
-	$(CC) $^ $(LD_FLAGS) $(COV_LD) -o $@
+	$(CC) $(LD_FLAGS) $^ $(COV_LD) -o $@
 
-cov:
+cov:runcov
 	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
 	@llvm-cov show $(TARGET)-cov -instr-profile=default.profdata
 
-covrep:
+covrep: runcov
 	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
 	@llvm-cov report $(TARGET)-cov -instr-profile=default.profdata
 
@@ -113,7 +114,7 @@ tags:$(SRCS)
 	objdump -r -d -M intel -S $< > $@
 
 $(TARGET).so: $(TARGET).o
-	$(CC) $^ $(LD_FLAGS) -shared -o $@
+	$(CC) $(LD_FLAGS) $^ -shared -o $@
 
 $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
@@ -123,6 +124,9 @@ runcov: $(TARGET)-cov
 
 valgrind: $(TARGET)
 	- valgrind --leak-check=yes $(TARGET)
+
+format:
+	- clang-format -i $(SRCS) $(HDRS)
 
 clean:
 	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov

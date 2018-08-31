@@ -254,6 +254,9 @@ function clearhalf {
   size=$(($size/2))
   tput cup $size 0 && tput ed
 }
+alias cleanhalf="clearhalf"
+alias halfclear="clearhalf"
+alias halfclean="clearhalf"
 
 function nn {
   echo $1 >> ~/.devi/notes.txt

@@ -1,4 +1,4 @@
-TARGET=main
+TARGET?=main
 SHELL=bash
 SHELL?=bash
 CXX=clang++
@@ -46,6 +46,7 @@ EXTRA_LD_FLAGS+=$(UB_SANITIZERS_LD)
 endif
 
 SRCS:=$(wildcard *.cpp)
+HDRS:=$(wildcard *.h)
 CXX_FLAGS+=$(CXX_EXTRA)
 LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
@@ -77,16 +78,16 @@ depend:.depend
 	$(CXX) $(CXX_FLAGS) $(COV_CXX) -c $< -o $@
 
 $(TARGET): $(TARGET).o
-	$(CXX) $^ $(LD_FLAGS) -o $@
+	$(CXX) $(LD_FLAGS) $^ -o $@
 
 $(TARGET)-static: $(TARGET).o
-	$(CXX) $^ $(LD_FLAGS) -static -o $@
+	$(CXX) $(LD_FLAGS) $^ -static -o $@
 
 $(TARGET)-dbg: $(TARGET).odbg
-	$(CXX) $^ $(LD_FLAGS) -g -o $@
+	$(CXX) $(LD_FLAGS) $^ -g -o $@
 
 $(TARGET)-cov: $(TARGET).ocov
-	$(CXX) $^ $(LD_FLAGS) $(COV_LD) -o $@
+	$(CXX) $(LD_FLAGS) $^ $(COV_LD) -o $@
 
 cov:
 	@llvm-profdata merge -sparse ./default.profraw -o ./default.profdata
@@ -113,7 +114,7 @@ tags:$(SRCS)
 	objdump -r -d -M intel -S $< > $@
 
 $(TARGET).so: $(TARGET).o
-	$(CXX) $^ $(LD_FLAGS) -shared -o $@
+	$(CXX) $(LD_FLAGS) $^ -shared -o $@
 
 $(TARGET).a: $(TARGET).o
 	ar rcs $(TARGET).a $(TARGET).o
@@ -123,6 +124,9 @@ runcov: $(TARGET)-cov
 
 valgrind: $(TARGET)
 	- valgrind --leak-check=yes $(TARGET)
+
+format:
+	- clang-format -i $(SRCS) $(HDRS)
 
 clean:
 	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
