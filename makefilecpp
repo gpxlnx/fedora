@@ -132,8 +132,8 @@ clean:
 	rm -f *.o *.dis *.odbg *.ocov *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 
 deepclean: clean
-	if [[ -d tags ]];then rm tags;fi
-	rm .depend
+	- rm tags
+	- rm .depend
 
 help:
 	@echo "--all is the default target, runs $(TARGET) target"
