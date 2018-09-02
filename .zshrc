@@ -153,6 +153,7 @@ alias nuke="rm -rf * .[!.]* ..?*"
 alias lynx="lynx -lss ~/scripts/lynx.lss -prettysrc "
 alias bruiser="bruiser --history ~/.bruiser/history.lua"
 alias digg="dig && clear"
+alias ogg="ogg123"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -205,8 +206,8 @@ function fixtheme {
 }
 
 export PATH=$PATH:/home/bloodstalker/extra/cov-analysis-linux64-8.5.0.5/bin
-export PATH=:$PATH:/home/bloodstalker/extra/llvm-6/build/bin
-#export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
+#export PATH=:$PATH:/home/bloodstalker/extra/llvm-6/build/bin
+export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
 export PATH=:$PATH:/home/bloodstalker/arcanist/arcanist/bin
 export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole58/solidity_0.4.18/build/solc
 export PATH=:$PATH:/home/bloodstalker/binaryen/bin

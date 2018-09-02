@@ -9,11 +9,14 @@ import sys
 import csv
 import socket
 import time
+import threading
 import atexit
 import signal
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
+sys.path.insert(0, "/home/bloodstalker/extra/seer/seer.py")
+from seer import launch_ais
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
@@ -46,6 +49,7 @@ class Argparser(object):
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
         self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
         self.parser.add_argument("--tg", action="store_true", help="tg", default=False)
+        self.parser.add_argument("--ai", action="store_true", help="which ai to launch", default=False)
 
     def parse(self, argv):
         self.args, self.rest = self.parser.parse_known_args(argv)
@@ -210,6 +214,30 @@ def highpercentdump(number):
             one.append("\n")
 
         return one
+
+class Void_Spawner(object):
+    __metalclass__ = ABCMeta
+
+    def __init__(self):
+        thread = threading.Thread(target=self.run, args=())
+        thread.daemon = True
+        thread.start()
+
+    @abstractmethod
+    def run(self):
+        pass
+
+class V_Spawn_cnn(Void_Spawner):
+    def run(self):
+        launch_ais("cnn_type_1")
+
+class V_Spawn_ltsm(Void_Spawner):
+    def run(self):
+        launch_ais("ltsm_type_2")
+
+class V_Spawn_marionette(Void_Spawner):
+    def run(self):
+        launch_ais("marionette_type_1")
 
 class Demon_Father:
     __metalclass__ = ABCMeta
@@ -510,14 +538,14 @@ def premain(argparser):
                     connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
         except Exception as e:
-            #time.sleep(60)
             vocalize("./mila/hiveexcept.ogg")
-            print(e.__doc__)
-            if e.message: print(e.messasge)
+            time.sleep(120)
+            #print(e.__doc__)
+            #if e.message: print(e.messasge)
         finally:
             #time.sleep(60)
             vocalize("./mila/hivedown.ogg")
-            #if demon: sock.close()
+            if demon: sock.close()
 
 def main():
     argparser = Argparser()
