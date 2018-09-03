@@ -15,7 +15,7 @@ import signal
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
-sys.path.insert(0, "/home/bloodstalker/extra/seer/seer.py")
+sys.path.insert(0, "/home/bloodstalker/extra/seer/")
 from seer import launch_ais
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
@@ -539,6 +539,7 @@ def premain(argparser):
                 sys.stdout = old_stdout
         except Exception as e:
             vocalize("./mila/hiveexcept.ogg")
+            sock.close()
             time.sleep(120)
             #print(e.__doc__)
             #if e.message: print(e.messasge)
