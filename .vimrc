@@ -129,6 +129,7 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/DoxyGen-Syntax'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
+Plugin 'szymonmaszke/vimpyter'
 
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.

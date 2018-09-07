@@ -154,6 +154,7 @@ alias lynx="lynx -lss ~/scripts/lynx.lss -prettysrc "
 alias bruiser="bruiser --history ~/.bruiser/history.lua"
 alias digg="dig && clear"
 alias ogg="ogg123"
+alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' --port=8775"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile

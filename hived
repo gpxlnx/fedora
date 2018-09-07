@@ -16,7 +16,13 @@ from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
 sys.path.insert(0, "/home/bloodstalker/extra/seer/")
+shut_up = sys.stdout
+seriously = sys.stderr
+sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+sys.stderr = TextIOWrapper(BytesIO(), sys.stdout.encoding)
 from seer import launch_ais
+sys.stdout = shut_up
+sys.stderr = seriously
 
 api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
