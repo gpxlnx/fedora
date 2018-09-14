@@ -30,4 +30,3 @@ map <F13> <S-F10>
 map! <F13> <S-F10>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
-
