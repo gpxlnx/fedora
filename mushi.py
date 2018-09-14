@@ -42,7 +42,7 @@ def premain(argparser):
         print("".join(out2))
     finally:
         pass
-        #sock.close()
+        sock.close()
 
 def main(argv):
     argparser = Argparser()

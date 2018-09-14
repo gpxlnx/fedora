@@ -26,7 +26,7 @@ end
 
 function on_msg_receive(msg)
   local socket = require("socket")
-  local host, port = "localhost", "11111"
+  local host, port = "localhost", 11111
   local tcp = assert(socket.tcp())
   tcp:connect(host, port)
   get_contact_list(ok_cb, false)
@@ -60,6 +60,6 @@ function on_msg_receive(msg)
     end
     return
   end
-  safe_quit()
   tcp:close()
+  safe_quit()
 end

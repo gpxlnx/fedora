@@ -491,11 +491,11 @@ def premain(argparser):
                     new_argv = command.decode("utf-8").split(" ")
                     argparser.parse(new_argv)
                     if (command.decode("utf-8")).find("Mahsa") != -1: tg_u = True
-                    else: tg_u = False
+                    if (command.decode("utf-8")).find("ashaM") != -1: tg_u = False
                     old_stdout = sys.stdout
                     sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
                 if argparser.args.tg:
-                    if (tg_u): print("M")
+                    if tg_u == True: print("M")
                     else: print("W")
                 if argparser.args.demon:
                     demon = Demon()
@@ -552,7 +552,9 @@ def premain(argparser):
         finally:
             #time.sleep(60)
             vocalize("./mila/hivedown.ogg")
-            if demon: sock.close()
+            if demon:
+                sock.shutdown(socket.SHUT_RDWR)
+                sock.close()
 
 def main():
     argparser = Argparser()
