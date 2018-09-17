@@ -167,19 +167,12 @@ filetype plugin indent on    " required
 
 " indent line options
 let g:indentLine_setColors = 20
-
 let g:indentLine_enabled = 1
-
 let g:indentLine_char = '┊'
-
 let g:indentLine_showFirstIndentLevel = 1
-
 let g:indentLine_leadingSpaceEnabled = 1
-
 let g:indentLine_maxLines = 100
-
 let g:indentLine_indentLevel = 6
-
 let g:indentLine_leadingSpaceChar = '.'
 
 "set conceallevel=1
@@ -208,17 +201,28 @@ let g:ConquerTerm_StartMessage = 0
 
 "set syntax=cpp.doxygen
 
+colo jellybeans
 let g:gruvbox_italics = 1
 let g:jellybeans_overrides = {
-\    'background': { '256ctermbg': '000000' },
+\    'Todo': { 'guifg': '000000', 'guibg': '00cc00',
+\              'ctermfg': 'Black', 'ctermbg': 'Blue',
+\              'attr': 'bold' },
+\    'Comment': { 'guifg': '339966' },
+\    'background': { 'guibg': '000000', "ctermbg": "None" },
+\    'Type': {'guifg': 'cc9966' },
+\    'StorageClass': {"guifg": '9966ff' },
+\    'Exception': {"guifg": "99cc00"},
+\    "Ignore": {"guifg": "336699"},
+\    "SpecialComment": {"guifg": "009900"},
+\    "Macro": {"guifg": "0099cc"}
 \}
-
 let g:jellybeans_use_term_italics = 1
+:hi Normal ctermbg=None
+"set background=dark
 
 syntax on
 let python_highlight_all = 1
 
-colo jellybeans
 
 " n00b stuff
 nmap <Backspace> <Nop>
@@ -264,7 +268,7 @@ au BufRead,BufNewFile *.zsh-theme set filetype=zsh
 au BufEnter,FileType cpp set syntax=cpp.doxygen
 au BufEnter,FileType c set syntax=cpp.doxygen
 " elm autocommands
-au BufNewFile,BufEnter *.elm colorscheme iceberg
+" au BufNewFile,BufEnter *.elm colorscheme iceberg
 au BufEnter * IndentLinesReset
 au BufNewFile,BufEnter *.s set ft=nasm
 au BufEnter * RainbowParenthesesActivate
