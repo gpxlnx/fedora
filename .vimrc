@@ -130,6 +130,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/DoxyGen-Syntax'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'szymonmaszke/vimpyter'
+Plugin 'fatih/vim-go'
+Plugin 'junegunn/goyo.vim'
+Plugin 'amix/vim-zenroom2'
 
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
