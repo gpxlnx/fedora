@@ -138,6 +138,7 @@ deepclean: clean
 	- rm tags
 	- rm .depend
 	- rm ./default.profraw
+	- rm vgcore.*
 
 help:
 	@echo "--all is the default target, runs $(TARGET) target"
