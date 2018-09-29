@@ -126,7 +126,7 @@ test: $(TARGET)
 	$(TARGET)
 
 valgrind: $(TARGET)
-	- valgrind --leak-check=yes $(TARGET)
+	- valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all $(TARGET)
 
 format:
 	- clang-format -i $(SRCS) $(HDRS)
