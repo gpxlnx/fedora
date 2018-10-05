@@ -20,6 +20,8 @@ COV_LD= -fprofile-instr-generate
 BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.cpp, %.o, $(wildcard *.cpp))
 ASM_LIST:=$(patsubst %.cpp, %.dis, $(wildcard *.cpp))
+WASM_LIST:=$(patsubst %.cpp, %.wasm, $(wildcard *.cpp))
+JS_LIST:=$(patsubst %.cpp, %.js, $(wildcard *.cpp))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CXX), g++)
@@ -52,11 +54,11 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS
+.PHONY:all clean help ASM SO TAGS WASM JS
 
 all:$(TARGET)
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS
 
 depend:.depend
 
@@ -103,6 +105,10 @@ SO:$(TARGET).so
 
 A:$(TARGET).a
 
+WASM:$(WASM_LIST)
+
+JS:$(JS_LIST)
+
 TAGS:tags
 
 tags:$(SRCS)
@@ -112,6 +118,12 @@ tags:$(SRCS)
 
 %.dis: %.o
 	objdump -r -d -M intel -S $< > $@
+
+%.wasm: %.cpp
+	$(CXX) --compile $< --target=wasm32-unknown-unknown-wasm --output $@
+
+%.js: %.cpp
+	em++ $< -o $@
 
 $(TARGET).so: $(TARGET).o
 	$(CXX) $(LD_FLAGS) $^ -shared -o $@
