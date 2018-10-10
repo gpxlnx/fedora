@@ -155,6 +155,7 @@ alias bruiser="bruiser --history ~/.bruiser/history.lua"
 alias digg="dig && clear"
 alias ogg="ogg123"
 alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' --port=8775"
+alias mupdf="mupdf -I"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -221,6 +222,7 @@ export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.37.22
 export PATH=:$PATH:/home/bloodstalker/scripts/bin
 export PATH=:$PATH:/home/bloodstalker/extra/android-ndk/android-ndk-r16b
 export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
+export PATH=:$PATH:/home/bloodstalker/extra/phantomjs-2.1.1-linux-i686/bin
 export EDITOR=vim
 
 function dig {

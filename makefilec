@@ -21,7 +21,7 @@ BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.c, %.o, $(wildcard *.c))
 ASM_LIST:=$(patsubst %.c, %.dis, $(wildcard *.c))
 WASM_LIST:=$(patsubst %.c, %.wasm, $(wildcard *.c))
-JS_LIST:=$(patsubst %.c, %.js, $(wildcard *.cpp))
+JS_LIST:=$(patsubst %.c, %.js, $(wildcard *.c))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CC), gcc)
