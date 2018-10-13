@@ -220,7 +220,7 @@ let g:jellybeans_overrides = {
 \    "Macro": {"guifg": "0099cc"}
 \}
 let g:jellybeans_use_term_italics = 1
-:hi Normal ctermbg=None
+"hi Normal ctermbg=None
 "set background=dark
 
 syntax on
@@ -594,3 +594,4 @@ function! s:compiler_explorer()
 endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
+hi Normal ctermbg=None
