@@ -156,6 +156,7 @@ alias digg="dig && clear"
 alias ogg="ogg123"
 alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' --port=8775"
 alias mupdf="/home/bloodstalker/extra/mupdf/build/release/mupdf-x11 -D red -P black -I"
+alias googler="~/extra/googler/googler --colors GKmexy -c us -l en --count 7 --exact "
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
