@@ -1,3 +1,5 @@
+
+hi Normal ctermbg=None
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set showmatch

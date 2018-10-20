@@ -20,7 +20,7 @@ function compiler_explorer(path, options) {
     fetch("https://godbolt.org/api/compiler/g82/compile", post_arg)).then(res=>
     res.text()).then(body=>
       console.log(body.split("\n").slice(1,body.split("\n").length).join("\n"))).catch(error=>
-        compiler_explorer(path, options))
+        console.log(error))
 }
 
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname) + "/ceconfig.json"))
