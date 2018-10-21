@@ -1,5 +1,4 @@
 
-hi Normal ctermbg=None
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set showmatch
@@ -135,6 +134,9 @@ Plugin 'szymonmaszke/vimpyter'
 Plugin 'fatih/vim-go'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
+Plugin 'NLKNguyen/papercolor-theme'
+"Plugin 'justinmk/vim-syntax-extra'
+
 
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
@@ -170,51 +172,15 @@ filetype plugin indent on    " required
 " " see :h vundle for more details or wiki for FAQ
 " " Put your non-Plugin stuff after this line
 
-" indent line options
-let g:indentLine_setColors = 20
-let g:indentLine_enabled = 1
-let g:indentLine_char = '┊'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_maxLines = 100
-let g:indentLine_indentLevel = 6
-let g:indentLine_leadingSpaceChar = '.'
-
-"set conceallevel=1
-let g:indentLine_conceallevel = 1
-
-let g:clang_library_path = '/home/bloodstalker/extra/llvm-6/build/lib'
-
-if &term =~ '256color'
-      " Disable Background Color Erase (BCE) so that color schemes
-      " work properly when Vim is used inside tmux and GNU screen.
-set t_ut=
-endif
-
-" airline options
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'default'
-"let g:airline_theme = "jellybeans"
-
-let g:ConquerTerm_Color = 2
-let g:ConquerTerm_Close = 1
-let g:ConquerTerm_StartMessage = 0
-
-
-"set syntax=cpp.doxygen
-
 colo jellybeans
+set background=dark
 let g:gruvbox_italics = 1
 let g:jellybeans_overrides = {
 \    'Todo': { 'guifg': '000000', 'guibg': '00cc00',
 \              'ctermfg': 'Black', 'ctermbg': 'Blue',
 \              'attr': 'bold' },
 \    'Comment': { 'guifg': '339966' },
-\    'background': { 'guibg': '000000', "ctermbg": "None" },
-\    'Type': {'guifg': 'cc9966' },
+\    'background': { "guibg": "000000", "ctermbg":"none"},
 \    'StorageClass': {"guifg": '9966ff' },
 \    'Exception': {"guifg": "99cc00"},
 \    "Ignore": {"guifg": "336699"},
@@ -223,8 +189,64 @@ let g:jellybeans_overrides = {
 \}
 let g:jellybeans_use_term_italics = 1
 "hi Normal ctermbg=None
-"set background=dark
+"
+if &term =~ '256color'
+      " Disable Background Color Erase (BCE) so that color schemes
+      " work properly when Vim is used inside tmux and GNU screen.
+set t_ut=
+endif
 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+
+hi Normal ctermbg=None
+
+" indent line options
+let g:indentLine_setColors = 20
+let g:indentLine_enabled = 1
+let g:indentLine_char = '┊'
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_maxLines = 50
+let g:indentLine_indentLevel = 5
+let g:indentLine_leadingSpaceChar = '.'
+
+"set conceallevel=1
+let g:indentLine_conceallevel = 1
+
+let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so.8'
+
+" airline options
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline_theme = 'jellybeans'
+function! Airline_Custom()
+  let l:spc = g:airline_symbols.space
+  "let g:airline_section_c = '[%f] [%b][0x%B]'
+  let g:airline_section_z = airline#section#create([
+    \ 'windowswap',
+    \ '%3p%%'.l:spc,
+    \ 'linenr',
+    \ ':%3v'.l:spc,
+    \ '%5o',
+    \ '[%b][0x%B]'
+  \])
+endfunction
+autocmd user AirlineAfterInit call Airline_Custom()
+
+" conqueterm
+let g:ConquerTerm_Color = 2
+let g:ConquerTerm_Close = 1
+let g:ConquerTerm_StartMessage = 0
+
+
+"set syntax=cpp.doxygen
 syntax on
 let python_highlight_all = 1
 
@@ -345,10 +367,14 @@ set timeoutlen=1000 ttimeoutlen=100
 set <F13>=^[[21;2~
 map <F13> <S-F10>
 map! <F13> <S-F10>
-
+"Shift+F9
 set <F14>=^[[20;2~
 map <F14> <S-F9>
 map! <F14> <S-F9>
+"Shift+F5
+set <F15>=^[[15;2~
+map <F15> <S-F5>
+map! <F15> <S-F5>
 
 map <F2> <Plug>(expand_region_expand)
 map <F1> <Plug>(expand_region_shrink)
@@ -380,6 +406,18 @@ let g:syntastic_ocaml_checkers = ['merlin']
 
 " NERDTree
 map <F7> :NERDTreeToggle<CR>
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 
 " solidity ctags - by shuangjj
 let g:tagbar_type_solidity = {
@@ -403,6 +441,9 @@ autocmd BufNewFile,BufRead,BufEnter *.sol let g:DoxygenToolkit_briefTag_pre="@de
 " open-pdf conf
 let g:pdf_convert_on_edit = 1
 let g:pdf_convert_on_read = 1
+
+" startify
+let g:session_autoload="no"
 
 " highlight groups
 hi def InterestingWord1 ctermfg=16 ctermbg=214
@@ -477,6 +518,18 @@ au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" undotree
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
+let g:undotree_WindowLayout = 4
+
+" narrow region
+let g:nrrw_rgn_vert = 1
+let g:nrrw_rgn_resize_window = "relative"
+vnoremap <S-F5> :<C-U>NRV<cr>
 
 "--------------------------------------------------------------------------------------------"
 " LSP registrations
@@ -566,10 +619,10 @@ let s:compiler_explorer_std_cpp_hdrs = ["#include <cstdlib>\r","#include <csigna
       \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
       \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
 " TODO-attach std C/C++ headers to text before sending to server
+"
 function! s:compiler_explorer()
   let temp_file = tempname()
   "echom temp_file
-
   if &filetype == "c"
     call writefile(s:compiler_explorer_std_c_hdrs, temp_file, "a")
   elseif &filetype == "cpp"
@@ -596,4 +649,4 @@ function! s:compiler_explorer()
 endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
-hi Normal ctermbg=None
+
