@@ -157,6 +157,7 @@ alias ogg="ogg123"
 alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' --port=8775"
 alias mupdf="/home/bloodstalker/extra/mupdf/build/release/mupdf-x11 -D red -P black -I"
 alias googler="~/extra/googler/googler --colors GKmexy -c us -l en --count 7 --exact "
+alias ddgr="ddgr --color GKmexy -r us-en -n 15"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -226,6 +227,7 @@ export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
 export PATH=:$PATH:/home/bloodstalker/extra/phantomjs-2.1.1-linux-i686/bin
 export PATH=:$PATH:/home/bloodstalker/rigetti/forest-sdk_2.0.1-linux-barebones
 export EDITOR=vim
+export BROWSER=lynx
 
 function dig {
   globalholecounter=0
