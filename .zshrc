@@ -158,6 +158,7 @@ alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.r
 alias mupdf="/home/bloodstalker/extra/mupdf/build/release/mupdf-x11 -D red -P black -I"
 alias googler="~/extra/googler/googler --colors GKmexy -c us -l en --count 7 --exact "
 alias ddgr="ddgr --color GKmexy -r us-en -n 15"
+alias pirate-get="pirate-get -S ~/magnets/"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -226,6 +227,12 @@ export PATH=:$PATH:/home/bloodstalker/extra/android-ndk/android-ndk-r16b
 export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
 export PATH=:$PATH:/home/bloodstalker/extra/phantomjs-2.1.1-linux-i686/bin
 export PATH=:$PATH:/home/bloodstalker/rigetti/forest-sdk_2.0.1-linux-barebones
+#emscripten
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten/node/8.9.1_64bit/bin
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.38.14
+
 export EDITOR=vim
 export BROWSER=lynx
 

@@ -46,6 +46,7 @@ set ai
 set si
 set wrap
 
+set fillchars+=vert:\ " whitespace signifacant
 " don't use sh
 let g:is_posix = 1
 
@@ -599,7 +600,7 @@ let s:compiler_explorer_std_c_hdrs = ["#include <assert.h>\r", "#include <comple
       \"#include <stdint.h>\r","#include <stdio.h>\r","#include <stdlib.h>\r","#include <stdnoreturn.h>\r",
       \"#include <string.h>\r","#include <tgmath.h>\r","#include <time.h>\r","#include <uchar.h>\r",
       \"#include <wchar.h>\r","#include <wctype.h>\r"]
-let s:compiler_explorer_std_cpp_hdrs = ["#include <cstdlib>\r","#include <csignal>\r","#include <csetjmp>\r",
+let s:compiler_explorer_std_cpp_hdrs = ["#include <algorithm>\r","#include <cstdlib>\r","#include <csignal>\r","#include <csetjmp>\r",
       \"#include <cstdarg>\r","#include <typeinfo>\r","#include <typeindex>\r","#include <type_traits>\r",
       \"#include <bitset>\r","#include <functional>\r","#include <utility>\r","#include <ctime>\r",
       \"#include <chrono>\r","#include <cstddef>\r","#include <initializer_list>\r","#include <tuple>\r",
