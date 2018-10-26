@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 if [ ! -d "$HOME/abbatoir" ]; then
   mkdir abbatoir
