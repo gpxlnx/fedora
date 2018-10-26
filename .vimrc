@@ -1,16 +1,11 @@
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 set showmatch
 set list
-" show existing tab with 2 spaces width
 set tabstop=2
 set conceallevel=0
-" when indenting with '>', use 2 spaces width
 set shiftwidth=2
-" set the swap directory
 set directory^=$HOME/.vim/tmp//
-" " On pressing tab, insert 2 spaces
 set expandtab
 set smarttab
 set autoindent
@@ -18,18 +13,12 @@ set cindent
 set complete=.,w,b,u,t
 set foldmethod=manual
 set nofoldenable
-"reload a file if changed externally
 set autoread
-"make seraches case-sensitive unless they contain uppercase letters
 set ignorecase smartcase
-" show line numbers
 set number
 set numberwidth=5
 set laststatus=2
 set smartcase
-" for faster scrolling
-"set cursorline
-"set cursorcolumn
 set lazyredraw
 set synmaxcol=200
 syntax sync minlines=64
@@ -38,27 +27,18 @@ set relativenumber
 set confirm
 set wildmenu
 set magic
-" no annoying sounds
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-" indentation options
 set ai
 set si
 set wrap
-
 set fillchars+=vert:\ " whitespace signifacant
-" don't use sh
 let g:is_posix = 1
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required
 Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
@@ -138,42 +118,8 @@ Plugin 'fatih/vim-go'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
 Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'justinmk/vim-syntax-extra'
-
-
-" " The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Install L9 and avoid a Naming conflict if you've already installed a
-" " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-"
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" " To ignore plugin indent changes, instead use:
-" "filetype plugin on
-" "
-" " Brief help
-" " :PluginList       - lists configured plugins
-" " :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" " :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-" "
-" " see :h vundle for more details or wiki for FAQ
-" " Put your non-Plugin stuff after this line
+call vundle#end()
+filetype plugin indent on
 
 colo jellybeans
 set background=dark
