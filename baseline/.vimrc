@@ -11,6 +11,7 @@ set ignorecase smartcase
 set lazyredraw
 syntax on
 colo peachpuff
+set directory^=$HOME/.vim/tmp//
 nmap <Backspace> <Nop>
 nmap <Delete> <Nop>
 nmap <Left> <Nop>
