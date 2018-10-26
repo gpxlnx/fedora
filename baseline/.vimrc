@@ -2,8 +2,8 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin "tpope/vim-surround"
-Plugin "easymotion/vim-easymotion"
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 filetype plugin indent on
 
