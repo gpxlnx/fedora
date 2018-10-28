@@ -55,6 +55,7 @@ class Argparser(object):
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
         self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
         self.parser.add_argument("--tg", action="store_true", help="tg", default=False)
+        self.parser.add_argument("--mahsaread", action="store_true", help="mark as read", default=False)
         self.parser.add_argument("--ai", action="store_true", help="which ai to launch", default=False)
 
     def parse(self, argv):
@@ -491,7 +492,7 @@ def premain(argparser):
                     new_argv = command.decode("utf-8").split(" ")
                     argparser.parse(new_argv)
                     if (command.decode("utf-8")).find("Mahsa") != -1: tg_u = True
-                    if (command.decode("utf-8")).find("ashaM") != -1: tg_u = False
+                    #if (command.decode("utf-8")).find("mahsaread") != -1: tg_u = False
                     old_stdout = sys.stdout
                     sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
                 if argparser.args.tg:
@@ -502,6 +503,8 @@ def premain(argparser):
                     demon.start()
                 if argparser.args.name:
                     com_name(argparser.args.name)
+                if argparser.args.mahsaread:
+                    tg_u = False
                 if argparser.args.cap:
                     com_cap(argparser.args.cap)
                 if argparser.args.rank:
