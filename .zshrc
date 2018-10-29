@@ -144,9 +144,9 @@ alias clean="clear"
 alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
 alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
 alias tt="transmission-cli -u 1 -w ~/winshare/"
-alias make="colormake"
-alias gcc="COLORMAKE_COMMAND=gcc colormake"
-alias clang="COLORMAKE_COMMAND=clang colormake"
+#alias make="colormake"
+#alias gcc="COLORMAKE_COMMAND=gcc colormake"
+#alias clang="COLORMAKE_COMMAND=clang colormake"
 alias mv="mv -i"
 alias cp="cp -i"
 alias nuke="rm -rf * .[!.]* ..?*"
@@ -228,10 +228,10 @@ export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
 export PATH=:$PATH:/home/bloodstalker/extra/phantomjs-2.1.1-linux-i686/bin
 export PATH=:$PATH:/home/bloodstalker/rigetti/forest-sdk_2.0.1-linux-barebones
 #emscripten
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten/node/8.9.1_64bit/bin
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.38.14
+#export PATH=:$PATH:/home/bloodstalker/extra/emscripten
+#export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit
+#export PATH=:$PATH:/home/bloodstalker/extra/emscripten/node/8.9.1_64bit/bin
+#export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.38.14
 
 export EDITOR=vim
 export BROWSER=lynx
