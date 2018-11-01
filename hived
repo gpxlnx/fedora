@@ -12,6 +12,7 @@ import time
 import threading
 import atexit
 import signal
+import selectors
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
@@ -471,11 +472,38 @@ def alive():
     print("hived")
 
 def get_socket():
+    # use TCP
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ("localhost", 11111)
+    # we use a numeric address since we don't want to deal with DNS
+    server_address = ("127.0.0.1", 11111)
     sock.bind(server_address)
     sock.listen(15)
+    #sock.setblocking(False)
+    #sel = selectors.DefaultSelector()
+    #sel.register(sock, selectors.EVENT_READ, data=None)
     return sock
+
+def accept_wrapper(sock, sel):
+    conn, addr = sock.accept()
+    conn.setblocking(False)
+    data = types.SimpleNamespace(addr=addr, inb=b"", outb=b"")
+    events = selectors.EVENT_READ | selectors.EVENT_WRITE
+    sel.registet(conn, events, data=data)
+
+def service_connection(key, mask):
+    sock = key.fileobj
+    data = key.data
+    if mask & selectors.EVENT_READ:
+        recv_data = sock.recv(4096)
+        if recv_data:
+            data.outb += recv_data
+        else:
+            sel.unregister(sock)
+            sock.close()
+    if mask & selectors.EVENT_WRITE:
+        if data.outb:
+            sent = sock.send(data.outb)
+            data.outb = data.outb[sent:]
 
 def premain(argparser):
     tg_u = False
@@ -488,10 +516,12 @@ def premain(argparser):
             while True:
                 if demon:
                     connection, client_address = sock.accept()
-                    command = connection.recv(1024)
+                    command = connection.recv(4096)
                     new_argv = command.decode("utf-8").split(" ")
                     argparser.parse(new_argv)
-                    if (command.decode("utf-8")).find("Mahsa") != -1: tg_u = True
+                    if (command.decode("utf-8")).find("Mahsa") != -1:
+                        tg_u = True
+                        vocalize("./mila/newtelegram.ogg")
                     #if (command.decode("utf-8")).find("mahsaread") != -1: tg_u = False
                     old_stdout = sys.stdout
                     sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)

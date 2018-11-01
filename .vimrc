@@ -1,4 +1,5 @@
 set nocompatible
+set completeopt-=preview
 filetype off
 set showmatch
 set list
@@ -120,8 +121,15 @@ Plugin 'fatih/vim-go'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'ludwig/split-manpage.vim'
+Plugin 'raimon49/requirements.txt.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimshell.vim'
 call vundle#end()
 filetype plugin indent on
+
+" vimshell
+let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
 
 colo jellybeans
 set background=dark
@@ -140,11 +148,11 @@ let g:jellybeans_overrides = {
 \}
 let g:jellybeans_use_term_italics = 1
 "hi Normal ctermbg=None
-"
+
+" Disable Background Color Erase (BCE) so that color schemes
+" work properly when Vim is used inside tmux and GNU screen.
 if &term =~ '256color'
-      " Disable Background Color Erase (BCE) so that color schemes
-      " work properly when Vim is used inside tmux and GNU screen.
-set t_ut=
+  set t_ut=
 endif
 
 let g:cpp_class_scope_highlight = 1
@@ -176,6 +184,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#branch#enabled = 1
 "let g:airline_theme = 'jellybeans'
 function! Airline_Custom()
   let l:spc = g:airline_symbols.space

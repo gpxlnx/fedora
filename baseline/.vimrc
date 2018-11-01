@@ -1,4 +1,5 @@
 set nocompatible
+set completeopt-=preview
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
