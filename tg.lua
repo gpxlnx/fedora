@@ -13,7 +13,7 @@ function on_get_difference_end()
 end
 
 function on_our_id(our_id)
-  print("our id is "..our_id)
+  --print("our id is "..our_id)
 end
 
 function on_user_update(user,what_changed)
@@ -51,7 +51,8 @@ function on_secret_chat_update(user,what_changed)
 end
 
 -- this callback is handling the call to dialog_list which is called in on_binlog_replay_end
--- essentially here is where we check how many unread messages we have
+-- essentially here is where we check how many unread messages we have since on_msg_recieve
+-- only handles the messages we newly receive, not older unread ones.
 function ok_cb(extra, success, result)
   for k, v in pairs(result) do
     if v["unread"] ~= 0. then
@@ -67,31 +68,19 @@ function ok_cb(extra, success, result)
   end
 end
 
+-- when we recieve a new message
 function on_msg_receive(msg)
-  print(type(msg))
   for k,v in pairs(msg) do
     print(k, v)
   end
-  --if started == 0 then
-    --return
-  --end
-  --if msg.out then
-    --return
-  --end
-
-  --if (msg.from.print_name == "notifications") then
-    --print("we got something boss.\n")
-  --end
   if (msg.from.print_name ~= "Mahsa") then
     return
   end
-
   local socket = require("socket")
   local host, port = "localhost", 11111
   local tcp = assert(socket.tcp())
   tcp:connect(host, port)
   print(msg.from.print_name)
-  --tcp:send("Mahsa".."\0")
   tcp:send("Mahsa".."\n")
   if (msg.text == 'hey') then
     if (msg.to.id == our_id) then
@@ -101,8 +90,11 @@ function on_msg_receive(msg)
     end
     return
   end
-  --tcp:close()
-  --safe_quit()
+  tcp:close()
+  -- quits telegram-cli
+  -- you would probably wasnt this if you dont want telegram up all the time and
+  -- have set up a cronjob to handle updating your unread messages
+  -- safe_quit()
 end
 
 function send_msg_cb(cb_extra, success, result)
@@ -112,5 +104,4 @@ function postpone_cb(cb_extra, success, result)
 end
 
 function history_cb(msg_list, peer, success, msgs)
-  print("history callback")
 end

@@ -4,7 +4,7 @@ filetype off
 set showmatch
 set list
 set tabstop=2
-set conceallevel=0
+set conceallevel=2
 set shiftwidth=2
 set directory^=$HOME/.vim/tmp//
 set expandtab
@@ -53,7 +53,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'ElmCast/elm-vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'vim-scripts/Conque-GDB'
+"Plugin 'vim-scripts/Conque-GDB'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -83,13 +83,13 @@ Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
-Plugin 'jpalardy/vim-slime'
+"Plugin 'jpalardy/vim-slime'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'JuliaEditorSupport/julia-vim'
+"Plugin 'JuliaEditorSupport/julia-vim'
 "its super slow for some reason
 Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/vim-scratchpad'
@@ -102,7 +102,7 @@ Plugin 'cespare/vim-toml'
 Plugin 'maralla/vim-toml-enhance'
 Plugin 'Valloric/ListToggle'
 Plugin 'racer-rust/vim-racer'
-Plugin 'neomake/neomake'
+"Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'chiel92/vim-autoformat'
 Plugin 'wakatime/vim-wakatime'
@@ -120,17 +120,27 @@ Plugin 'szymonmaszke/vimpyter'
 Plugin 'fatih/vim-go'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
-Plugin 'NLKNguyen/papercolor-theme'
+"Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'ludwig/split-manpage.vim'
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
+Plugin 'hattya/vcs-info.vim'
 call vundle#end()
 filetype plugin indent on
 
 " vimshell
-let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_enable_start_insert = 1
+let g:vimshell_enable_stay_insert = 1
+let g:vimshell_right_prompt = 'vcs_info#all("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_vimshrc_path = expand("~/scripts/.vimshrc")
+let g:vimshell_max_directory_stack = 50
+let g:vimshell_max_command_history = 300
+let g:vimshell_disable_escape_highlight = 0
 
+" jellybeans
 colo jellybeans
 set background=dark
 let g:gruvbox_italics = 1
@@ -201,10 +211,9 @@ endfunction
 autocmd user AirlineAfterInit call Airline_Custom()
 
 " conqueterm
-let g:ConquerTerm_Color = 2
-let g:ConquerTerm_Close = 1
-let g:ConquerTerm_StartMessage = 0
-
+"let g:ConquerTerm_Color = 2
+"let g:ConquerTerm_Close = 1
+"let g:ConquerTerm_StartMessage = 0
 
 "set syntax=cpp.doxygen
 syntax on
@@ -276,40 +285,6 @@ au BufNewFile,BufEnter *.py set expandtab
 au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
 
-"highlight BadWhitespace ctermbg=red
-"au BufRead,BufNewFile,BufEnter *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-"au BufRead,BufNewFile,BufEnter *.py let python_highlight_all=1
-"au BufRead,BufNewFile,BufEnter *.py syntax on
-
-" python-mode options
-"let g:pymode_python = 'python3'
-"let g:pymode_folding = 0
-"let g:pymode_motion = 0
-"let g:pymode_doc = 0
-"let g:pymode_warnings = 0
-"let g:pymode_run = 0
-"let g:pymode_breakpoint = 0
-"let g:pymode_lint = 0
-"let g:pymode_trim_whitespaces = 1
-"let g:pymode_virtualenv = 0
-"let g:pymode_lint_on_write = 0
-"let g:pymode_lint_message = 0
-"let g:pymode_lint_checkers = ['pylint', 'pep8', 'mccabe', 'pep257', 'pyflakes']
-"let g:pymode_lint_checkers = []
-"let g:pymode_syntax = 1
-"let g:pymode_syntax_slow_sync = 1
-"let g:pymode_options = 1
-"let g:pymode_signs = 1
-"let g:pymode_syntax_all = 1
-"let g:pymode_rope = 0
-"let g:pymode_doc = 0
-"let g:pymode_rope_lookup_project = 0
-"let g:pymode_rope_completion = 0
-"let g:pymode_rope_guess_project = 0
-"let g:pymode_rope_complete_on_dot = 0
-"let g:pymode_rope_autoimport_modules = 0
-
 let python_highlight_all = 1
 py << EOF
 import os
@@ -335,21 +310,38 @@ map! <F14> <S-F9>
 set <F15>=^[[15;2~
 map <F15> <S-F5>
 map! <F15> <S-F5>
+"Shift+F1
+set <F16>=^[[1;2P
+map <F16> <S-F1>
+map! <F16> <S-F1>
+"Shift+F2
+set <F17>=^[[1;2Q
+map <F17> <S-F2>
+map! <F17> <S-F2>
+"Shift+F11
+set <F18>=^[[23;2~
+map <F18> <S-F11>
+map! <F18> <S-F11>
+"Shift+F12
+set <F19>=^[[24;2~
+map <F19> <S-F12>
+map! <F19> <S-F12>
 
-map <F2> <Plug>(expand_region_expand)
+cnoremap help vert help
 map <F1> <Plug>(expand_region_shrink)
+map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
 map <F4> :bn<CR>
 map <F5> <C-w>
 map <C-e> :q<cr>
+nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F12> :UndotreeToggle<cr>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
-
-cnoremap help vert help
-
-" tagbar toggle
 map <F8> :TagbarToggle<CR>
+"nnoremap <S-F11> <Plug>(vimshell_split_create)
+nnoremap <S-F12> :VimShellClose<CR>
+nnoremap <S-F11> :VimShell<CR>
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
@@ -365,7 +357,6 @@ let g:syntastic_ocaml_checkers = ['merlin']
 " ocaml/merlin/ocp end
 
 " NERDTree
-map <F7> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -392,8 +383,8 @@ let g:tagbar_type_solidity = {
     \ }
 
 " slime options
-let g:slime_target = "tmux"
-let g:slime_paste_file = "$HOME/.slime-paste"
+"let g:slime_target = "tmux"
+"let g:slime_paste_file = "$HOME/.slime-paste"
 
 " doxygentoolkit
 autocmd BufNewFile,BufRead,BufEnter *.sol let g:DoxygenToolkit_briefTag_pre="@dev  "
