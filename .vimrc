@@ -4,7 +4,7 @@ filetype off
 set showmatch
 set list
 set tabstop=2
-set conceallevel=2
+set conceallevel=1
 set shiftwidth=2
 set directory^=$HOME/.vim/tmp//
 set expandtab
@@ -133,7 +133,7 @@ filetype plugin indent on
 "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_enable_start_insert = 1
 let g:vimshell_enable_stay_insert = 1
-let g:vimshell_right_prompt = 'vcs_info#all("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vcs_info#all("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_vimshrc_path = expand("~/scripts/.vimshrc")
 let g:vimshell_max_directory_stack = 50
@@ -186,6 +186,7 @@ let g:indentLine_leadingSpaceChar = '.'
 "set conceallevel=1
 let g:indentLine_conceallevel = 1
 
+" clang-complete
 let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so.8'
 
 " airline options
@@ -210,15 +211,9 @@ function! Airline_Custom()
 endfunction
 autocmd user AirlineAfterInit call Airline_Custom()
 
-" conqueterm
-"let g:ConquerTerm_Color = 2
-"let g:ConquerTerm_Close = 1
-"let g:ConquerTerm_StartMessage = 0
-
 "set syntax=cpp.doxygen
 syntax on
 let python_highlight_all = 1
-
 
 " n00b stuff
 nmap <Backspace> <Nop>
@@ -274,7 +269,7 @@ au BufEnter * RainbowParenthesesLoadBraces
 "au BufEnter * RainbowParenthesesLoadChevrons
 au BufEnter,FileType *.wast set syntax=wast
 au BufEnter,FileType *.wat set syntax=wast
-"
+
 " python configs
 " PEP-8
 au BufNewFile,BufEnter *.py set tabstop=4
@@ -382,10 +377,6 @@ let g:tagbar_type_solidity = {
     \ ]
     \ }
 
-" slime options
-"let g:slime_target = "tmux"
-"let g:slime_paste_file = "$HOME/.slime-paste"
-
 " doxygentoolkit
 autocmd BufNewFile,BufRead,BufEnter *.sol let g:DoxygenToolkit_briefTag_pre="@dev  "
 
@@ -434,7 +425,6 @@ nnoremap <silent> <leader>0 :call HighInterestingWord(0)<cr>
 " scratchpad
 let g:scratchpad_path = '.scratchpads'
 nmap <F9> <Plug>(ToggleScratchPad)
-
 
 let g:tagbar_type_rust = {
     \ 'ctagstype' : 'rust',
@@ -569,25 +559,16 @@ let s:compiler_explorer_std_cpp_hdrs = ["#include <algorithm>\r","#include <cstd
       \"#include <streambuf>\r","#include <cstdio>\r","#include <locale>\r","#include <clocale>\r",
       \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
       \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
-" TODO-attach std C/C++ headers to text before sending to server
-"
+" sends visual selection to compiler exlorer and gets the asm back
 function! s:compiler_explorer()
   let temp_file = tempname()
-  "echom temp_file
   if &filetype == "c"
     call writefile(s:compiler_explorer_std_c_hdrs, temp_file, "a")
   elseif &filetype == "cpp"
     call writefile(s:compiler_explorer_std_cpp_hdrs, temp_file, "a")
   endif
-  "let headers = split(join(header_list, "\r"))
-  "call writefile(headers, temp_file, "a")
-  "call writefile(["fuck you"], temp_file, "a")
-  "let fuck_list = ["#include <fcntl.h>\r", "#include <inttypes.h>\r", "#include <stdio.h>\r", "#include <stdlib.h>\r", "#include <unistd.h>\r"]
-  "call writefile(fuck_list, temp_file, "a")
 
   let source_code = s:get_visual_selection()
-  "echom source_code
-  "echom join(headers, "")
   call writefile(split(substitute(source_code, "\n", "\r", "g"), "\r"), temp_file, "a")
   let current_buf_name = bufname("%")
   botright vnew
