@@ -138,7 +138,7 @@ let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_vimshrc_path = expand("~/scripts/.vimshrc")
 let g:vimshell_max_directory_stack = 50
 let g:vimshell_max_command_history = 300
-let g:vimshell_disable_escape_highlight = 0
+let g:vimshell_disable_escape_highlight = 1
 
 " jellybeans
 colo jellybeans

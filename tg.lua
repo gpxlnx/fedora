@@ -7,6 +7,10 @@ print("now is "..os.date("%m/%d/%Y %I:%M %p"))
 function on_binlog_replay_end()
   --started = 1
   local a = get_dialog_list(ok_cb, result)
+  -- quits telegram-cli
+  -- you would probably wasnt this if you dont want telegram up all the time and
+  -- have set up a cronjob to handle updating your unread messages
+  -- safe_quit()
 end
 
 function on_get_difference_end()
@@ -70,9 +74,9 @@ end
 
 -- when we recieve a new message
 function on_msg_receive(msg)
-  for k,v in pairs(msg) do
-    print(k, v)
-  end
+  --for k,v in pairs(msg) do
+    --print(k, v)
+  --end
   if (msg.from.print_name ~= "Mahsa") then
     return
   end
@@ -91,10 +95,6 @@ function on_msg_receive(msg)
     return
   end
   tcp:close()
-  -- quits telegram-cli
-  -- you would probably wasnt this if you dont want telegram up all the time and
-  -- have set up a cronjob to handle updating your unread messages
-  -- safe_quit()
 end
 
 function send_msg_cb(cb_extra, success, result)
