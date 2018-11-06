@@ -21,7 +21,7 @@ shut_up = sys.stdout
 seriously = sys.stderr
 sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
 sys.stderr = TextIOWrapper(BytesIO(), sys.stdout.encoding)
-from seer import launch_ais
+#from seer import launch_ais
 sys.stdout = shut_up
 sys.stderr = seriously
 
