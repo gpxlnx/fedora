@@ -126,6 +126,7 @@ Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
 Plugin 'hattya/vcs-info.vim'
+Plugin 'aklt/plantuml-syntax'
 call vundle#end()
 filetype plugin indent on
 

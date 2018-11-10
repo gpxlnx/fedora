@@ -111,6 +111,10 @@ JS:$(JS_LIST)
 
 TAGS:tags
 
+#https://github.com/rizsotto/Bear
+BEAR: clean
+	bear make
+
 tags:$(SRCS)
 	$(shell $(CC) -c -I $(CTAGS_I_PATH) -M $(SRCS)|\
 		sed -e 's/[\\ ]/\n/g'|sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d'|\
@@ -151,6 +155,7 @@ deepclean: clean
 	- rm .depend
 	- rm ./default.profraw ./default.profdata
 	- rm vgcore.*
+	- rm compile_commands.json
 
 help:
 	@echo "--all is the default target, runs $(TARGET) target"
