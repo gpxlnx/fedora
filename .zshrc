@@ -228,6 +228,7 @@ export PATH=:$PATH:/home/bloodstalker/.cargo/bin/racer
 export PATH=:$PATH:/home/bloodstalker/extra/phantomjs-2.1.1-linux-i686/bin
 export PATH=:$PATH:/home/bloodstalker/rigetti/forest-sdk_2.0.1-linux-barebones
 export PATH=:$PATH:/home/bloodstalker/extra/tg/bin
+export PATH=:$PATH:/home/bloodstalker/extra/Nim/bin
 #emscripten
 #export PATH=:$PATH:/home/bloodstalker/extra/emscripten
 #export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit

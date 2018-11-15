@@ -150,6 +150,10 @@ function sudo_query {
   fi
 }
 
+function dir_writeable {
+  if [ -w $(pwd) ]; then :;else echo ;fi
+}
+
 function sneaky {
   if [[ $! -ne 0 ]]; then
     echo $!
@@ -170,7 +174,7 @@ function gitdeletions {
   fi
 }
 
-PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions):%{$gnew2%}$(gitdeletions)%{$reset_color%} %{$deeppink%}-$(virtualenv_info)-%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%}\n%{$limblue%}--➜%{$reset_color%}'
+PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions):%{$gnew2%}$(gitdeletions)%{$reset_color%} %{$deeppink%}-$(virtualenv_info)-%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%} %{$batred%}$(dir_writeable)%{$reset_color%} \n%{$limblue%}--➜%{$reset_color%}'
 
 function battery_charge {
 upower -e > /dev/null 2>&1

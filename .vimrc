@@ -127,6 +127,8 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
 Plugin 'hattya/vcs-info.vim'
 Plugin 'aklt/plantuml-syntax'
+Plugin 'LnL7/vim-nix'
+Plugin 'zah/nim.vim'
 call vundle#end()
 filetype plugin indent on
 
