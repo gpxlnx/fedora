@@ -578,7 +578,7 @@ def premain(argparser):
                 sys.stdout = old_stdout
         except Exception as e:
             vocalize("./mila/hiveexcept.ogg")
-            sock.close()
+            #sock.close()
             time.sleep(120)
             #print(e.__doc__)
             #if e.message: print(e.messasge)

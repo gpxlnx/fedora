@@ -5,10 +5,10 @@
 # http://briancarper.net/blog/570/git-info-in-your-zsh-prompt
 
 function virtualenv_info {
-if [[ -a ./bin/activate ]]; then
+  if [[ -a ./bin/activate ]]; then
     source ./bin/activate > /dev/null
   fi
-[ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+  [ $VIRTUAL_ENV ] && echo ' ('`basename $VIRTUAL_ENV`') '
 }
 #add-zsh-hook chpwd virtualenv_info
 
@@ -161,20 +161,22 @@ function sneaky {
 }
 
 function gitadditions {
-  if [ -d .git ]; then
+  git rev-parse --git-dir > /dev/null 2>&1
+  if [[ $? == 0 ]]; then
     insertions=$(git --no-pager diff --numstat | awk '{sum1+=$1}END{print sum1}')
-    echo $insertions
+    echo " "$insertions:
   fi
 }
 
 function gitdeletions {
-  if [ -d .git ]; then
+  git rev-parse --git-dir > /dev/null 2>&1
+  if [[ $? == 0 ]]; then
     deletions=$(git --no-pager diff --numstat | awk '{sum2+=$2}END{print sum2}')
-    echo $deletions
+    echo $deletions" "
   fi
 }
 
-PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions):%{$gnew2%}$(gitdeletions)%{$reset_color%} %{$deeppink%}-$(virtualenv_info)-%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%} %{$batred%}$(dir_writeable)%{$reset_color%} \n%{$limblue%}--➜%{$reset_color%}'
+PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions)%{$gnew2%}$(gitdeletions)%{$reset_color%}%{$deeppink%}$(virtualenv_info)%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%} %{$batred%}$(dir_writeable)%{$reset_color%} \n%{$limblue%}--➜%{$reset_color%}'
 
 function battery_charge {
 upower -e > /dev/null 2>&1
