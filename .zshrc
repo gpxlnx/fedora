@@ -302,6 +302,9 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 # OPAM configuration
 . /home/bloodstalker/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+# Nix
+. /home/bloodstalker/.nix-profile/etc/profile.d/nix.sh
+
 # make normal mode the default mode
 # zle-line-init() {zle -K vicmd;}
 # zle -N zle-line-init

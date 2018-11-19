@@ -163,6 +163,7 @@ help:
 	@echo "--SO will generate the so"
 	@echo "--ASM will generate assembly files"
 	@echo "--TAGS will generate tags file"
+	@echo "--BEAR will generate a compilation database"
 	@echo "--$(TARGET) builds the dynamically-linked executable"
 	@echo "--$(TARGET)-dbg will generate the debug build. BUILD_MODE should be set to DEBUG to work"
 	@echo "--$(TARGET)-static will statically link the executable to the libraries"
