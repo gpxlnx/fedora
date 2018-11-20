@@ -14,6 +14,8 @@ MEM_SANITIZERS_CC= -g -fsanitize=memory -fno-omit-frame-pointer
 MEM_SANITIZERS_LD= -g -fsanitize=memory
 UB_SANITIZERS_CC= -g -fsanitize=undefined -fno-omit-frame-pointer
 UB_SANITIZERS_LD= -g -fsanitize=undefined
+FUZZ_SANITIZERS_CC= -fsanitize=fuzzer,address -g -fno-omit-frame-pointer
+FUZZ_SANITIZERS_LD= -fsanitize=fuzzer,address -g -fno-omit-frame-pointer
 COV_CXX= -fprofile-instr-generate -fcoverage-mapping
 COV_LD= -fprofile-instr-generate
 # BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
@@ -45,6 +47,14 @@ $(error This build mode is only useable with clang++.)
 endif
 CXX_EXTRA+=$(UB_SANITIZERS_CC)
 EXTRA_LD_FLAGS+=$(UB_SANITIZERS_LD)
+endif
+
+ifeq ($(BUILD_MODE), FUZZ)
+ifeq ($(CXX), g++)
+$(error This build mode is only useable with clang++.)
+endif
+CXX_EXTRA+=$(FUZZ_SANITIZERS_CC)
+EXTRA_LD_FLAGS+=$(FUZZ_SANITIZERS_LD)
 endif
 
 SRCS:=$(wildcard *.cpp)
