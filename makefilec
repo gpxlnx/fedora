@@ -18,7 +18,7 @@ FUZZ_SANITIZERS_CC= -fsanitize=fuzzer,address -g -fno-omit-frame-pointer
 FUZZ_SANITIZERS_LD= -fsanitize=fuzzer,address -g -fno-omit-frame-pointer
 COV_CC= -fprofile-instr-generate -fcoverage-mapping
 COV_LD= -fprofile-instr-generate
-# BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN
+# BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN,FUZZ
 BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.c, %.o, $(wildcard *.c))
 ASM_LIST:=$(patsubst %.c, %.dis, $(wildcard *.c))
