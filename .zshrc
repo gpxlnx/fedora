@@ -163,6 +163,7 @@ alias pirate-get="pirate-get -S ~/magnets/"
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
   cp ~/scripts/c/main.cpp ./
+  cp ~/scripts/c/header.hpp ./
 }
 
 function docc {

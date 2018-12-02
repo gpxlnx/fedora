@@ -1,7 +1,6 @@
-#include <iostream>
-#include <string>
-#include <vector>
+
+#include "header.hpp"
 
 int main (int argc, char** argv) {
-  return 123;
+  return 0;
 }
