@@ -3,10 +3,10 @@ SHELL=bash
 SHELL?=bash
 CXX=clang++
 CXX?=clang++
-CXX_FLAGS=-std=c++11 -fpic
+CXX_FLAGS=-std=c++17 -fpic
 CXX_EXTRA?=
 CTAGS_I_PATH?=./
-LD_FLAGS=
+LD_FLAGS= -include-pch header.hpp.gch
 EXTRA_LD_FLAGS?=
 ADD_SANITIZERS_CC= -g -fsanitize=address -fno-omit-frame-pointer
 ADD_SANITIZERS_LD= -g -fsanitize=address
@@ -64,9 +64,9 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS
+.PHONY:all clean help ASM SO TAGS WASM JS exe
 
-all:$(TARGET)
+all:exe
 
 everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS
 
@@ -88,6 +88,11 @@ depend:.depend
 
 %.ocov:%.cpp
 	$(CXX) $(CXX_FLAGS) $(COV_CXX) -c $< -o $@
+
+header.hpp.gch:header.hpp
+	$(CXX) $(CXX_FLAGS) -c $< -o $@
+
+exe: header.hpp.gch $(TARGET)
 
 $(TARGET): $(TARGET).o
 	$(CXX) $(LD_FLAGS) $^ -o $@
@@ -166,6 +171,7 @@ deepclean: clean
 	- rm ./default.profraw ./default.profdata
 	- rm vgcore.*
 	- rm compile_commands.json
+	- rm *.gch
 
 help:
 	@echo "--all is the default target, runs $(TARGET) target"
