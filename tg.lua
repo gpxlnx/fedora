@@ -59,8 +59,8 @@ end
 -- only handles the messages we newly receive, not older unread ones.
 function ok_cb(extra, success, result)
   for k, v in pairs(result) do
-    if v["unread"] ~= 0. then
-      if v["peer"]["username"] == "mahsafatehii" then
+    if v["peer"]["username"] == "mahsafatehii" then
+      if v["unread"] ~= 0. then
         local socket = require("socket")
         local host, port = "localhost", 11111
         local tcp = assert(socket.tcp())

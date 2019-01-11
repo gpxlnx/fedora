@@ -156,6 +156,9 @@ runcov: $(TARGET)-cov
 test: $(TARGET)
 	$(TARGET)
 
+run: $(TARGET)
+	$(TARGET)
+
 valgrind: $(TARGET)
 	- valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all $(TARGET)
 
