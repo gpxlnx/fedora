@@ -65,7 +65,7 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS
+.PHONY:all clean help ASM SO TAGS WASM JS IR
 
 all:$(TARGET)
 
