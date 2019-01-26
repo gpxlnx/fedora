@@ -21,7 +21,7 @@ set numberwidth=5
 set laststatus=2
 set smartcase
 set lazyredraw
-set synmaxcol=200
+set synmaxcol=600
 syntax sync minlines=64
 set ttyfast
 set relativenumber
@@ -129,6 +129,7 @@ Plugin 'hattya/vcs-info.vim'
 Plugin 'aklt/plantuml-syntax'
 Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
+Plugin 'rhysd/vim-llvm'
 call vundle#end()
 filetype plugin indent on
 

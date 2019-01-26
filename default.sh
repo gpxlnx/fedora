@@ -51,7 +51,7 @@ if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
 		#"tmux_mem_cpu_load 234 136" \
 		#"battery 24 255" \
     #"jdat 29 255" \
-		"weather 37 255" \
+		#"weather 37 255" \
 		#"rainbarf 0 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
 		#"xkb_layout 125 117" \
 		"date_day 31 255"\

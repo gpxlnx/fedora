@@ -23,6 +23,7 @@ BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.cpp, %.o, $(wildcard *.cpp))
 ASM_LIST:=$(patsubst %.cpp, %.dis, $(wildcard *.cpp))
 WASM_LIST:=$(patsubst %.cpp, %.wasm, $(wildcard *.cpp))
+IR_LIST:=$(patsubst %.cpp, %.ir, $(wildcard *.cpp))
 JS_LIST:=$(patsubst %.cpp, %.js, $(wildcard *.cpp))
 
 ifeq ($(BUILD_MODE), ADDSAN)
@@ -120,6 +121,8 @@ SO:$(TARGET).so
 
 A:$(TARGET).a
 
+IR:$(IR_LIST)
+
 WASM:$(WASM_LIST)
 
 JS:$(JS_LIST)
@@ -137,6 +140,9 @@ tags:$(SRCS)
 
 %.dis: %.o
 	objdump -r -d -M intel -S $< > $@
+
+%.ir: %.cpp
+	$(CXX) -emit-llvm -S -o $@ $<
 
 %.wasm: %.cpp
 	$(CXX) --compile $< --target=wasm32-unknown-unknown-wasm --output $@
@@ -166,7 +172,7 @@ format:
 	- clang-format -i $(SRCS) $(HDRS)
 
 clean:
-	rm -f *.o *.dis *.odbg *.ocov *.js *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
+	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
 
 deepclean: clean
 	- rm tags
@@ -183,6 +189,7 @@ help:
 	@echo "--ASM will generate assembly files"
 	@echo "--TAGS will generate tags file"
 	@echo "--BEAR will generate a compilation database"
+	@echo "--IR will generate llvm IR"
 	@echo "--$(TARGET) builds the dynamically-linked executable"
 	@echo "--$(TARGET)-dbg will generate the debug build. BUILD_MODE should be set to DEBUG to work"
 	@echo "--$(TARGET)-static will statically link the executable to the libraries"
