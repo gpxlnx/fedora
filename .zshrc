@@ -275,6 +275,7 @@ function clearhalf {
 alias cleanhalf="clearhalf"
 alias halfclear="clearhalf"
 alias halfclean="clearhalf"
+alias dighalf="dig && cleanhalf"
 
 function nn {
   echo $1 >> ~/.devi/notes.txt
