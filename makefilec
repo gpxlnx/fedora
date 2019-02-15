@@ -69,7 +69,7 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 all:$(TARGET)
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS IR
 
 depend:.depend
 
