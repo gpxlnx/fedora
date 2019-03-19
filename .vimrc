@@ -191,7 +191,7 @@ let g:indentLine_leadingSpaceChar = '.'
 let g:indentLine_conceallevel = 1
 
 " clang-complete
-let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so.8'
+let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so.9'
 
 " airline options
 let g:airline_powerline_fonts = 1

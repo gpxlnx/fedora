@@ -220,14 +220,30 @@ function rebuildquery {
   fi
 }
 
+#function vi-replacee {
+#  RPS1="$VIM_PROMPT_REPLACE %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+#  zle vi-replace
+#}
+#zle -N vi-replace-mode-widget vi-replacee
+# bind R only in vicmd keymapping
+#bindkey -M vicmd 'R' vi-replace-mode-widget
+
 function zle-line-init zle-keymap-select {
     VIM_PROMPT_NORMAL="%{$fg_bold[green]%}% [% NORMAL]% %{$reset_color%}"
     VIM_PROMPT_INSERT="%{$fg_bold[blue]%}% [% INSERT/MAIN]% %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT_NORMAL}/(main|viins)/$VIM_PROMPT_INSERT} %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    VIM_PROMPT_REPLACE="%{$fg_bold[red]%}% [% REPLACE]% %{$reset_color%}"
+    if [[ $KEYMAP == vicmd ]];then
+      RPS1="$VIM_PROMPT_NORMAL %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    elif [[ $KEYMAP == main || KEYMAP == viins ]]; then
+      RPS1="$VIM_PROMPT_INSERT %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+      VI_MODE_R_ENTERED="no"
+    fi
     zle reset-prompt
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
+#bindkey "^[[3~" delete-char
+#bindkey "^[3;5~" delete-char
 export KEYTIMEOUT=1
 

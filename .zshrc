@@ -307,6 +307,10 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 # Nix
 . /home/bloodstalker/.nix-profile/etc/profile.d/nix.sh
 
+# fixes the weird delete key behaviour in vi mode
+bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
+
 # make normal mode the default mode
 # zle-line-init() {zle -K vicmd;}
 # zle -N zle-line-init
