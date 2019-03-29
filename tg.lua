@@ -84,8 +84,9 @@ function on_msg_receive(msg)
   local host, port = "localhost", 11111
   local tcp = assert(socket.tcp())
   tcp:connect(host, port)
-  print(msg.from.print_name)
+  --print(msg.from.print_name)
   tcp:send("Mahsa".."\n")
+  --[[
   if (msg.text == 'hey') then
     if (msg.to.id == our_id) then
       send_msg (msg.from.print_name, 'you', ok_cb, false)
@@ -94,6 +95,7 @@ function on_msg_receive(msg)
     end
     return
   end
+  ]]--
   tcp:close()
 end
 
