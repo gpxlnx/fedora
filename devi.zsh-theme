@@ -43,6 +43,7 @@ new2="%F{50}"
 sneakyc="%F{151}"
 gnew="%F{65}"
 gnew2="%F{67}"
+gover="%F{111}"
 else
 turquoise="$fg[cyan]"
 orange="$fg[yellow]"
@@ -176,7 +177,12 @@ function gitdeletions {
   fi
 }
 
-PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions)%{$gnew2%}$(gitdeletions)%{$reset_color%}%{$deeppink%}$(virtualenv_info)%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%} %{$batred%}$(dir_writeable)%{$reset_color%} \n%{$limblue%}--➜%{$reset_color%}'
+function goversion {
+  VERSION=$("go" version | gawk '{print $3}')
+  echo ${VERSION:2:$((${#VERSION}))}
+}
+
+PROMPT=$'%{$new2%}$(sudo_query)%{$reset_color%}%{$swampgreen%}%n%{$reset_color%} on %{$purblue%}%M%{$reset_color%} in %{$limegreen%}%/%{$reset_color%} at %{$muckgreen%}$(time_function)%{$reset_color%}$(ruby_prompt_info " with%{$fg[red]%} " v g "%{$reset_color%}")$vcs_info_msg_0_%{$limblue%}%{$gnew%}$(gitadditions)%{$gnew2%}$(gitdeletions)%{$reset_color%}%{$deeppink%}$(virtualenv_info)%{$reset_color%} %{$teal%}<$(node_version)>%{$reset_color%} %{$gover%}<$(goversion)>%{$reset_color%} %{$sneakyc%}$(sneaky)%{$reset_color%} %{$new%}$(rebuildquery)%{$reset_color%} %{$batred%}$(dir_writeable)%{$reset_color%} \n%{$limblue%}--➜%{$reset_color%}'
 
 function battery_charge {
 upower -e > /dev/null 2>&1
