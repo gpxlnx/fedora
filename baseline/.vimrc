@@ -9,6 +9,7 @@ call vundle#end()
 filetype plugin indent on
 
 set list
+set showmatch
 set number
 set relativenumber
 set noerrorbells

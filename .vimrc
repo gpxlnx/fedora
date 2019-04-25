@@ -57,6 +57,8 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
 Plugin 'tpope/vim-capslock'
 "Plugin 'craigemery/vim-autotag'
@@ -262,6 +264,10 @@ au BufRead,BufNewFile .i3blocks.conf set filetype=i3blocks
 au BufRead,BufNewFile *.zsh-theme set filetype=zsh
 au BufEnter,FileType cpp set syntax=cpp.doxygen
 au BufEnter,FileType c set syntax=cpp.doxygen
+" sets filetype for muttrc to neomuttrc not muttrc since i'm too lazy
+" to be bothered to change the name of my rc that i pass to neomutt
+au BufNewFile,BufRead .muttrc set filetype=neomuttrc
+
 " elm autocommands
 " au BufNewFile,BufEnter *.elm colorscheme iceberg
 au BufEnter * IndentLinesReset
