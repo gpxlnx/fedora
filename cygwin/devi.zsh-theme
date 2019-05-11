@@ -147,7 +147,7 @@ function sudo_query {
 }
 
 function dir_writeable {
-  if [ -w $(pwd) ]; then :;else echo ;fi
+  if [ -w "$(pwd)" ]; then :;else echo ;fi
 }
 
 function sneaky {
