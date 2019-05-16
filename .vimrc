@@ -36,6 +36,8 @@ set ai
 set si
 set wrap
 set fillchars+=vert:\ " whitespace signifacant
+set exrc
+set secure
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -620,3 +622,4 @@ endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
 
+let g:ycm_confirm_extra_conf=0

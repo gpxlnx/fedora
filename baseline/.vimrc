@@ -8,6 +8,8 @@ Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 filetype plugin indent on
 
+set exrc
+set secure
 set list
 set showmatch
 set number
@@ -73,3 +75,38 @@ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 
 set fillchars+=vert:\ " whitespace signifacant
 hi VertSplit ctermbg=0 ctermfg=0
+
+" highlight groups
+hi def InterestingWord1 ctermfg=16 ctermbg=214
+hi def InterestingWord2 ctermfg=16 ctermbg=154
+hi def InterestingWord3 ctermfg=16 ctermbg=121
+hi def InterestingWord4 ctermfg=16 ctermbg=137
+hi def InterestingWord5 ctermfg=16 ctermbg=211
+hi def InterestingWord6 ctermfg=16 ctermbg=195
+hi def InterestingWord7 ctermfg=16 ctermbg=99
+hi def InterestingWord8 ctermfg=16 ctermbg=35
+hi def InterestingWord9 ctermfg=16 ctermbg=57
+hi def InterestingWord0 ctermfg=16 ctermbg=39
+
+" Steve Losh's highlight function
+function HighInterestingWord(n)
+  normal! mz
+  normal! "zyiw
+  let mid = 88888 + a:n
+  silent! call matchdelete(mid)
+  let pat = '\V\<' . escape(@z, '\') . '\>'
+  call matchadd("InterestingWord".a:n, pat, 1, mid)
+  normal! `z
+endfunction
+
+" multiple highlights
+nnoremap <silent> <leader>1 :call HighInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HighInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HighInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HighInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HighInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HighInterestingWord(6)<cr>
+nnoremap <silent> <leader>7 :call HighInterestingWord(7)<cr>
+nnoremap <silent> <leader>8 :call HighInterestingWord(8)<cr>
+nnoremap <silent> <leader>9 :call HighInterestingWord(9)<cr>
+nnoremap <silent> <leader>0 :call HighInterestingWord(0)<cr>

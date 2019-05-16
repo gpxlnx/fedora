@@ -164,11 +164,15 @@ function docpp {
   cp ~/scripts/makefilecpp ./makefile
   cp ~/scripts/c/main.cpp ./
   cp ~/scripts/c/header.hpp ./
+  cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
+  cp ~/scripts/cfam.vimrc ./.vimrc
 }
 
 function docc {
   cp ~/scripts/makefilec ./makefile
   cp ~/scripts/c/main.c ./
+  cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
+  cp ~/scripts/cfam.vimrc ./.vimrc
 }
 
 function mdvv {
