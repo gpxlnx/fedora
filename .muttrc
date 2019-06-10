@@ -10,9 +10,12 @@ macro index A "T~N<enter>;WNT~O<enter>;WO\CT~T<enter>” “mark all messages re
 # REMOTE GMAIL FOLDERS
 set folder = 'imaps://imap.gmail.com:993'
 set spoolfile = '+INBOX'
-set postponed = '+[Google Mail]/Drafts'
+set postponed = '+Drafts'
+set record = '+Sent Mails'
 #set trash = '+[Google Mail]/Trash'
 #set any_label = '+[Google Mail]/any_label'
+
+auto_view test/html
 
 #LOCAL FOLDERS FOR CACHED HEADERS AND CERTIFICATES
 set header_cache = ~/.mutt/cache/headers
@@ -23,12 +26,15 @@ set certificate_file = ~/.mutt/certificates
 #SMTP SETTINGS
 set smtp_url = 'smtp://thabogre@smtp.gmail.com:587/'
 
+set editor = "vim"
+
 #SECURING
 set move = no
 set imap_keepalive = 900
 
 set timeout=30
 folder-hook gmail/important    "color status        J_black         color136        "
+#set imap_list_subscribed=yes
 
 set sidebar_visible = yes
 set mail_check_stats = yes
@@ -190,7 +196,7 @@ color   attach_headers     brightmagenta   default        "signature verificatio
 color   attach_headers     brightmagenta   default        "invalid node with packet of type"
 ###
 color index_collapsed blue default
-color index_date color160  default
+color index_date color111  default
 color index_label color196 default
 color index_number color154 default
 color index_size color39 default
@@ -208,12 +214,12 @@ color sidebar_new green cyan
 color sidebar_ordinary green brightgreen
 color sidebar_spoolfile green brightyellow
 
-color progress white red
+color progress white blue
 color index_flags default red '~F'
 # vi: ft=muttrc ts=4 sw=4 sts=4 et
 set status_format='-%r-NeoMutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
 Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---'
-set index_format='%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s'
+set index_format='%4C %D %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s'
 set sort=threads
 set sort_aux=last-date-received
 color status color39 default
