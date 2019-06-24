@@ -13,6 +13,7 @@ import threading
 import atexit
 import signal
 import selectors
+from tempfile import TemporaryFile
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
@@ -295,11 +296,13 @@ class Demon_Father:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
+        '''
         if pid:
             message = "pidfile {0} already exist. " + "Daemon already running?\n"
             sys.stderr.write(message.format(self.pidfile))
             sys.exit(1)
-        self.daemonize()
+        '''
+        self.demonize()
         self.run()
 
     def stop(self):
@@ -334,13 +337,14 @@ class Demon_Father:
         pass
 
 class Demon(Demon_Father):
-    def __init__(self, argparser):
+    def __init__(self, argparser, pidfile):
+        self.pidfile = pidfile
         self.connection = []
         self.client_address = []
         self.argparser = argparser
 
     def run(self):
-        premain(argparser)
+        premain(self.argparser)
 
 def networth():
     net = float()
@@ -580,9 +584,10 @@ def premain(argparser):
                     connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
         except Exception as e:
-            if demon: vocalize("./mila/hiveexcept.ogg")
+            if demon:
+                vocalize("./mila/hiveexcept.ogg")
+                time.sleep(120)
             #sock.close()
-            time.sleep(120)
             if hasattr(e, "message"):
                 print(e.messasge)
             if hasattr(e, "__doc__"):
@@ -609,8 +614,9 @@ def main():
             shell.interact(banner="DEBUG REPL")
     else:
         if argparser.args.demon:
-            demon = Demon(argparser)
-            demon.demonize();
+            temp_pid_file = "/tmp/hivedtmp"
+            demon = Demon(argparser, temp_pid_file)
+            demon.start()
         else:
             premain(argparser)
 
