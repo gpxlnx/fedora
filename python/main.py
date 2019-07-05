@@ -30,7 +30,7 @@ def main():
         try:
             premain(argparser)
         except Exception as e:
-            if hasattr(e, "__doc__")
+            if hasattr(e, "__doc__"):
                 print(e.__doc__)
             if hasattr(e, "message"):
                 print(e.message)

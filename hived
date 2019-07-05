@@ -586,7 +586,7 @@ def premain(argparser):
         except Exception as e:
             if demon:
                 vocalize("./mila/hiveexcept.ogg")
-                time.sleep(120)
+                time.sleep(60)
             #sock.close()
             if hasattr(e, "message"):
                 print(e.messasge)
@@ -599,6 +599,7 @@ def premain(argparser):
                 sock.shutdown(socket.SHUT_RDWR)
                 sock.close()
                 sock.wait_closed()
+                time.sleep(60)
 
 def main():
     argparser = Argparser()
