@@ -271,6 +271,7 @@ function dig {
 }
 
 function clearhalf {
+  clear
   size=$(stty size|gawk '{print$1}')
   size=$(($size/2))
   tput cup $size 0 && tput ed
