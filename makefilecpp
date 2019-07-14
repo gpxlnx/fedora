@@ -23,6 +23,7 @@ BUILD_MODE?=RELEASE
 OBJ_LIST:=$(patsubst %.cpp, %.o, $(wildcard *.cpp))
 ASM_LIST:=$(patsubst %.cpp, %.dis, $(wildcard *.cpp))
 WASM_LIST:=$(patsubst %.cpp, %.wasm, $(wildcard *.cpp))
+WAST_LIST:=$(patsubst %.cpp, %.wast, $(wildcard *.cpp))
 IR_LIST:=$(patsubst %.cpp, %.ir, $(wildcard *.cpp))
 JS_LIST:=$(patsubst %.cpp, %.js, $(wildcard *.cpp))
 
@@ -65,11 +66,11 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS exe IR
+.PHONY:all clean help ASM SO TAGS WASM JS exe IR WAST
 
 all:exe
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS IR
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS IR WAST
 
 depend:.depend
 
@@ -125,6 +126,8 @@ IR:$(IR_LIST)
 
 WASM:$(WASM_LIST)
 
+WAST:$(WAST_LIST)
+
 JS:$(JS_LIST)
 
 TAGS:tags
@@ -146,6 +149,9 @@ tags:$(SRCS)
 
 %.wasm: %.cpp
 	$(CXX) --compile $< --target=wasm32-unknown-unknown-wasm --output $@
+
+%.wast: %.wasm
+	wasm2wast $< > $@
 
 %.js: %.cpp
 	em++ $< -o $@
@@ -172,7 +178,8 @@ format:
 	- clang-format -i $(SRCS) $(HDRS)
 
 clean:
-	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so $(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov
+	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so \
+	$(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov $(TARGET).wasm $(TARGET).wast
 
 deepclean: clean
 	- rm tags

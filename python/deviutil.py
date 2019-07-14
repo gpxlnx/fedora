@@ -116,16 +116,18 @@ class Demon_Father:
         os.remove(self.pidfile)
 
     def start(self):
+        self.daemonize()
         try:
             with open(self.pidfile,'r') as pf:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
+            '''
         if pid:
             message = "pidfile {0} already exist. " + "Daemon already running?\n"
             sys.stderr.write(message.format(self.pidfile))
             sys.exit(1)
-        self.daemonize()
+            '''
         self.run()
 
     def stop(self):

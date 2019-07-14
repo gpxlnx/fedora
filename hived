@@ -13,9 +13,12 @@ import threading
 import atexit
 import signal
 import selectors
+from tempfile import TemporaryFile
 from abc import ABCMeta, abstractmethod
 from io import TextIOWrapper, BytesIO
 import subprocess
+from _thread import *
+import threading
 sys.path.insert(0, "/home/bloodstalker/extra/seer/")
 shut_up = sys.stdout
 seriously = sys.stderr
@@ -255,7 +258,7 @@ class Demon_Father:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_address = ('localhost', 10000)
 
-    def daemonize(self):
+    def demonize(self):
         try:
             pid = os.fork()
             if pid > 0: sys.exit(0)
@@ -293,11 +296,13 @@ class Demon_Father:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
+        '''
         if pid:
             message = "pidfile {0} already exist. " + "Daemon already running?\n"
             sys.stderr.write(message.format(self.pidfile))
             sys.exit(1)
-        self.daemonize()
+        '''
+        self.demonize()
         self.run()
 
     def stop(self):
@@ -332,12 +337,14 @@ class Demon_Father:
         pass
 
 class Demon(Demon_Father):
-    def __init__(self):
+    def __init__(self, argparser, pidfile):
+        self.pidfile = pidfile
         self.connection = []
         self.client_address = []
+        self.argparser = argparser
 
-    def run(self, argparser):
-        premain(argparser)
+    def run(self):
+        premain(self.argparser)
 
 def networth():
     net = float()
@@ -350,7 +357,7 @@ def networth():
 def alert_1():
     res1 = get_info_w_name(api_url_base, "dogecoin")[0]["price_usd"]
     res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
-    value = 575000
+    value = 600000
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) < 2: vocalize("./mila/alert_1.ogg")
 
@@ -577,17 +584,22 @@ def premain(argparser):
                     connection.sendall(bytes(mushi_out, "utf-8"))
                 sys.stdout = old_stdout
         except Exception as e:
-            vocalize("./mila/hiveexcept.ogg")
+            if demon:
+                vocalize("./mila/hiveexcept.ogg")
+                time.sleep(60)
             #sock.close()
-            time.sleep(120)
-            #print(e.__doc__)
-            #if e.message: print(e.messasge)
+            if hasattr(e, "message"):
+                print(e.messasge)
+            if hasattr(e, "__doc__"):
+                print(e.__doc__)
         finally:
             #time.sleep(60)
-            vocalize("./mila/hivedown.ogg")
             if demon:
+                vocalize("./mila/hivedown.ogg")
                 sock.shutdown(socket.SHUT_RDWR)
                 sock.close()
+                sock.wait_closed()
+                time.sleep(60)
 
 def main():
     argparser = Argparser()
@@ -602,9 +614,12 @@ def main():
             shell = code.InteractiveConsole(variables)
             shell.interact(banner="DEBUG REPL")
     else:
-        demon = Demon()
-        demon.run(argparser)
-        #premain(argparser)
+        if argparser.args.demon:
+            temp_pid_file = "/tmp/hivedtmp"
+            demon = Demon(argparser, temp_pid_file)
+            demon.start()
+        else:
+            premain(argparser)
 
 if __name__ == "__main__":
     main()

@@ -36,6 +36,8 @@ set ai
 set si
 set wrap
 set fillchars+=vert:\ " whitespace signifacant
+set exrc
+set secure
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -140,11 +142,13 @@ filetype plugin indent on
 let g:vimshell_enable_start_insert = 1
 let g:vimshell_enable_stay_insert = 1
 "let g:vimshell_right_prompt = 'vcs_info#all("(%s)-[%b]", "(%s)-[%b|%a]")'
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_vimshrc_path = expand("~/scripts/.vimshrc")
 let g:vimshell_max_directory_stack = 50
 let g:vimshell_max_command_history = 300
 let g:vimshell_disable_escape_highlight = 1
+let g:vimshell_prompt_expr ='escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 " jellybeans
 colo jellybeans
@@ -620,3 +624,5 @@ endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
 
+"ycm configs
+let g:ycm_confirm_extra_conf=0
