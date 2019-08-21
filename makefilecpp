@@ -20,12 +20,16 @@ COV_CXX= -fprofile-instr-generate -fcoverage-mapping
 COV_LD= -fprofile-instr-generate
 # BUILD_MODES are=RELEASE(default), DEBUG,ADDSAN,MEMSAN,UBSAN,FUZZ
 BUILD_MODE?=RELEASE
-OBJ_LIST:=$(patsubst %.cpp, %.o, $(wildcard *.cpp))
-ASM_LIST:=$(patsubst %.cpp, %.dis, $(wildcard *.cpp))
-WASM_LIST:=$(patsubst %.cpp, %.wasm, $(wildcard *.cpp))
-WAST_LIST:=$(patsubst %.cpp, %.wast, $(wildcard *.cpp))
-IR_LIST:=$(patsubst %.cpp, %.ir, $(wildcard *.cpp))
-JS_LIST:=$(patsubst %.cpp, %.js, $(wildcard *.cpp))
+#EXCLUSION_LIST='(dip)|(dim)'
+EXCLUSION_LIST='xxxxxx'
+OBJ_LIST:=$(patsubst %.cpp, %.o, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+OBJ_COV_LIST:=$(patsubst %.cpp, %.ocov, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+OBJ_DBG_LIST:=$(patsubst %.cpp, %.odbg, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+ASM_LIST:=$(patsubst %.cpp, %.dis, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+WASM_LIST:=$(patsubst %.cpp, %.wasm, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+WAST_LIST:=$(patsubst %.cpp, %.wast, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+IR_LIST:=$(patsubst %.cpp, %.ir, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+JS_LIST:=$(patsubst %.cpp, %.js, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CXX), g++)
@@ -96,16 +100,16 @@ header.hpp.gch:header.hpp
 
 exe: header.hpp.gch $(TARGET)
 
-$(TARGET): $(TARGET).o
+$(TARGET): $(OBJ_LIST)
 	$(CXX) $(LD_FLAGS) $^ -o $@
 
-$(TARGET)-static: $(TARGET).o
+$(TARGET)-static: $(OBJ_LIST)
 	$(CXX) $(LD_FLAGS) $^ -static -o $@
 
-$(TARGET)-dbg: $(TARGET).odbg
+$(TARGET)-dbg: $(OBJ_DBG_LIST)
 	$(CXX) $(LD_FLAGS) $^ -g -o $@
 
-$(TARGET)-cov: $(TARGET).ocov
+$(TARGET)-cov: $(OBJ_COV_LIST)
 	$(CXX) $(LD_FLAGS) $^ $(COV_LD) -o $@
 
 cov: runcov
@@ -156,11 +160,11 @@ tags:$(SRCS)
 %.js: %.cpp
 	em++ $< -o $@
 
-$(TARGET).so: $(TARGET).o
+$(TARGET).so: $(OBJ_LIST)
 	$(CXX) $(LD_FLAGS) $^ -shared -o $@
 
-$(TARGET).a: $(TARGET).o
-	ar rcs $(TARGET).a $(TARGET).o
+$(TARGET).a: $(OBJ_LIST)
+	ar rcs $(TARGET).a $(OBJ_LIST)
 
 runcov: $(TARGET)-cov
 	$(TARGET)-cov
