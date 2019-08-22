@@ -70,11 +70,11 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS exe IR WAST
+.PHONY:all clean help ASM SO TAGS WASM JS exe IR WAST A ADBG
 
 all:exe
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg TAGS $(TARGET)-cov WASM JS IR WAST
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg ADBG TAGS $(TARGET)-cov WASM JS IR WAST
 
 depend:.depend
 
@@ -126,6 +126,8 @@ SO:$(TARGET).so
 
 A:$(TARGET).a
 
+ADBG:$(TARGET).adbg
+
 IR:$(IR_LIST)
 
 WASM:$(WASM_LIST)
@@ -165,6 +167,9 @@ $(TARGET).so: $(OBJ_LIST)
 
 $(TARGET).a: $(OBJ_LIST)
 	ar rcs $(TARGET).a $(OBJ_LIST)
+
+$(TARGET).adbg: $(OBJ_DBG_LIST)
+	ar rcs $(TARGET).adbg $(OBJ_DBG_LIST)
 
 runcov: $(TARGET)-cov
 	$(TARGET)-cov
