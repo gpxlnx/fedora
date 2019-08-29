@@ -121,7 +121,7 @@ SO:$(TARGET).so
 
 A:$(TARGET).a
 
-A:$(TARGET).adbg
+ADBG:$(TARGET).adbg
 
 IR:$(IR_LIST)
 
