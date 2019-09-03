@@ -89,7 +89,7 @@ Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 Plugin 'ternjs/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
@@ -197,7 +197,7 @@ let g:indentLine_leadingSpaceChar = '.'
 let g:indentLine_conceallevel = 1
 
 " clang-complete
-let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so.10'
+"let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so'
 
 " airline options
 let g:airline_powerline_fonts = 1
