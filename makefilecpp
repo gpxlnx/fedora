@@ -30,6 +30,7 @@ WASM_LIST:=$(patsubst %.cpp, %.wasm, $(shell find . -name '*.cpp' | grep -Ev $(E
 WAST_LIST:=$(patsubst %.cpp, %.wast, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
 IR_LIST:=$(patsubst %.cpp, %.ir, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
 JS_LIST:=$(patsubst %.cpp, %.js, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
+AST_LIST:=$(patsubst %.cpp, %.ast, $(shell find . -name '*.cpp' | grep -Ev $(EXCLUSION_LIST)))
 
 ifeq ($(BUILD_MODE), ADDSAN)
 ifeq ($(CXX), g++)
@@ -70,11 +71,11 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS exe IR WAST A ADBG
+.PHONY:all clean help ASM SO TAGS WASM JS exe IR WAST A ADBG AST
 
 all:exe
 
-everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg ADBG TAGS $(TARGET)-cov WASM JS IR WAST
+everything:$(TARGET) A ASM SO $(TARGET)-static $(TARGET)-dbg ADBG TAGS $(TARGET)-cov WASM JS IR WAST AST
 
 depend:.depend
 
@@ -136,6 +137,8 @@ WAST:$(WAST_LIST)
 
 JS:$(JS_LIST)
 
+AST:$(AST_LIST)
+
 TAGS:tags
 
 #https://github.com/rizsotto/Bear
@@ -161,6 +164,9 @@ tags:$(SRCS)
 
 %.js: %.cpp
 	em++ $< -o $@
+
+%.ast: %.cpp
+	$(CXX) -Xclang -ast-dump -fsyntax-only $< > $@
 
 $(TARGET).so: $(OBJ_LIST)
 	$(CXX) $(LD_FLAGS) $^ -shared -o $@
