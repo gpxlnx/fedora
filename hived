@@ -79,7 +79,17 @@ class Colors:
     UNDERLINE = '\033[4m'
 
 def get_info_w_name(api_url, name):
-    response = requests.get(api_url + name)
+    cmc_key = json.load(open("./cmc.json"))["cmc_key"]
+    params = {
+            "start":1,
+            "limit":300,
+            "convert":"USD"
+            }
+    headers = {
+            "Accepts":"application/json",
+            "X-CMC_API_KEY": cmc_key
+            }
+    response = requests.get(api_url + name, headers=headers)
     if response.status_code == 200: return json.loads(response.content.decode('utf-8'))
     else : return None
 
