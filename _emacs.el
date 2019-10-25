@@ -33,9 +33,13 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212337" "#ff5370" "#c7f59b" "#ffbd76" "#70b0ff" "#baacff" "#34d3fb" "#e4f3fa"])
+ '(column-number-mode t)
  '(custom-safe-themes
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c8f959fb1ea32ddfc0f50db85fea2e7d86b72bb4d106803018be1c3566fd6c72" "2a3ffb7775b2fe3643b179f2046493891b0d1153e57ec74bbe69580b951699ca" "1728dfd9560bff76a7dc6c3f61e9f4d3e6ef9d017a83a841c117bd9bebe18613" "f589e634c9ff738341823a5a58fc200341b440611aaa8e0189df85b44533692b" "0713580a6845e8075113a70275b3421333cfe7079e48228c52300606fa5ce73b" "f30aded97e67a487d30f38a1ac48eddb49fdb06ac01ebeaff39439997cbdd869" "2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" default)))
+ '(display-battery-mode t)
+ '(display-line-numbers-type (quote relative))
+ '(display-time-mode t)
  '(fci-rule-color "#383e5c")
  '(jdee-db-active-breakpoint-face-colors (cons "#161a2a" "#baacff"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#161a2a" "#c7f59b"))
@@ -43,7 +47,9 @@ There are two things you can do about this warning:
  '(objed-cursor-color "#ff5370")
  '(package-selected-packages
    (quote
-    (smart-mode-line-powerline-theme smart-mode-line powerline-evil neotree tabbar helm doom-themes evil)))
+    (linum-relative pdfgrep pdf-tools smart-mode-line-powerline-theme smart-mode-line powerline-evil neotree tabbar helm doom-themes evil)))
+ '(show-paren-mode t)
+ '(size-indication-mode t)
  '(vc-annotate-background "#212337")
  '(vc-annotate-color-map
    (list
@@ -105,3 +111,8 @@ There are two things you can do about this warning:
 (setq explicit-shell-file-name "D:\\home\\apps\\cygwin\\bin\\zsh.exe")
 (setq shell-file-name "zsh")
 (setq explicit-zsh.exe-args '("-l" "-i"))
+
+(setq display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
+;;wont be able to open pdf's in docview mode without ghostscript
+(setq doc-view-ghostscript-program "C:\\Program Files\\gs\\gs9.50\\bin\\gswin64.exe")
