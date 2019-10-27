@@ -2,8 +2,13 @@
 COMPLETION_WAITING_DOTS="true"
 plugins=(git svn zsh-syntax-highlighting autojump vi-mode)
 export ZSH=~/.oh-my-zsh
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="devi"
+
+if [[ -n "$INSIDE_EMACS" ]]; then
+  ZSH_THEME="simple"
+else
+  ZSH_THEME="devi"
+fi
+
 COMPLETION_WAITING_DOTS="true"
 plugins=(
   git
@@ -61,8 +66,6 @@ alias contest="ping 4.2.2.4 -c 7"
 function math {
   echo $(($1))
 }
-
-[[ -s /home/sadeghi_f/.autojump/etc/profile.d/autojump.sh ]] && source /home/sadeghi_f/.autojump/etc/profile.d/autojump.sh
 
 alias ee="explorer ."
 alias vi="vim"
