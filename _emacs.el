@@ -116,3 +116,6 @@ There are two things you can do about this warning:
 (setq display-line-numbers 'relative)
 ;;wont be able to open pdf's in docview mode without ghostscript
 (setq doc-view-ghostscript-program "C:\\Program Files\\gs\\gs9.50\\bin\\gswin64.exe")
+;;settings this for zsh. basically lets zsh know its running inside emacs and not a terminal
+(setenv "INSIDE_EMACS")
+(windmove-default-keybindings)
