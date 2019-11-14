@@ -71,7 +71,7 @@ LD_FLAGS+=$(EXTRA_LD_FLAGS)
 
 .DEFAULT:all
 
-.PHONY:all clean help ASM SO TAGS WASM JS IR WAST A ADBG AST
+.PHONY:all clean help ASM SO TAGS WASM JS IR WAST A ADBG AST cppcheck
 
 all:$(TARGET)
 
@@ -183,6 +183,9 @@ run: $(TARGET)
 
 valgrind: $(TARGET)
 	- valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all $(TARGET)
+
+cppcheck:
+	cppcheck $(SRCS)
 
 format:
 	- clang-format -i $(SRCS) $(HDRS)

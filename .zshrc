@@ -235,6 +235,7 @@ export PATH=:$PATH:/home/bloodstalker/rigetti/forest-sdk_2.0.1-linux-barebones
 export PATH=:$PATH:/home/bloodstalker/extra/tg/bin
 export PATH=:$PATH:/home/bloodstalker/extra/Nim/bin
 export PATH=:$PATH:/home/bloodstalker/extra/geckodriver
+export PATH=:$PATH:/home/bloodstalker/extra/cppcheck
 #emscripten
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit
