@@ -295,14 +295,14 @@ au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
 
 let python_highlight_all = 1
-py << EOF
+py3 << EOL
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
-EOF
+EOL
 " end of python configs
 
 "mapping fast keycodes
