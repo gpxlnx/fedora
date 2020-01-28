@@ -134,8 +134,15 @@ Plugin 'aklt/plantuml-syntax'
 Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
 Plugin 'rhysd/vim-llvm'
+Plugin 'rhysd/vim-gfm-syntax'
+Plugin 'vim-latex/vim-latex'
 call vundle#end()
 filetype plugin indent on
+
+
+let g:gfm_syntax_enable_always = 0
+let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
+autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
 " vimshell
 "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
