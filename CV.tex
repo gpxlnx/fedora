@@ -4,6 +4,7 @@
 \usepackage[margin=3cm]{geometry}
 \usepackage{longtable}
 \usepackage{makecell}
+\usepackage{hyperref}
 \definecolor{lightgray}{gray}{0.8}
 \newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
 \newcolumntype{R}{p{0.8\textwidth}}
@@ -20,16 +21,18 @@
 \begin{minipage}[ht]{0.48\textwidth}
 \end{minipage}
 
-\section*{Curriculum Vitae}
-\begin{tabular}{L!{\VRule}R}
-  2012&some text\\[5pt]
-  2011&some other text\\
-\end{tabular}
+\vspace{5mm}
+\hrule
+\vspace{5mm}
 
 \section*{Education}
 \begin{tabular}{L!{\VRule}R}
   2007--2013&{\bf Bachelor's in Electrical Engineering, Iran University of Sceince and Technology, Iran.}\\[5pt]
 \end{tabular}
+
+\vspace{5mm}
+\hrule
+\vspace{5mm}
 
 \section*{Languages}
 \begin{tabular}{L!{\VRule}R}
@@ -38,6 +41,10 @@
   {\bf Azerbaijani}&{\bf Native}\\
   German&B2 without examinatioin\\
 \end{tabular}
+
+\vspace{5mm}
+\hrule
+\vspace{5mm}
 
 \section*{Professional Experience}
 \begin{longtable}{L!{\VRule}R}
@@ -69,6 +76,9 @@
   & English Teacher – Later on specifically IELTS teacher\\[5pt]
 \end{longtable}
 
+\vspace{5mm}
+\hrule
+\vspace{5mm}
 
 \section*{Professional Experience}
 \begin{longtable}{L!{\VRule}R}
@@ -100,6 +110,44 @@
   & \\
   & \\
   {\bf Safety related hard Real-time ECU}& Writing the SRS and the SDD for the DSP algorithm, Implementing the DSP algorithm, Implementing the Dataflash read and write module, participating in the meetings to write down the System requirements for the ECU. Wrote a Python script (for Renesas CS+ which provides the python API to CS+) to automate the algorithm's offline unit/integration tests on the MCU. Wrote a python script to count the Function WCETs (worst-case execution time) from the compiled assembly file, the WCET data is read from an XML file. Was in charge of back-to-back/unit/integration/regression testing the algorithm.\\[5pt]
+\end{longtable}
+
+\vspace{5mm}
+\hrule
+\vspace{5mm}
+
+\section*{Programming Languages}
+\begin{tabular}{L!{\VRule}R}
+  {\bf Programming Languages}&C, C++\\[5pt]
+  & \\
+  {\bf Scripting Lanugages}&Python, Lua, Bash\\[5pt]
+  & \\
+  {\bf Other}&AWK, make\\[5pt]
+\end{tabular}
+
+\vspace{5mm}
+\hrule
+
+\section*{Links}
+\begin{tabular}{L!{\VRule}R}
+  {\bf \href{https://ir.linkedin.com/in/farzad-sadeghi-08426277}{Linkedin}}& My Linkedin page.\\[5pt]
+  {\bf \href {https://github.com/bloodstalker}{Github}}& My Github page.\\[5pt]
+  {\bf \href {https://bloodstalker.github.io/mutator/}{mutator}}& mutator\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/cgrep}{cgrep}}& grep for C-family source files\\[5pt]
+  {\bf faultreiber}&\href{https://github.com/bloodstalker/faultreiber}{faultreiber} generates a binary file format parser in C using an XML description file.\\[5pt]
+  {\bf luatablegen}&\href{https://github.com/bloodstalker/luatablegen}{luatablegen} generated C code that adds C structures as Lua tables using an XML description file.\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/dwasm}{dwasm}}& A WASM dump script written in python\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/delf}{delf}}& an ELF dump script in python\\[5pt]
+  {\bf configs and dotfiles}& \href{}{}\\[5pt]
+\end{tabular}
+
+
+\section*{Links}
+\begin{longtable}{L!{\VRule}R}
+  {\bf Jason Teutsch}& jt@truebit.io\\[5pt]
+  {\bf Francesco Zulliani}& francesco.zuliani@neat.it\\[5pt]
+  {\bf Hamid Hoseinzadeh}& h.hosseinzade@crouse.ir\\[5pt]
+  {\bf Behzad Daemi}& b.daemi@gmail.com\\[5pt]
 \end{longtable}
 
 \end{document}
