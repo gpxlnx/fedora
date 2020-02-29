@@ -157,8 +157,9 @@ alias ogg="ogg123"
 alias jupyterlocal="jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' --port=8775"
 alias mupdf="/home/bloodstalker/extra/mupdf/build/release/mupdf-x11 -D red -P black -I"
 alias googler="~/extra/googler/googler --colors GKmexy -c us -l en --count 7 --exact "
-alias ddgr="ddgr --color GKmexy -r us-en -n 15"
+alias ddgr="ddgr --colorize always -r us-en -n 15"
 alias pirate-get="pirate-get -S ~/magnets/"
+alias vps="ssh 5.56.132.89 -l ubuntu"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -217,8 +218,9 @@ function fixtheme {
 
 export PATH=$PATH:/home/bloodstalker/extra/cov-analysis-linux64-8.5.0.5/bin
 #export PATH=:$PATH:/home/bloodstalker/extra/llvm-6/build/bin
-export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
 #export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole145/llvm7/build/bin
+export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
+export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/lib
 export PATH=:$PATH:/home/bloodstalker/arcanist/arcanist/bin
 export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole58/solidity_0.4.18/build/solc
 export PATH=:$PATH:/home/bloodstalker/binaryen/bin

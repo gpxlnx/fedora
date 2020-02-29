@@ -45,8 +45,8 @@ call vundle#begin()
 Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
-"Plugin 'hdima/python-syntax'
 "Plugin 'Townk/vim-autoclose'
+Plugin 'kien/ctrlp.vim'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
@@ -98,7 +98,6 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/vim-scratchpad'
 "Plugin 'python-mode/python-mode'
-"Plugin 'hdima/python-syntax'
 Plugin 'tmux-plugins/vim-tmux'
 "Plugin 'camelcasemotion'
 Plugin 'rust-lang/rust.vim'
@@ -135,7 +134,11 @@ Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
 Plugin 'rhysd/vim-llvm'
 Plugin 'rhysd/vim-gfm-syntax'
-Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-latex/vim-latex'
+Plugin 'lervag/vimtex'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'mattn/vim-lsp-settings'
+Plugin 'vim-utils/vim-man'
 call vundle#end()
 filetype plugin indent on
 
@@ -371,6 +374,8 @@ set rtp^="/home/bloodstalker/.opam/4.05.0/share/ocp-indent/vim"
 "autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
 let g:syntastic_ocaml_checkers = ['merlin']
 " ocaml/merlin/ocp end
+let ocaml_revised = 1
+let ocaml_noend_error = 1
 
 " NERDTree
 let g:NERDTreeIndicatorMapCustom = {
@@ -633,3 +638,8 @@ vmap <S-F9> :<C-U>CompilerExplorer<cr>
 
 "ycm configs
 let g:ycm_confirm_extra_conf=0
+
+"ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip

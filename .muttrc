@@ -9,11 +9,10 @@ macro index A "T~N<enter>;WNT~O<enter>;WO\CT~T<enter>” “mark all messages re
 
 # REMOTE GMAIL FOLDERS
 set folder = 'imaps://imap.gmail.com:993'
-set spoolfile = '+INBOX'
+set spoolfile = '+Inbox'
 set postponed = '+Drafts'
-set record = '+Sent Mails'
-#set trash = '+[Google Mail]/Trash'
-#set any_label = '+[Google Mail]/any_label'
+set record = '+Sent'
+set trash = '+Trash'
 
 auto_view test/html
 
@@ -49,6 +48,7 @@ set sidebar_indent_string = "...."
 #subscriptions
 subscribe ^cfe-dev@lists.llvm.org$
 subscribe ^llvm-dev@lists.llvm.org$
+subscribe -group lua lua-l@lists.lua.org
 
 # for background in 16 color terminal, valid background colors include:
 # base03, bg, black, any of the non brights
