@@ -133,7 +133,7 @@ $guess_who
 if [[ "$os" = "win" ]]; then
 date | gawk 'BEGIN{RS=","}END{print $2" "$3}'
 else
-date | gawk '{print $4}'
+date | gawk '{print $5}'
 fi
 }
 

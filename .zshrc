@@ -323,3 +323,5 @@ bindkey "^[3;5~" delete-char
 # make normal mode the default mode
 # zle-line-init() {zle -K vicmd;}
 # zle -N zle-line-init
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
