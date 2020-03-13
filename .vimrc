@@ -38,6 +38,8 @@ set wrap
 set fillchars+=vert:\ " whitespace signifacant
 set exrc
 set secure
+set cursorline
+set cursorcolumn
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -58,7 +60,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'vim-scripts/Conque-GDB'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Rip-Rip/clang_complete'
-Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
@@ -88,7 +90,7 @@ Plugin 'prabirshrestha/vim-lsp'
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
-Plugin 'ternjs/tern_for_vim'
+"Plugin 'ternjs/tern_for_vim'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
@@ -286,10 +288,10 @@ au BufNewFile,BufRead .muttrc set filetype=neomuttrc
 " au BufNewFile,BufEnter *.elm colorscheme iceberg
 au BufEnter * IndentLinesReset
 au BufNewFile,BufEnter *.s set ft=nasm
-au BufEnter * RainbowParenthesesActivate
-au BufEnter * RainbowParenthesesLoadRound
-au BufEnter * RainbowParenthesesLoadSquare
-au BufEnter * RainbowParenthesesLoadBraces
+"au BufEnter * RainbowParenthesesActivate
+"au BufEnter * RainbowParenthesesLoadRound
+"au BufEnter * RainbowParenthesesLoadSquare
+"au BufEnter * RainbowParenthesesLoadBraces
 "au BufEnter * RainbowParenthesesLoadChevrons
 au BufEnter,FileType *.wast set syntax=wast
 au BufEnter,FileType *.wat set syntax=wast

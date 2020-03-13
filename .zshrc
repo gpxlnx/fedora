@@ -216,7 +216,7 @@ function fixtheme {
   source ~/.zshrc
 }
 
-export PATH=$PATH:/home/bloodstalker/extra/cov-analysis-linux64-8.5.0.5/bin
+export PATH=$PATH:/home/bloodstalker/extra/cov-analysis-linux64-2019.03/bin
 #export PATH=:$PATH:/home/bloodstalker/extra/llvm-6/build/bin
 #export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole145/llvm7/build/bin
 export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
