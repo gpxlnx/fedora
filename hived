@@ -81,8 +81,8 @@ class Colors:
     UNDERLINE = '\033[4m'
 
 def get_info_w_name(api_url, name):
-    cc_key = json.load(open("./cryptocompare_key.json"))["key"]
-    #response = requests.get(cryptocompare_price_url + "fsyms=" + name + "&" + "tsyms=USD&" + "api_key=" + cc_key)
+    cc_key = json.load(open("/home/bloodstalker/scripts/cryptocompare_key.json"))["key"]
+    #response = requests.get(cryptocompare_price_url + "fsym=" + name + "&" + "tsyms=USD&" + "api_key=" + cc_key)
     response = requests.get(cryptocompare_price_url + "fsym=" + name + "&" + "tsyms=USD&")
     if response.status_code == 200:
         return json.loads(response.content.decode('utf-8'))
@@ -529,6 +529,7 @@ def premain(argparser):
             sys.stdout.close()
             connection.sendall(bytes(mushi_out, "utf-8"))
             sys.stdout = old_stdout
+            print(mushi_out)
     except Exception as e:
         vocalize("./mila/hiveexcept.ogg")
         if hasattr(e, "message"):
@@ -537,7 +538,7 @@ def premain(argparser):
             print(e.__doc__)
     finally:
         vocalize("./mila/hivedown.ogg")
-        sock.shutdown(socket.SHUT_RDWR)
+        #sock.shutdown(socket.SHUT_RDWR)
         sock.close()
 
 def main():
@@ -554,14 +555,6 @@ def main():
             shell.interact(banner="DEBUG REPL")
     else:
         premain(argparser)
-        """
-        if argparser.args.demon:
-            temp_pid_file = "/tmp/hivedtmp"
-            demon = Demon(argparser, temp_pid_file)
-            demon.start()
-        else:
-            premain(argparser)
-            """
 
 if __name__ == "__main__":
     main()

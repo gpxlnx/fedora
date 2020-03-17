@@ -18,7 +18,6 @@ def SigHandler_Timeout(signum, frame):
 class Argparser(object):
     def __init__(self):
         self.parser = argparse.ArgumentParser()
-        self.parser.add_argument("--com", type=str, nargs="+", help="string")
         self.parser.add_argument("--bool", action="store_true", help="bool", default=False)
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
 
@@ -31,15 +30,11 @@ def premain(argparser):
     server_address = ("", 10111)
     sock.connect(server_address)
     msg = " ".join(argparser.rest)
-    #print(msg)
-    try:
-        sock.sendall(bytes(msg, "utf-8"))
-        output = sock.recv(4096)
-        out2 = [c for c in output.decode("utf-8") if c != "\0"]
-        print("".join(out2))
-        sock.close()
-    finally:
-        sock.close()
+    sock.sendall(bytes(msg, "utf-8"))
+    output = sock.recv(4096)
+    out2 = [c for c in output.decode("utf-8") if c != "\0"]
+    print("".join(out2))
+    sock.close()
 
 def main(argv):
     argparser = Argparser()
