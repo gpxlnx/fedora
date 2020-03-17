@@ -25,47 +25,20 @@ class Argparser(object):
     def parse(self, args):
         self.args, self.rest = self.parser.parse_known_args(args)
 
-def start_connections(host, port, num_conns):
-    server_addr = (host, port)
-    for i in range(0, num_conns):
-        connid = i + 1
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setblocking(False)
-        sock.connect_ex(server_addr)
-        events = selectors.EVENT_READ | selectors.EVENT_WRITE
-        data = types.SimpleNamespace(connid=connid, msg_total=sum(len(m) for m in messages), recv_total=0, messages=list(messages), outb=b"")
-        sel.register(sock, events, data)
-
-def service_connection(ket, mask):
-    sock = key.fileobj
-    data = key.data
-    if mask & selectors.EVENT_READ:
-        recv_data = sock.recv(4096)
-        if recv_data:
-            data.recv_total += len(recv_data)
-        if not recv_data or data.recv_total== data.msg_total:
-            sel.unregister()
-            sock.close()
-    if mask & selectors.EVENT_WRITE:
-        if not data.outb and data.messages:
-            data.outb = data.messages.pop(0)
-        if data.outb:
-            sent = sock.send(data.outb)
-            data.outb = data.outb[sent:]
-
 # write code here
 def premain(argparser):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ("localhost", 11111)
+    server_address = ("", 10111)
     sock.connect(server_address)
     msg = " ".join(argparser.rest)
+    #print(msg)
     try:
         sock.sendall(bytes(msg, "utf-8"))
-        output = sock.recv(1024)
+        output = sock.recv(4096)
         out2 = [c for c in output.decode("utf-8") if c != "\0"]
         print("".join(out2))
+        sock.close()
     finally:
-        pass
         sock.close()
 
 def main(argv):

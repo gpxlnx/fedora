@@ -33,6 +33,7 @@ api_url_base = "https://api.coinmarketcap.com/v1/ticker/"
 assets_file = "/home/bloodstalker/scripts/assets.json"
 api_url_base_shapeshift = "https://shapeshift.io/getcoins"
 test_url = "https://api.coinmarketcap.com/v1/ticker/?start=0&limit=300"
+cryptocompare_price_url = "https://min-api.cryptocompare.com/data/price?"
 
 class Argparser(object):
     def __init__(self):
@@ -80,18 +81,11 @@ class Colors:
     UNDERLINE = '\033[4m'
 
 def get_info_w_name(api_url, name):
-    cmc_key = json.load(open("./cmc.json"))["cmc_key"]
-    params = {
-            "start":1,
-            "limit":300,
-            "convert":"USD"
-            }
-    headers = {
-            "Accepts":"application/json",
-            "X-CMC_API_KEY": cmc_key
-            }
-    response = requests.get(api_url + name, headers=headers)
-    if response.status_code == 200: return json.loads(response.content.decode('utf-8'))
+    cc_key = json.load(open("./cryptocompare_key.json"))["key"]
+    #response = requests.get(cryptocompare_price_url + "fsyms=" + name + "&" + "tsyms=USD&" + "api_key=" + cc_key)
+    response = requests.get(cryptocompare_price_url + "fsym=" + name + "&" + "tsyms=USD&")
+    if response.status_code == 200:
+        return json.loads(response.content.decode('utf-8'))
     else : return None
 
 def changelly():
@@ -112,8 +106,8 @@ def changelly():
     return (response.json()['result'])
 
 def vocalize(sound):
-    subprocess.call([os.path.expanduser("~")+"/scripts/voice.sh", sound])
-    #subprocess.call(["./voice.sh " + sound])
+    pass
+    #subprocess.call([os.path.expanduser("~")+"/scripts/voice.sh", sound])
 
 def trim(num, dig):
     from math import log10, floor, ceil
@@ -267,7 +261,7 @@ class Demon_Father:
     def __init__(self, pidfile):
         self.pidfile = pidfile
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_address = ('localhost', 10000)
+        self.server_address = ('localhost', 10111)
 
     def demonize(self):
         try:
@@ -361,34 +355,34 @@ def networth():
     net = float()
     assets = json.load(open(assets_file))
     for asset in assets:
-        price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
+        price = get_info_w_name(api_url_base, asset)["USD"]
         net += assets[asset] * float(price)
     return int(net)
 
 def alert_1():
-    res1 = get_info_w_name(api_url_base, "dogecoin")[0]["price_usd"]
-    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    res1 = get_info_w_name(api_url_base, "doge")["USD"]
+    res2 = get_info_w_name(api_url_base, "eth")["USD"]
     value = 600000
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) < 2: vocalize("./mila/alert_1.ogg")
 
 def alert_2():
-    res1 = get_info_w_name(api_url_base, "golem")[0]["price_usd"]
-    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    res1 = get_info_w_name(api_url_base, "gnt")["USD"]
+    res2 = get_info_w_name(api_url_base, "eth")["USD"]
     value = 1765
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_2.ogg")
 
 def alert_3():
-    res1 = get_info_w_name(api_url_base, "aragon")[0]["price_usd"]
-    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    res1 = get_info_w_name(api_url_base, "ant")["USD"]
+    res2 = get_info_w_name(api_url_base, "eth")["USD"]
     value = 196
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_3.ogg")
 
 def alert_4():
-    res1 = get_info_w_name(api_url_base, "siacoin")[0]["price_usd"]
-    res2 = get_info_w_name(api_url_base, "ethereum")[0]["price_usd"]
+    res1 = get_info_w_name(api_url_base, "sc")["USD"]
+    res2 = get_info_w_name(api_url_base, "eth")["USD"]
     value = 35695
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_4.ogg")
@@ -398,7 +392,7 @@ def highpercentdump_bot():
 
 def com_name(name):
     res = get_info_w_name(api_url_base, name)
-    if res is not None: print(trim(float(res[0]['price_usd']),4))
+    if res is not None: print(trim(float(res['USD']),4))
 
 def com_cap(name):
         res = get_info_w_name(api_url_base, name)
@@ -419,7 +413,7 @@ def com_worth(argparser):
     assets = json.load(open(assets_file))
     for asset in assets:
         if asset == argparser.args.worth:
-            price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
+            price = get_info_w_name(api_url_base, asset)["USD"]
             net = assets[asset] * float(price)
             print(int(net))
             break
@@ -428,7 +422,7 @@ def com_total(argparser):
     net = float()
     assets = json.load(open(assets_file))
     for asset in assets:
-        price = get_info_w_name(api_url_base, asset)[0]["price_usd"]
+        price = get_info_w_name(api_url_base, asset)["USD"]
         net += assets[asset] * float(price)
     print("{:,}".format(int(net)))
 
@@ -436,8 +430,8 @@ def com_xx(argparser):
     value = 1.0
     name1 = argparser.args.xx[0]
     name2 = argparser.args.xx[1]
-    res1 = get_info_w_name(api_url_base, name1)[0]["price_usd"]
-    res2 = get_info_w_name(api_url_base, name2)[0]["price_usd"]
+    res1 = get_info_w_name(api_url_base, name1)["USD"]
+    res2 = get_info_w_name(api_url_base, name2)["USD"]
     if argparser.args.xxv: value = argparser.args.xxv
     print(value*float(res1)/float(res2))
 
@@ -492,125 +486,59 @@ def alive():
 def get_socket():
     # use TCP
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # we use a numeric address since we don't want to deal with DNS
-    server_address = ("127.0.0.1", 11111)
+    server_address = ("", 10111)
     sock.bind(server_address)
-    sock.listen(15)
-    #sock.setblocking(False)
-    #sel = selectors.DefaultSelector()
-    #sel.register(sock, selectors.EVENT_READ, data=None)
     return sock
 
-def accept_wrapper(sock, sel):
-    conn, addr = sock.accept()
-    conn.setblocking(False)
-    data = types.SimpleNamespace(addr=addr, inb=b"", outb=b"")
-    events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    sel.registet(conn, events, data=data)
-
-def service_connection(key, mask):
-    sock = key.fileobj
-    data = key.data
-    if mask & selectors.EVENT_READ:
-        recv_data = sock.recv(4096)
-        if recv_data:
-            data.outb += recv_data
-        else:
-            sel.unregister(sock)
-            sock.close()
-    if mask & selectors.EVENT_WRITE:
-        if data.outb:
-            sent = sock.send(data.outb)
-            data.outb = data.outb[sent:]
-
 def premain(argparser):
-    tg_u = False
-    demon = argparser.args.demon
-    while True:
-        if demon: sock = get_socket()
-        if demon: vocalize("./mila/hiveup.ogg")
-        else: sock = None
-        try:
-            while True:
-                if demon:
-                    connection, client_address = sock.accept()
-                    command = connection.recv(4096)
-                    new_argv = command.decode("utf-8").split(" ")
-                    argparser.parse(new_argv)
-                    if (command.decode("utf-8")).find("Mahsa") != -1:
-                        tg_u = True
-                        vocalize("./mila/newtelegram.ogg")
-                    #if (command.decode("utf-8")).find("mahsaread") != -1: tg_u = False
-                    old_stdout = sys.stdout
-                    sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
-                if argparser.args.tg:
-                    if tg_u == True: print("M")
-                    else: print("W")
-                if argparser.args.demon:
-                    demon = Demon()
-                    demon.start()
-                if argparser.args.name:
-                    com_name(argparser.args.name)
-                if argparser.args.mahsaread:
-                    tg_u = False
-                if argparser.args.cap:
-                    com_cap(argparser.args.cap)
-                if argparser.args.rank:
-                    com_rank(argparser.args.rank)
-                if argparser.args.gen:
-                    com_gen(argparser)
-                if argparser.args.worth:
-                    com_worth(argparser)
-                if argparser.args.total:
-                    com_total(argparser)
-                if argparser.args.xx:
-                    com_xx(argparser)
-                if argparser.args.ava:
-                    com_ava(argparser)
-                if argparser.args.al1:
-                    alert_1()
-                if argparser.args.al2:
-                    alert_2()
-                if argparser.args.al3:
-                    alert_3()
-                if argparser.args.al4:
-                    alert_4()
-                if argparser.args.avass:
-                    com_avass(argparser)
-                if argparser.args.cglistall:
-                    com_cglistall(argparser)
-                if argparser.args.watchlist:
-                    com_watchlist(argparser)
-                if argparser.args.ss:
-                    com_ss(argparser)
-                if argparser.args.dy:
-                    highpercentdump(argparser.args.dy)
-                if argparser.args.alive: alive()
-                if not demon:
-                    sys.exit(0)
-                if demon:
-                    sys.stdout.seek(0)
-                    mushi_out = sys.stdout.read()
-                    sys.stdout.close()
-                    connection.sendall(bytes(mushi_out, "utf-8"))
-                sys.stdout = old_stdout
-        except Exception as e:
-            if demon:
-                vocalize("./mila/hiveexcept.ogg")
-                time.sleep(60)
-            #sock.close()
-            if hasattr(e, "message"):
-                print(e.messasge)
-            if hasattr(e, "__doc__"):
-                print(e.__doc__)
-        finally:
-            #time.sleep(60)
-            if demon:
-                vocalize("./mila/hivedown.ogg")
-                sock.shutdown(socket.SHUT_RDWR)
-                sock.close()
-                sock.wait_closed()
-                time.sleep(60)
+    try:
+        sock = get_socket()
+        sock.listen(15)
+        vocalize("./mila/hiveup.ogg")
+
+        while True:
+            connection, client_address = sock.accept()
+            command = connection.recv(4096)
+            new_argv = command.decode("utf-8").split(" ")
+            print(new_argv)
+            argparser.parse(new_argv)
+            old_stdout = sys.stdout
+            sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+
+            if argparser.args.name: com_name(argparser.args.name)
+            if argparser.args.cap: com_cap(argparser.args.cap)
+            if argparser.args.rank: com_rank(argparser.args.rank)
+            if argparser.args.gen: com_gen(argparser)
+            if argparser.args.worth: com_worth(argparser)
+            if argparser.args.total: com_total(argparser)
+            if argparser.args.xx: com_xx(argparser)
+            if argparser.args.ava: com_ava(argparser)
+            if argparser.args.al1: alert_1()
+            if argparser.args.al2: alert_2()
+            if argparser.args.al3: alert_3()
+            if argparser.args.al4: alert_4()
+            if argparser.args.avass: com_avass(argparser)
+            if argparser.args.cglistall: com_cglistall(argparser)
+            if argparser.args.watchlist: com_watchlist(argparser)
+            if argparser.args.ss: com_ss(argparser)
+            if argparser.args.dy: highpercentdump(argparser.args.dy)
+            if argparser.args.alive: alive()
+
+            sys.stdout.seek(0)
+            mushi_out = sys.stdout.read()
+            sys.stdout.close()
+            connection.sendall(bytes(mushi_out, "utf-8"))
+            sys.stdout = old_stdout
+    except Exception as e:
+        vocalize("./mila/hiveexcept.ogg")
+        if hasattr(e, "message"):
+            print(e.messasge)
+        if hasattr(e, "__doc__"):
+            print(e.__doc__)
+    finally:
+        vocalize("./mila/hivedown.ogg")
+        sock.shutdown(socket.SHUT_RDWR)
+        sock.close()
 
 def main():
     argparser = Argparser()
@@ -625,12 +553,15 @@ def main():
             shell = code.InteractiveConsole(variables)
             shell.interact(banner="DEBUG REPL")
     else:
+        premain(argparser)
+        """
         if argparser.args.demon:
             temp_pid_file = "/tmp/hivedtmp"
             demon = Demon(argparser, temp_pid_file)
             demon.start()
         else:
             premain(argparser)
+            """
 
 if __name__ == "__main__":
     main()
