@@ -3,6 +3,7 @@ set completeopt-=preview
 filetype off
 set showmatch
 set list
+set hidden
 set tabstop=2
 set conceallevel=1
 set shiftwidth=2
@@ -56,6 +57,8 @@ Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ElmCast/elm-vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'vim-ctrlspace/vim-ctrlspace'
+Plugin 'mhinz/vim-signify'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'vim-scripts/Conque-GDB'
 Plugin 'flazz/vim-colorschemes'
@@ -123,6 +126,7 @@ Plugin 'vim-scripts/DoxyGen-Syntax'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'szymonmaszke/vimpyter'
 Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
 "Plugin 'NLKNguyen/papercolor-theme'
