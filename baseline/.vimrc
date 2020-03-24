@@ -6,6 +6,7 @@ call vundle#begin()
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
+Plugin 'nanotech/jellybeans.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -24,7 +25,7 @@ set autoread
 set ignorecase smartcase
 set lazyredraw
 syntax on
-colo peachpuff
+colo jellybeans
 set directory^=$HOME/.vim/tmp//
 nmap <Backspace> <Nop>
 nmap <Delete> <Nop>

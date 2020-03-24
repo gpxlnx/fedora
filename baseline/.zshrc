@@ -1,5 +1,5 @@
 export ZSH=~/.oh-my-zsh
-ZSH_THEME="dogenpunk"
+ZSH_THEME="robbyrussell"
 COMPLETION_WAITING_DOTS="true"
 plugins=(
   git
@@ -27,7 +27,7 @@ function dig {
       ((globalholecounter++))
     done
   else
-    mkdir ~/devi/abbatoir
+    mkdir ~/abbatoir
     mkdir ~/abbatoir/hole$globalholecounter
     cd ~/abbatoir/hole$globalholecounter
   fi

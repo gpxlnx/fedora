@@ -37,7 +37,7 @@ set ai
 set si
 set wrap
 set fillchars+=vert:\ " whitespace signifacant
-set exrc
+"set exrc
 set secure
 set cursorline
 set cursorcolumn
