@@ -10,14 +10,29 @@ async function read_C_source(path) {
 }
 
 function JSON_POST_req(data,options) {
-  var dummy = {"source": data.toString(), "options":"{}"}
+  var dummy = {"source": data.toString(), 
+    "options":{"userArguments":"-O0", 
+      "filters":{
+        "binary":false,
+        "commentOnly":true,
+        "demangle":true,
+        "directives":true,
+        "execute":false,
+        "intel":true,
+        "labels":true,
+        "lables":true,
+        "libraryCode":false,
+        "trim":false
+      }
+    }
+  }
   return {method:"POST", body:JSON.stringify(dummy), headers:{"Content-Type":"application/json"}}
 }
 
 function compiler_explorer(path, options) {
   read_C_source(path).then(data=>
     JSON_POST_req(data, options)).then(post_arg=>
-    fetch("https://godbolt.org/api/compiler/g82/compile", post_arg)).then(res=>
+    fetch("https://godbolt.org/api/compiler/g92/compile", post_arg)).then(res=>
     res.text()).then(body=>
       console.log(body.split("\n").slice(1,body.split("\n").length).join("\n"))).catch(error=>
         console.log(error))

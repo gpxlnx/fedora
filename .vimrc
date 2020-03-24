@@ -39,8 +39,8 @@ set wrap
 set fillchars+=vert:\ " whitespace signifacant
 "set exrc
 set secure
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -62,7 +62,7 @@ Plugin 'mhinz/vim-signify'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'vim-scripts/Conque-GDB'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'Rip-Rip/clang_complete'
+"Plugin 'Rip-Rip/clang_complete'
 "Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'neomutt/neomutt.vim'
