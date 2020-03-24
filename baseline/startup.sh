@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-DISTRO=cat /etc/*-release | grep "\<NAME"
-if [ $DISTRO eq *"Fedora"* ]; then
+DISTRO=$(sudo cat /etc/*-release | grep "\<NAME")
+if [[ $DISTRO == *"Fedora"* ]]; then
   PCKMG=dnf
-elif [ $DISTRO eq *"Ubuntu"* ]; then
+elif [[ $DISTRO == *"Ubuntu"* ]]; then
   PCKMG=apt
-elif [ $DISTRO eq *"Debian"* ]; then
+elif [[ $DISTRO == *"Debian"* ]]; then
   PCKMG=apt
 fi
 
