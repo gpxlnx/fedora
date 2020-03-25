@@ -620,6 +620,7 @@ let s:compiler_explorer_std_cpp_hdrs = ["#include <algorithm>\r","#include <cstd
       \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
       \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
 " sends visual selection to compiler exlorer and gets the asm back
+let s:compiler_explorer_config="/ceconfig.json"
 function! s:compiler_explorer()
   let temp_file = tempname()
   if &filetype == "c"
@@ -634,7 +635,7 @@ function! s:compiler_explorer()
   botright vnew
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   call setline(3,substitute(getline(2),'.','=','g'))
-  execute "$read!"."node"." "."~/scripts/compiler-explorer/main.js ".temp_file
+  execute "$read!"."node"." "."~/scripts/compiler-explorer/main.js ".temp_file. " ". getcwd(0).s:compiler_explorer_config
   setlocal nomodifiable
   set syntax=nasm
   1

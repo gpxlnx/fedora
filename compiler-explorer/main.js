@@ -4,28 +4,31 @@ const fs = require("fs")
 const util = require("util")
 const readFile = util.promisify(fs.readFile)
 const path = require("path")
-
-async function read_C_source(path) {
-  return await readFile(path)
+const defaultOpts = {
+"userArguments":"-O3", "filters":
+  {"binary":false,
+    "commentOnly":true,
+    "demangle":true,
+    "directives":true,
+    "execute":false,
+    "intel":true,
+    "labels":true,
+    "lables":true,
+    "libraryCode":false,
+    "trim":false
+  }
 }
 
-function JSON_POST_req(data,options) {
-  var dummy = {"source": data.toString(), 
-    "options":{"userArguments":"-O0", 
-      "filters":{
-        "binary":false,
-        "commentOnly":true,
-        "demangle":true,
-        "directives":true,
-        "execute":false,
-        "intel":true,
-        "labels":true,
-        "lables":true,
-        "libraryCode":false,
-        "trim":false
-      }
-    }
-  }
+async function read_C_source(path) {
+  return await readFile(path, "utf-8")
+}
+
+function JSON_POST_req(data, options) {
+  const config = fs.readFileSync(options, "utf-8")
+  var dummy = {"source": data, "options": JSON.parse(config)}
+  /* if no config found, then run default
+  var dummy = {"source": data, "options": defaultOpts}
+  */
   return {method:"POST", body:JSON.stringify(dummy), headers:{"Content-Type":"application/json"}}
 }
 
@@ -38,6 +41,5 @@ function compiler_explorer(path, options) {
         console.log(error))
 }
 
-const config = JSON.parse(fs.readFileSync(path.resolve(__dirname) + "/ceconfig.json"))
-if (process.argv.length < 3) {console.log("you didnt specify the path to source")}
+if (process.argv.length < 3) {console.log("you did not specify enough args. needs two. path to source code and path to options to pass to compiler explorer.")}
 else {compiler_explorer(process.argv[2], process.argv[3])}
