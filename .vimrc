@@ -56,6 +56,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ElmCast/elm-vim'
+"Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'mhinz/vim-signify'
@@ -69,7 +70,7 @@ Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
 Plugin 'tpope/vim-capslock'
 "Plugin 'craigemery/vim-autotag'
-Plugin 'Yggdroot/indentLine'
+"Plugin 'Yggdroot/indentLine'
 "Plugin 'Lokaltog/vim-powerline'
 "Plugin 'powerline/powerline'
 Plugin 'rhysd/vim-wasm'
@@ -88,8 +89,6 @@ Plugin 'xolox/vim-notes'
 Plugin 'majutsushi/tagbar'
 Plugin 'chrisbra/csv.vim'
 "Plugin 'xolox/vim-easytags'
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
@@ -140,11 +139,13 @@ Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
 Plugin 'rhysd/vim-llvm'
 Plugin 'rhysd/vim-gfm-syntax'
-"Plugin 'vim-latex/vim-latex'
 Plugin 'lervag/vimtex'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'mattn/vim-lsp-settings'
 Plugin 'vim-utils/vim-man'
+"Plugin 'vim-latex/vim-latex'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'mattn/vim-lsp-settings'
 call vundle#end()
 filetype plugin indent on
 
@@ -290,7 +291,7 @@ au BufNewFile,BufRead .muttrc set filetype=neomuttrc
 
 " elm autocommands
 " au BufNewFile,BufEnter *.elm colorscheme iceberg
-au BufEnter * IndentLinesReset
+"au BufEnter * IndentLinesReset
 au BufNewFile,BufEnter *.s set ft=nasm
 "au BufEnter * RainbowParenthesesActivate
 "au BufEnter * RainbowParenthesesLoadRound
@@ -620,6 +621,9 @@ let s:compiler_explorer_std_cpp_hdrs = ["#include <algorithm>\r","#include <cstd
       \"#include <codecvt>\r","#include <regex>\r","#include <atomic>\r","#include <thread>\r",
       \"#include <mutex>\r","#include <shared_mutex>\r","#include <future>\r","#include <condition_variable>\r"]
 " sends visual selection to compiler exlorer and gets the asm back
+
+" should probably change this to be the complete path and make the variable
+" glboal
 let s:compiler_explorer_config="/ceconfig.json"
 function! s:compiler_explorer()
   let temp_file = tempname()

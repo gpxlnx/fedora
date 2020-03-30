@@ -46,7 +46,7 @@ bindsym $mod+d exec dmenu_run -nb black -sb tomato -l 12
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -67,10 +67,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+- split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+| split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -125,7 +125,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # run on startup
 exec /home/bloodstalker/scripts/hived --demon &
-exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
+#exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
 exec setxkbmap -option ctrl:nocaps
 
 # resize window (you can also use the mouse for that)
@@ -157,8 +157,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+#separator_symbol ""
   status_command i3blocks -c ~/scripts/.i3blocks.conf
-#font pango:DejaVu Sans Mono Book-7 7
   font pango:DejaVu Sans Mono Bold Nerd Font Complete Mono-7 7
   colors {
     separator #268bd2
