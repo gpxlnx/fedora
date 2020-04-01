@@ -1,4 +1,3 @@
-
 \documentclass[10pt]{article}
 \usepackage{array, xcolor}
 \usepackage[margin=3cm]{geometry}
@@ -36,64 +35,68 @@
 
 \section*{Professional Experience}
 \begin{longtable}{L!{\VRule}R}
-  {\bf Feb. 2019--Now}&{\bf Maharan International}\\
+  {\bf Feb. 2019--Now}\\13 months&{\bf Maharan International (Tehran, Iran)}\\
   &RA, Designer and Developer for DMI in our implementation of ERTMS/ETCS onboard, kernel-side.\\[5pt]
   & \\
   & \\
-  July 2017--Nov. 2017&{\bf Truebit}\\
-  &Developing Truebit's interpreter, smart contracts and CI. Also researched distributed storage networks for Truebit’s needs included IPFS and Ethereum's swarm.\\[5pt]
+  {\bf July 2017--Nov. 2017}\\5 months&{\bf Truebit (Remote)}\\
+  &Developed Truebit's WASM interpreter, smart contracts and CI. Also researched distributed storage networks for Truebit’s needs which included IPFS and Ethereum's swarm.\\[5pt]
   & \\
   & \\
-  Sept. 2016--Nov. 2016& Iranian Electronics Industry Engineering Corp\\
-  & The role primarily included devising the coding standard and style for the company plus some general consultance on embedded software development.\\[5pt]
+  {\bf Sept. 2016--Nov. 2016}\\2 months&{\bf Iranian Electronics Industry Engineering Corp (Tehran, Iran)}\\
+  & The role primarily included devising the coding standard and style for the company plus some general consultancy on embedded software development.\\[5pt]
   & \\
   & \\
-  May 2016--July 2016&{\bf NEAT}\\
+  {\bf May 2016--July 2016}\\3 months&{\bf NEAT (Rome, Italy)}\\
  &Wrote an automatic refactoring tool using Clang(Libtooling) in C++. The tool would be the last piece of an automated model-driven development process for safety-critical systems.\\[5pt]
   & \\
   & \\
-  July 2014--March 2016&{\bf Crouse}\\
-  & Embedded software developer, Safety-critical applications: Implementation of the DSP algorithm, testing, automation and tooling. The Software team’s ISO 26262 representative. Helped develop the work-flow for the team by adopting and adapting Code Reviews, FMEA and FTA for software and tooling alongside some best practices and defensive C programming guidelines.\\[5pt]
+ {\bf July 2014--March 2016}\\21 months&{\bf Crouse (Tehran, Iran)}\\
+  & Embedded software developer, Safety-critical applications: Implementation of the DSP algorithm, testing, automation and tooling. The Software team’s ISO 26262 representative. Helped develop the work-flow for the team by adopting and adapting Code Reviews, FMEA and FTA for software and tooling alongside some best practices and defensive C programming guidelines. Studied AUTOSAR's SWC and RTE specifications.\\[5pt]
   & \\
   & \\
-  2010--2012& Safir Language Academy\\
-  & English Teacher – Later on specifically IELTS teacher.\\[5pt]
+  {\bf August 2010--March 2012}\\20 months&{\bf Safir Language Academy (Tehran, Iran)}\\
+  & English Teacher - Later on specifically IELTS teacher.\\[5pt]
 \end{longtable}
 
 \vspace{5mm}
 \hrule
 \vspace{5mm}
 
-\section*{Details on Professional Experience}
+\section*{Role Breakdown}
 \begin{longtable}{L!{\VRule}R}
-  {\bf Code generation}& Wrote A tool that generates binary file format (WASM, ELF, …) parsers in C. Wrote another tool that generates the C code necessary to add a C structure to Lua as a Lua table.\\[5pt]
+  {\bf ERTMS / ETCS DMI Development}& Derived software requirements form the system requirements, effectively splitting them into two components. Designed and implemented the software for the component on the kernel side.\\[5pt]
   & \\
   & \\
-  {\bf Blockchain}& The main technologies I worked with as a Truebit member is our own protocol, the Ethereum blockchain, IPFS. Truebit’s protocol allows for verification of a task in a trustless network (e.g. blockchains). I worked on a WASM interpreter in python, wrote smart contracts and did the CI for all the repositories.\\[5pt]
+  {\bf Safety-critical Hard Real-Time ECU Development}& Wrote the SRS and the SDD for the DSP algorithm. Implemented the DSP algorithm.\\[5pt]
   & \\
   & \\
-  {\bf C/C++ Tooling}& Wrote a Misra-C:2004 rule checker, a source code obfuscator, and an interactive CLI tool aimed at object code manipulation, and a Traceability matrix generator\\[5pt]
+  {\bf Code Generation}& \begin{itemize}
+    \item Wrote A tool that generates binary file (WASM, ELF, ...) parsers in C.
+    \item Wrote another tool that generates the C code necessary to add a C structure to Lua as a Lua table.
+    \end{itemize}
+  \\[5pt]
+  & \\
+  {\bf Automation and Tooling}& \begin{itemize}
+    \item Developed a Misra-C:2004 rule checker(open-soure project) using Clang's Libtooling.
+    \item Developed a source code obfuscation tool(open-source project) using Clang's Libtooling.
+    \item Developed an interactive CLI tool aimed at object code manipulation(open-source project) in C++/C with Lua as it's scripting language. The tool also has Python embedded in it for rapid prototyping.
+    \item Automated the traceability matrix generation using libclang's Python bindings.
+    \item Automated the regression testing for a project I was involved in.
+    \item Automated the calculation of the WCET for all implemented functions through the use of of a Python script and an XML description file.
+    \end{itemize}
+  \\[5pt]
+  & \\
+  {\bf Automatic Refactoring}& Wrote an automatic refactoring tool using Clang's Libtooling for C.\\[5pt]
   & \\
   & \\
-  {\bf Automatic Refactoring}& Wrote an automatic refactoring tool for NEAT srl. as an intern. The purpose of the tool is to implement MISRA-C rules and other safety related measures developed by NEAT on a source code that is generated by a automatic source-code generator tool(MATLAB, …).\\[5pt]
-  & \\
-  & \\
-  {\bf Testing tools for automated testing and code-coverage}& I was in charge of tetsing VectorCAST and Testwell’s CTC and CMT. For the purpose of testing I wrote a simple test suite to test the code coverage on both VectorCAST and CTC. The more complete version of the suite (which my company did not want for some reason) is on my Github page. The VectorCAST test also included me trying to add a non-existing MCU to VectorCAST (which was not successful. The harness either crashed or hanged.).\\[5pt]
-  & \\
-  & \\
-  {\bf Defensive programming and Designing safe code}& Studied/Implemented defensive programming practices and architectural design techniques to improve code reliability along with being the representative of the software group in the study meetings regarding ISO 26262. Explored the use of FMEA and FTA for the software domain.\\[5pt]
+  {\bf Defensive Programming and Safety-Aware Software Design}& Studied/Implemented defensive programming practices, coding style and guidelines. Explored the use of FMEA and FTA for the software domain.\\[5pt]
   & \\
   & \\
   {\bf AUTOSAR}& Studied AUTOSAR SWC and RTE.\\[5pt]
   & \\
   & \\
   {\bf ISO 26262}& Studied the software section of the standard. I was also the software's group's representative for the study/review meetings held with the hardware and system teams on ISO 26262.\\[5pt]
-  & \\
-  & \\
-  {\bf ERTMS / ETCS DMI}& The task basically involved turning functional and technical system requirements into functional and technical software requirements, designing and implementing the said requirements.\\[5pt]
-  & \\
-  & \\
-  {\bf Safety related hard Real-time ECU}& Wrote the SRS and the SDD for the DSP algorithm, implemented the DSP algorithm. Wrote a python script to calculate the WCET for any given function from the compiled assembly file. I was also in charge of back-to-back testing for the algorithm which I automated for the IDE that we were using.\\[5pt]
 \end{longtable}
 
 \vspace{5mm}
@@ -106,29 +109,23 @@
   & \\
   {\bf Scripting Lanugages}&Python, Lua\\[5pt]
   & \\
-  {\bf Other}&Bash, AWK, make\\[5pt]
+  {\bf Other}&Bash, AWK, Make\\[5pt]
 \end{tabular}
 
 \section*{Skills}
 \begin{tabular}{L!{\VRule}R}
-  {\bf CI}& I do CI for my open-source projects.\\[5pt]
-  {\bf Coding Style And Guildline}& Development and Review.\\[5pt]
-  {\bf Tooling}& Clang tools and Python automation scripts.\\[5pt]
+  {\bf Software Design}& Safety-aware software design.\\[5pt]
+  & \\
+  {\bf Requirement Analysis}& Derived the functional and technical software requirements from the ERTMS/ETCS DMI system requiremnts for our implementation.\\[5pt]
+  & \\
+  {\bf CI}& Appveyor for windows(cygwin-only) and TrvisCI for linux.\\[5pt]
+  & \\
   {\bf UML}& Requirement Modelling.\\[5pt]
+  {\bf Clang}& Libtooling and libclang.\\[5pt]
 \end{tabular}
 
 \vspace{5mm}
 \hrule
-
-\section*{Education}
-\begin{tabular}{L!{\VRule}R}
-  2007--2013& Bachelor's in Electrical Engineering, Iran University of Science and Technology, Iran.\\[5pt]
-  &{\bf Thesis}: Determining the frequency of an audio signal using phase derivation in real time, design and implementation using an FPGA.
-\end{tabular}
-
-\vspace{5mm}
-\hrule
-\vspace{5mm}
 
 \section*{Languages}
 \begin{tabular}{L!{\VRule}R}
@@ -142,26 +139,36 @@
 \hrule
 \vspace{5mm}
 
+\section*{Education}
+\begin{tabular}{L!{\VRule}R}
+  2007--2013& Bachelor's in Electrical Engineering, Iran University of Science and Technology, Iran.\\[5pt]
+  &{\bf Thesis}: Determining the frequency of an audio signal using phase derivation in real time, design and implementation using an FPGA.
+\end{tabular}
+
+\vspace{5mm}
+\hrule
+\vspace{5mm}
+
 \section*{Links}
 \begin{tabular}{L!{\VRule}R}
   {\bf \href{https://ir.linkedin.com/in/farzad-sadeghi-08426277}{Linkedin}}& My Linkedin page.\\[5pt]
   {\bf \href {https://github.com/bloodstalker}{Github}}& My Github page.\\[5pt]
-  {\bf \href{https://github.com/bloodstalker/cgrep}{cgrep}}& grep for C-family source files.\\[5pt]
-  {\bf \href {https://bloodstalker.github.io/mutator/}{mutator}}& An experimental suite of tools aimed at C-family development.\\[5pt]
-  {\bf faultreiber}&\href{https://github.com/bloodstalker/faultreiber}{faultreiber} generates a binary file format parser in C using an XML description file.\\[5pt]
-  {\bf luatablegen}&\href{https://github.com/bloodstalker/luatablegen}{luatablegen} generated C code that adds C structures as Lua tables using an XML description file.\\[5pt]
-  {\bf \href{https://github.com/bloodstalker/dwasm}{dwasm}}& A WASM dump script written in python.\\[5pt]
-  {\bf \href{https://github.com/bloodstalker/delf}{delf}}& an ELF dump script in python.\\[5pt]
-  {\bf configs and dotfiles}& \href{https://github.com/bloodstalker/fedora}{my dotfles}.\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/cgrep}{Cgrep}}& Grep for C-family source files.\\[5pt]
+  {\bf \href {https://bloodstalker.github.io/mutator/}{Mutator}}& An experimental suite of tools aimed at C-family development.\\[5pt]
+  {\bf Faultreiber}&\href{https://github.com/bloodstalker/faultreiber}{Faultreiber} generates a binary file parser in C using an XML description file.\\[5pt]
+  {\bf Luatablegen}&\href{https://github.com/bloodstalker/luatablegen}{Luatablegen} generates C code that wraps C structures as Lua tables using an XML description file.\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/dwasm}{Dwasm}}& A WASM dump script written in python.\\[5pt]
+  {\bf \href{https://github.com/bloodstalker/delf}{Delf}}& An ELF dump script in python.\\[5pt]
 \end{tabular}
 
+\vspace{5mm}
+\hrule
+\vspace{5mm}
 
 \section*{Referene}
 \begin{longtable}{L!{\VRule}R}
   {\bf Jason Teutsch}& jt@truebit.io\\[5pt]
   {\bf Francesco Zulliani}& francesco.zuliani@neat.it\\[5pt]
-  {\bf Hamid Hoseinzadeh}& h.hosseinzade@crouse.ir\\[5pt]
-  {\bf Behzad Daemi}& b.daemi@gmail.com\\[5pt]
 \end{longtable}
 
 \end{document}
