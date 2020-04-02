@@ -9,7 +9,7 @@
   urlcolor=blue,
 }
 \definecolor{lightgray}{gray}{0.8}
-\newcolumntype{L}{>{\raggedleft}p{0.14\textwidth}}
+\newcolumntype{L}{>{\raggedleft}p{0.2\textwidth}}
 \newcolumntype{R}{p{0.8\textwidth}}
 \newcommand\VRule{\color{lightgray}\vrule width 0.5pt}
 
@@ -39,7 +39,7 @@
   &RA, Designer and Developer for DMI in our implementation of ERTMS/ETCS onboard, kernel-side.\\[5pt]
   & \\
   & \\
-  {\bf July 2017--Nov. 2017}\\5 months&{\bf Truebit (Remote)}\\
+  {\bf July 2017--Nov. 2017}\\5 months&{\bf Truebit (Remote, 3 time-zones)}\\
   &Developed Truebit's WASM interpreter, smart contracts and CI. Also researched distributed storage networks for Truebit’s needs which included IPFS and Ethereum's swarm.\\[5pt]
   & \\
   & \\
@@ -65,19 +65,18 @@
 
 \section*{Role Breakdown}
 \begin{longtable}{L!{\VRule}R}
-  {\bf ERTMS / ETCS DMI Development}& Derived software requirements form the system requirements, effectively splitting them into two components. Designed and implemented the software for the component on the kernel side.\\[5pt]
-  & \\
-  & \\
-  {\bf Safety-critical Hard Real-Time ECU Development}& Wrote the SRS and the SDD for the DSP algorithm. Implemented the DSP algorithm.\\[5pt]
-  & \\
-  & \\
+  {\bf ERTMS / ETCS DMI Development}& Derived software requirements form the system requirements, effectively splitting them into two components. Designed and implemented the software for the component on the kernel side.
+  \\[5pt]&\\
+  {\bf Embedded Safety-Critical Development}& Wrote the SRS and the SDD for the DSP algorithm, then implemented the DSP algorithm for a safety-critical hard real-time embedded system.
+  \\[5pt]&\\
   {\bf Code Generation}& \begin{itemize}
-    \item Wrote A tool that generates binary file (WASM, ELF, ...) parsers in C.
+    \vspace{-\baselineskip}
+    \item Wrote A tool that generates binary file (WASM, ...) parsers in C.
     \item Wrote another tool that generates the C code necessary to add a C structure to Lua as a Lua table.
     \end{itemize}
   \\[5pt]
-  & \\
   {\bf Automation and Tooling}& \begin{itemize}
+    \vspace{-\baselineskip}
     \item Developed a Misra-C:2004 rule checker(open-soure project) using Clang's Libtooling.
     \item Developed a source code obfuscation tool(open-source project) using Clang's Libtooling.
     \item Developed an interactive CLI tool aimed at object code manipulation(open-source project) in C++/C with Lua as it's scripting language. The tool also has Python embedded in it for rapid prototyping.
@@ -86,15 +85,11 @@
     \item Automated the calculation of the WCET for all implemented functions through the use of of a Python script and an XML description file.
     \end{itemize}
   \\[5pt]
-  & \\
   {\bf Automatic Refactoring}& Wrote an automatic refactoring tool using Clang's Libtooling for C.\\[5pt]
   & \\
-  & \\
-  {\bf Defensive Programming and Safety-Aware Software Design}& Studied/Implemented defensive programming practices, coding style and guidelines. Explored the use of FMEA and FTA for the software domain.\\[5pt]
-  & \\
+  {\bf Defensive Programming / Safety-Aware Software Design}& Studied/Implemented defensive programming practices, coding style and guidelines. Explored the use of FMEA and FTA for the software domain.\\[5pt]
   & \\
   {\bf AUTOSAR}& Studied AUTOSAR SWC and RTE.\\[5pt]
-  & \\
   & \\
   {\bf ISO 26262}& Studied the software section of the standard. I was also the software's group's representative for the study/review meetings held with the hardware and system teams on ISO 26262.\\[5pt]
 \end{longtable}
@@ -111,6 +106,9 @@
   & \\
   {\bf Other}&Bash, AWK, Make\\[5pt]
 \end{tabular}
+
+\vspace{5mm}
+\hrule
 
 \section*{Skills}
 \begin{tabular}{L!{\VRule}R}
@@ -141,7 +139,7 @@
 
 \section*{Education}
 \begin{tabular}{L!{\VRule}R}
-  2007--2013& Bachelor's in Electrical Engineering, Iran University of Science and Technology, Iran.\\[5pt]
+  2007--2013& Bachelor's in Electrical Engineering, Iran University of Science and Technology, Tehran, Iran.\\[5pt]
   &{\bf Thesis}: Determining the frequency of an audio signal using phase derivation in real time, design and implementation using an FPGA.
 \end{tabular}
 
@@ -152,9 +150,9 @@
 \section*{Links}
 \begin{tabular}{L!{\VRule}R}
   {\bf \href{https://ir.linkedin.com/in/farzad-sadeghi-08426277}{Linkedin}}& My Linkedin page.\\[5pt]
-  {\bf \href {https://github.com/bloodstalker}{Github}}& My Github page.\\[5pt]
+  {\bf \href{https://github.com/bloodstalker}{Github}}& My Github page.\\[5pt]
   {\bf \href{https://github.com/bloodstalker/cgrep}{Cgrep}}& Grep for C-family source files.\\[5pt]
-  {\bf \href {https://bloodstalker.github.io/mutator/}{Mutator}}& An experimental suite of tools aimed at C-family development.\\[5pt]
+  {\bf \href{https://bloodstalker.github.io/mutator/}{Mutator}}& An experimental suite of tools aimed at C-family development.\\[5pt]
   {\bf Faultreiber}&\href{https://github.com/bloodstalker/faultreiber}{Faultreiber} generates a binary file parser in C using an XML description file.\\[5pt]
   {\bf Luatablegen}&\href{https://github.com/bloodstalker/luatablegen}{Luatablegen} generates C code that wraps C structures as Lua tables using an XML description file.\\[5pt]
   {\bf \href{https://github.com/bloodstalker/dwasm}{Dwasm}}& A WASM dump script written in python.\\[5pt]
