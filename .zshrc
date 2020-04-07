@@ -167,6 +167,7 @@ function docpp {
   cp ~/scripts/c/header.hpp ./
   cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
   cp ~/scripts/cfam.vimrc ./.vimrc
+  cp ~/scripts/compiler-explorer/ceconfig.json ./
 }
 
 function docc {
@@ -174,6 +175,7 @@ function docc {
   cp ~/scripts/c/main.c ./
   cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
   cp ~/scripts/cfam.vimrc ./.vimrc
+  cp ~/scripts/compiler-explorer/ceconfig.json ./
 }
 
 function mdvv {

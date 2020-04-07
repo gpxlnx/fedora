@@ -238,7 +238,10 @@ function zle-line-init zle-keymap-select {
     VIM_PROMPT_NORMAL="%{$fg_bold[green]%}% [% NORMAL]% %{$reset_color%}"
     VIM_PROMPT_INSERT="%{$fg_bold[blue]%}% [% INSERT/MAIN]% %{$reset_color%}"
     VIM_PROMPT_REPLACE="%{$fg_bold[red]%}% [% REPLACE]% %{$reset_color%}"
-    if [[ $KEYMAP == vicmd ]];then
+    VIM_PROMPT_VISUAL="%{$fg_bold[red]%}% [% VISUAL]% %{$reset_color%}"
+    if [[ $KEYMAP == visual ]]; then
+      RPS1="$VIM_PROMPT_INSERT %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    elif [[ $KEYMAP == vicmd ]];then
       RPS1="$VIM_PROMPT_NORMAL %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
     elif [[ $KEYMAP == main || KEYMAP == viins ]]; then
       RPS1="$VIM_PROMPT_INSERT %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"

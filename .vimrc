@@ -41,6 +41,7 @@ set fillchars+=vert:\ " whitespace signifacant
 set secure
 "set cursorline
 "set cursorcolumn
+set tags=./tags,tags;$HOME
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -55,27 +56,29 @@ Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'sickill/vim-pasta'
+Plugin 'adelarsq/vim-matchit'
+Plugin 'makerj/vim-pdf'
 Plugin 'ElmCast/elm-vim'
-"Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'mhinz/vim-signify'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-"Plugin 'vim-scripts/Conque-GDB'
+Plugin 'vimwiki/vimwiki'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'Rip-Rip/clang_complete'
 "Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
-Plugin 'tpope/vim-capslock'
+"Plugin 'tpope/vim-capslock'
 "Plugin 'craigemery/vim-autotag'
 "Plugin 'Yggdroot/indentLine'
 "Plugin 'Lokaltog/vim-powerline'
 "Plugin 'powerline/powerline'
 Plugin 'rhysd/vim-wasm'
 Plugin 'tomlion/vim-solidity'
-Plugin 'rhysd/open-pdf.vim'
+"Plugin 'rhysd/open-pdf.vim'
 "Plugin 'bloodstalker/csound-vim'
 "Plugin 'https://github.com/rhysd/open-pdf.vim'
 Plugin 'ekalinin/Dockerfile.vim'
@@ -83,13 +86,13 @@ Plugin 'PotatoesMaster/i3-vim-syntax'
 "Bundle 'gabrielelana/vim-markdown'
 Plugin 'chrisbra/NrrwRgn'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-speeddating'
+"Plugin 'tpope/vim-speeddating'
 Plugin 'neovimhaskell/haskell-vim'
-Plugin 'xolox/vim-notes'
+"Plugin 'xolox/vim-notes'
 Plugin 'majutsushi/tagbar'
 Plugin 'chrisbra/csv.vim'
 "Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-session'
+"Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
@@ -107,8 +110,9 @@ Plugin 'tmux-plugins/vim-tmux'
 Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'maralla/vim-toml-enhance'
-Plugin 'Valloric/ListToggle'
-Plugin 'racer-rust/vim-racer'
+Plugin 'junegunn/fzf.vim'
+"Plugin 'Valloric/ListToggle'
+"Plugin 'racer-rust/vim-racer'
 "Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'chiel92/vim-autoformat'
@@ -129,7 +133,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
 "Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'ludwig/split-manpage.vim'
+"Plugin 'ludwig/split-manpage.vim'
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
 "Plugin 'Shougo/vimshell.vim'
@@ -142,8 +146,9 @@ Plugin 'rhysd/vim-gfm-syntax'
 Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
 "Plugin 'vim-latex/vim-latex'
-Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'ajh17/VimCompletesMe'
 Plugin 'prabirshrestha/vim-lsp'
 Plugin 'mattn/vim-lsp-settings'
 call vundle#end()
@@ -201,17 +206,17 @@ let g:cpp_concepts_highlight = 1
 hi Normal ctermbg=None
 
 " indent line options
-let g:indentLine_setColors = 20
-let g:indentLine_enabled = 1
-let g:indentLine_char = '┊'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_maxLines = 50
-let g:indentLine_indentLevel = 5
-let g:indentLine_leadingSpaceChar = '.'
+"let g:indentLine_setColors = 20
+"let g:indentLine_enabled = 1
+"let g:indentLine_char = '┊'
+"let g:indentLine_showFirstIndentLevel = 1
+"let g:indentLine_leadingSpaceEnabled = 1
+"let g:indentLine_maxLines = 50
+"let g:indentLine_indentLevel = 5
+"let g:indentLine_leadingSpaceChar = '.'
 
 "set conceallevel=1
-let g:indentLine_conceallevel = 1
+"let g:indentLine_conceallevel = 1
 
 " clang-complete
 "let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so'
@@ -489,10 +494,6 @@ let g:tagbar_type_go = {
   \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" listtoggle options
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
-
 " rust options
 let g:autofmt_autosave = 1
 let g:racer_experimental_completer = 1
@@ -532,13 +533,13 @@ if executable('rls')
         \ })
 endif
 
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-  endif
+"if executable('pyls')
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'pyls',
+        "\ 'cmd': {server_info->['pyls']},
+        "\ 'whitelist': ['python'],
+        "\ })
+  "endif
 "--------------------------------------------------------------------------------------------"
 "runs shell command, opens new buffer with syntax=nasm, prints command output
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -628,10 +629,22 @@ endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
 
-"ycm configs
-let g:ycm_confirm_extra_conf=0
-
 "ctrlp
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_show_hidden = 1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+"supertab
+let g:SuperTabSetDefaultCompletionType = "context"
+
+"yankstack
+let g:yankstack_map_keys = 0
+nmap <Space>p <Plug>yankstack_substitute_older_paste
+nmap <S-Space>p <Plug>yankstack_substitute_newer_paste
+
+"snippets
+nnoremap ,cmain :1read $HOME/scripts/snippets/cmain.c<CR>
+nnoremap ,cppmain :1read $HOME/scripts/snippets/cppmain.cpp<CR>
+nnoremap ,pypy :1read $HOME/scripts/snippets/main.py<CR>
+nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
