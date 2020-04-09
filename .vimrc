@@ -658,10 +658,9 @@ nnoremap ,cppmain :1read $HOME/scripts/snippets/cppmain.cpp<CR>
 nnoremap ,pypy :1read $HOME/scripts/snippets/main.py<CR>
 nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
 
+"highlight search
 highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
 highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
-"highlight Search ctermfg=White ctermbg=White cterm=Bold
-"highlight IncSearch ctermfg=White ctermbg=Red cterm=Bold
 
 let g:help_in_tabs = 1
 augroup HelpInNewTab()

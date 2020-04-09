@@ -168,6 +168,7 @@ function docpp {
   cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
   cp ~/scripts/cfam.vimrc ./.vimrc
   cp ~/scripts/compiler-explorer/ceconfig.json ./
+  cp ~/scripts/c/debug.dbg ./
 }
 
 function docc {
@@ -176,6 +177,7 @@ function docc {
   cp ~/scripts/.ycm_extra_config.py ./.ycm_extra_conf.py
   cp ~/scripts/cfam.vimrc ./.vimrc
   cp ~/scripts/compiler-explorer/ceconfig.json ./
+  cp ~/scripts/c/debug.dbg ./
 }
 
 function mdvv {
@@ -330,5 +332,5 @@ bindkey "^[3;5~" delete-char
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 function vman {
-  vim -c "tab Vman $1"
+  vim -c "Man $1 $2" -c 'silent only'
 }

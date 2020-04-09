@@ -196,6 +196,9 @@ valgrind: $(TARGET)
 cppcheck:
 	cppcheck $(SRCS)
 
+rundbg: $(TARGET)-dbg
+	gdb --batch --command=./debug.dbg --args $(TARGET)-dbg
+
 format:
 	- clang-format -i $(SRCS) $(HDRS)
 
