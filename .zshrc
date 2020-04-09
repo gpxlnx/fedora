@@ -226,7 +226,6 @@ export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/lib
 export PATH=:$PATH:/home/bloodstalker/arcanist/arcanist/bin
 export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole58/solidity_0.4.18/build/solc
 export PATH=:$PATH:/home/bloodstalker/binaryen/bin
-export PATH=:$PATH:/home/bloodstalker/extra/wabt/bin
 export PATH=:$PATH:/home/bloodstalker/extra/go-ethereum/build/bin
 export PATH=:$PATH:/home/bloodstalker/.cargo/bin
 export PATH=:$PATH:/home/bloodstalker/extra/parity/target/release
@@ -240,11 +239,13 @@ export PATH=:$PATH:/home/bloodstalker/extra/tg/bin
 export PATH=:$PATH:/home/bloodstalker/extra/Nim/bin
 export PATH=:$PATH:/home/bloodstalker/extra/geckodriver
 export PATH=:$PATH:/home/bloodstalker/extra/cppcheck
+export PATH=:$PATH:/home/bloodstalker/extra/binaryen-version_91
+export PATH=:$PATH:/home/bloodstalker/extra/wabt-1.0.13/
 #emscripten
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/e1.38.14_64bit
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/tag-e1.39.11/build_tag-e1.39.11_64/bin
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten/node/8.9.1_64bit/bin
-export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/1.38.14
+export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/tag-1.39.11
 
 export EDITOR=vim
 export BROWSER=lynx
@@ -327,3 +328,7 @@ bindkey "^[3;5~" delete-char
 # zle -N zle-line-init
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+function vman {
+  vim -c "tab Vman $1"
+}

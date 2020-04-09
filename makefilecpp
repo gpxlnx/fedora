@@ -161,10 +161,10 @@ tags:$(SRCS)
 	$(CXX) -emit-llvm -S -o $@ $<
 
 %.wasm: %.cpp
-	$(CXX) --compile $< --target=wasm32-unknown-unknown-wasm --output $@
+	em++ $< -o $@
 
 %.wast: %.wasm
-	wasm2wast $< > $@
+	wasm2wat $< > $@
 
 %.js: %.cpp
 	em++ $< -o $@
@@ -200,8 +200,8 @@ format:
 	- clang-format -i $(SRCS) $(HDRS)
 
 clean:
-	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so \
-	$(TARGET)-static $(TARGET)-dbg $(TARGET).a $(TARGET)-cov $(TARGET).wasm $(TARGET).wast
+	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so $(TARGET)-static \
+		$(TARGET)-dbg $(TARGET).a $(TARGET)-cov *.wasm *.wast $(TARGET).adbg *.ast
 
 deepclean: clean
 	- rm tags

@@ -16,16 +16,17 @@ set complete=.,w,b,u,t
 set foldmethod=manual
 set nofoldenable
 set autoread
-set ignorecase smartcase
 set number
 set numberwidth=5
 set laststatus=2
 set smartcase
 set lazyredraw
-set synmaxcol=600
+set synmaxcol=200
 syntax sync minlines=64
 set ttyfast
 set relativenumber
+set wildignorecase
+set wildmode=list:longest,full
 set confirm
 set wildmenu
 set magic
@@ -42,6 +43,13 @@ set secure
 "set cursorline
 "set cursorcolumn
 set tags=./tags,tags;$HOME
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+highlight clear Search
+
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -108,6 +116,7 @@ Plugin 'Konfekt/vim-scratchpad'
 Plugin 'tmux-plugins/vim-tmux'
 "Plugin 'camelcasemotion'
 Plugin 'rust-lang/rust.vim'
+Plugin 'tpope/vim-repeat'
 Plugin 'cespare/vim-toml'
 Plugin 'maralla/vim-toml-enhance'
 Plugin 'junegunn/fzf.vim'
@@ -122,7 +131,7 @@ Plugin 'terryma/vim-expand-region'
 "Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'nvie/vim-flake8'
 "Plugin 'Yggdroot/hiPairs'
-Plugin 'maxbrunsfeld/vim-yankstack'
+"Plugin 'maxbrunsfeld/vim-yankstack'
 "Plugin 'gcmt/wildfire.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/DoxyGen-Syntax'
@@ -346,7 +355,7 @@ map <F3> :bp<CR>
 map <F4> :bn<CR>
 map <F5> <C-w>
 map <C-e> :q<cr>
-nnoremap <F7> :NERDTreeToggle<CR>
+nnoremap <F7> :Vexplore<CR>
 nnoremap <F12> :UndotreeToggle<cr>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
@@ -639,12 +648,46 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:SuperTabSetDefaultCompletionType = "context"
 
 "yankstack
-let g:yankstack_map_keys = 0
-nmap <Space>p <Plug>yankstack_substitute_older_paste
-nmap <S-Space>p <Plug>yankstack_substitute_newer_paste
+"let g:yankstack_map_keys = 0
+"nmap <Space>p <Plug>yankstack_substitute_older_paste
+"nmap <S-Space>p <Plug>yankstack_substitute_newer_paste
 
 "snippets
 nnoremap ,cmain :1read $HOME/scripts/snippets/cmain.c<CR>
 nnoremap ,cppmain :1read $HOME/scripts/snippets/cppmain.cpp<CR>
 nnoremap ,pypy :1read $HOME/scripts/snippets/main.py<CR>
 nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
+
+highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
+highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
+"highlight Search ctermfg=White ctermbg=White cterm=Bold
+"highlight IncSearch ctermfg=White ctermbg=Red cterm=Bold
+
+let g:help_in_tabs = 1
+augroup HelpInNewTab()
+  autocmd!
+  autocmd BufEnter *.txt call HelpInNewTab()
+augroup END
+
+function! HelpInNewTab()
+  if &buftype == 'help' && g:help_in_tabs
+    execute "normal \<C-W>T"
+  endif
+endfunction
+
+iab pritn print
+iab retrun return
+iab fucntion function
+iab funciton function
+
+"netrw
+let g:netrw_sort_by = 'date'
+let g:netrw_sort_direction = 'reverse'
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 1
+let g:netrw_winsize = 15
+let g:netrw_fastbrowse = 1
+let g:netrw_sort_by = 'name'
+let g:netrw_sort_direction = 'normal'
+

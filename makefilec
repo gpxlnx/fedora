@@ -156,10 +156,10 @@ tags:$(SRCS)
 	$(CC) -emit-llvm -S -o $@ $<
 
 %.wasm: %.c
-	$(CC) --compile $< --target=wasm32-unknown-unknown-wasm --output $@
+	emcc $< -o $@
 
 %.wast: %.wasm
-	wasm2wast $< > $@
+	wasm2wat $< > $@
 
 %.js: %.c
 	emcc $< -o $@
@@ -196,7 +196,7 @@ format:
 
 clean:
 	- rm -f *.o *.dis *.odbg *.ocov *.js *.ir *~ $(TARGET) $(TARGET).so $(TARGET)-static \
-	$(TARGET)-dbg $(TARGET).a $(TARGET)-cov $(TARGET).wasm $(TARGET).wast
+	$(TARGET)-dbg $(TARGET).a $(TARGET)-cov *.wasm *.wast $(TARGET).adbg *.ast
 
 deepclean: clean
 	- rm tags
