@@ -162,7 +162,7 @@ tags:$(SRCS)
 	wasm2wat $< > $@
 
 %.js: %.c
-	emcc $< -o $@
+	emcc $< -s FORCE_FILESYSTEM=1 -s EXIT_RUNTIME=1 -o $@
 
 %.ast: %.c
 	$(CC) -Xclang -ast-dump -fsyntax-only $< > $@

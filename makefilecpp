@@ -167,7 +167,7 @@ tags:$(SRCS)
 	wasm2wat $< > $@
 
 %.js: %.cpp
-	em++ $< -o $@
+	em++ $< -s FORCE_FILESYSTEM=1 -s EXIT_RUNTIME=1 -o $@
 
 %.ast: %.cpp
 	$(CXX) -Xclang -ast-dump -fsyntax-only $< > $@
