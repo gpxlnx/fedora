@@ -53,6 +53,9 @@ highlight clear Search
 let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/bin/fzf
+set rtp+=/home/bloodstalker/extra/llvm-clang-4/build/bin/clangd
+set rtp+=/usr/local/bin/pyls
 call vundle#begin()
 Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
@@ -105,6 +108,7 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 "Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-vinegar'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
@@ -348,7 +352,7 @@ set <F19>=^[[24;2~
 map <F19> <S-F12>
 map! <F19> <S-F12>
 
-cnoremap help vert help
+"cnoremap help vert help
 map <F1> <Plug>(expand_region_shrink)
 map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
@@ -534,21 +538,29 @@ if executable('ocaml-language-server')
           \ })
   endif
 
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
+"if executable('rls')
+    "au User lsp_setup call lsp#register_server({
+        "\ 'name': 'rls',
+        "\ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+        "\ 'whitelist': ['rust'],
+        "\ })
+"endif
 
 "if executable('pyls')
-    "au User lsp_setup call lsp#register_server({
-        "\ 'name': 'pyls',
-        "\ 'cmd': {server_info->['pyls']},
-        "\ 'whitelist': ['python'],
-        "\ })
-  "endif
+  "au User lsp_setup call lsp#register_server({
+    "\ 'name': 'pyls',
+    "\ 'cmd': {server_info->['pyls']},
+    "\ 'whitelist': ['python'],
+    "\ })
+"endif
+
+"if executable('clangd')
+  "au User lsp_setup call lsp#register_server({
+    "\ 'name': 'clangd',
+    "\ 'cmd': {server_info->['clangd']},
+    "\ 'whitelist': ['cpp', 'c'],
+    "\ })
+"endif
 "--------------------------------------------------------------------------------------------"
 "runs shell command, opens new buffer with syntax=nasm, prints command output
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -659,20 +671,20 @@ nnoremap ,pypy :1read $HOME/scripts/snippets/main.py<CR>
 nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
 
 "highlight search
-highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
-highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
+highlight Search ctermfg=White ctermbg=DarkBlue cterm=Bold
+highlight IncSearch ctermfg=White ctermbg=DarkGreen cterm=Bold
 
-let g:help_in_tabs = 1
-augroup HelpInNewTab()
-  autocmd!
-  autocmd BufEnter *.txt call HelpInNewTab()
-augroup END
+"let g:help_in_tabs = 1
+"augroup HelpInNewTab()
+  "autocmd!
+  "autocmd BufEnter *.txt call HelpInNewTab()
+"augroup END
 
-function! HelpInNewTab()
-  if &buftype == 'help' && g:help_in_tabs
-    execute "normal \<C-W>T"
-  endif
-endfunction
+"function! HelpInNewTab()
+  "if &buftype == 'help' && g:help_in_tabs
+    "execute "normal \<C-W>T"
+  "endif
+"endfunction
 
 iab pritn print
 iab retrun return
@@ -689,4 +701,12 @@ let g:netrw_winsize = 15
 let g:netrw_fastbrowse = 1
 let g:netrw_sort_by = 'name'
 let g:netrw_sort_direction = 'normal'
+
+"vim-lsp
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_auto_enable = 1
+let g:lsp_inset_text_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_use_event_queue = 1
+let g:lsp_signature_help_enabled = 1
 
