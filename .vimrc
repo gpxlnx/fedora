@@ -109,6 +109,7 @@ Plugin 'xolox/vim-misc'
 "Plugin 'ternjs/tern_for_vim'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-vinegar'
+"Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
@@ -709,4 +710,5 @@ let g:lsp_inset_text_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_use_event_queue = 1
 let g:lsp_signature_help_enabled = 1
+nnoremap <leader>gc :LspDeclaration<cr>
 
