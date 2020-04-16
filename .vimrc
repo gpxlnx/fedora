@@ -107,8 +107,9 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-commentary'
 "Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
@@ -159,12 +160,14 @@ Plugin 'rhysd/vim-llvm'
 Plugin 'rhysd/vim-gfm-syntax'
 Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
-"Plugin 'vim-latex/vim-latex'
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'ajh17/VimCompletesMe'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'mattn/vim-lsp-settings'
+"Plugin 'vim-latex/vim-latex'
+"
+"Plugin 'prabirshrestha/async.vim'
+"Plugin 'prabirshrestha/asyncomplete.vim'
+"Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+"Plugin 'prabirshrestha/vim-lsp'
+"Plugin 'mattn/vim-lsp-settings'
 call vundle#end()
 filetype plugin indent on
 
@@ -312,14 +315,14 @@ au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
 
 let python_highlight_all = 1
-py3 << EOL
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOL
+"py3 << EOL
+"import os
+"import sys
+"if 'VIRTUAL_ENV' in os.environ:
+  "project_base_dir = os.environ['VIRTUAL_ENV']
+  "activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  "execfile(activate_this, dict(__file__=activate_this))
+"EOL
 " end of python configs
 
 "mapping fast keycodes
@@ -710,5 +713,11 @@ let g:lsp_inset_text_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_use_event_queue = 1
 let g:lsp_signature_help_enabled = 1
+let g:lsp_log_file = expand("~/vim-lsp.log")
 nnoremap <leader>gc :LspDeclaration<cr>
+
+autocmd FileType c,cpp let b:vcm_tab_complete = "omni"
+autocmd FileType lua let b:vcm_tab_complete = "omni"
+autocmd FileType python let b:vcm_tab_complete = "omni"
+autocmd FileType markdown,txt setlocal complete+=k/usr/share/dict/words
 
