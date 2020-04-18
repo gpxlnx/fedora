@@ -24,6 +24,7 @@ set autoindent
 set autoread
 set ignorecase smartcase
 set lazyredraw
+set wildmenu
 syntax on
 colo jellybeans
 set directory^=$HOME/.vim/tmp//

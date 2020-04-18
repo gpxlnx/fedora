@@ -54,8 +54,8 @@ let g:is_posix = 1
 
 set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/bin/fzf
-set rtp+=/home/bloodstalker/extra/llvm-clang-4/build/bin/clangd
-set rtp+=/usr/local/bin/pyls
+"set rtp+=/home/bloodstalker/extra/llvm-clang-4/build/bin/clangd
+"set rtp+=/usr/local/bin/pyls
 call vundle#begin()
 Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
@@ -108,6 +108,8 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/limelight.vim'
+Plugin 'junegunn/vim-peekaboo'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
 "Plugin 'jmcantrell/vim-virtualenv'
@@ -162,7 +164,6 @@ Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
 Plugin 'ajh17/VimCompletesMe'
 "Plugin 'vim-latex/vim-latex'
-"
 "Plugin 'prabirshrestha/async.vim'
 "Plugin 'prabirshrestha/asyncomplete.vim'
 "Plugin 'prabirshrestha/asyncomplete-lsp.vim'
@@ -175,19 +176,6 @@ filetype plugin indent on
 let g:gfm_syntax_enable_always = 0
 let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
-
-" vimshell
-"let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_enable_start_insert = 1
-"let g:vimshell_enable_stay_insert = 1
-"let g:vimshell_right_prompt = 'vcs_info#all("(%s)-[%b]", "(%s)-[%b|%a]")'
-"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_vimshrc_path = expand("~/scripts/.vimshrc")
-"let g:vimshell_max_directory_stack = 50
-"let g:vimshell_max_command_history = 300
-"let g:vimshell_disable_escape_highlight = 1
-"let g:vimshell_prompt_expr ='escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-"let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 
 " jellybeans
 colo jellybeans
@@ -221,22 +209,6 @@ let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 
 hi Normal ctermbg=None
-
-" indent line options
-"let g:indentLine_setColors = 20
-"let g:indentLine_enabled = 1
-"let g:indentLine_char = '┊'
-"let g:indentLine_showFirstIndentLevel = 1
-"let g:indentLine_leadingSpaceEnabled = 1
-"let g:indentLine_maxLines = 50
-"let g:indentLine_indentLevel = 5
-"let g:indentLine_leadingSpaceChar = '.'
-
-"set conceallevel=1
-"let g:indentLine_conceallevel = 1
-
-" clang-complete
-"let g:clang_library_path = '/home/bloodstalker/extra/llvm-clang-4/build/lib/libclang.so'
 
 " airline options
 let g:airline_powerline_fonts = 1
@@ -532,40 +504,6 @@ let g:nrrw_rgn_vert = 1
 let g:nrrw_rgn_resize_window = "relative"
 vnoremap <S-F5> :<C-U>NRV<cr>
 
-"--------------------------------------------------------------------------------------------"
-" LSP registrations
-if executable('ocaml-language-server')
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'ocaml-language-server',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'ocaml-language-server --stdio']},
-          \ 'whitelist': ['reason', 'ocaml'],
-          \ })
-  endif
-
-"if executable('rls')
-    "au User lsp_setup call lsp#register_server({
-        "\ 'name': 'rls',
-        "\ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-        "\ 'whitelist': ['rust'],
-        "\ })
-"endif
-
-"if executable('pyls')
-  "au User lsp_setup call lsp#register_server({
-    "\ 'name': 'pyls',
-    "\ 'cmd': {server_info->['pyls']},
-    "\ 'whitelist': ['python'],
-    "\ })
-"endif
-
-"if executable('clangd')
-  "au User lsp_setup call lsp#register_server({
-    "\ 'name': 'clangd',
-    "\ 'cmd': {server_info->['clangd']},
-    "\ 'whitelist': ['cpp', 'c'],
-    "\ })
-"endif
-"--------------------------------------------------------------------------------------------"
 "runs shell command, opens new buffer with syntax=nasm, prints command output
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -678,18 +616,6 @@ nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
 highlight Search ctermfg=White ctermbg=DarkBlue cterm=Bold
 highlight IncSearch ctermfg=White ctermbg=DarkGreen cterm=Bold
 
-"let g:help_in_tabs = 1
-"augroup HelpInNewTab()
-  "autocmd!
-  "autocmd BufEnter *.txt call HelpInNewTab()
-"augroup END
-
-"function! HelpInNewTab()
-  "if &buftype == 'help' && g:help_in_tabs
-    "execute "normal \<C-W>T"
-  "endif
-"endfunction
-
 iab pritn print
 iab retrun return
 iab fucntion function
@@ -706,18 +632,14 @@ let g:netrw_fastbrowse = 1
 let g:netrw_sort_by = 'name'
 let g:netrw_sort_direction = 'normal'
 
-"vim-lsp
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_auto_enable = 1
-let g:lsp_inset_text_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_use_event_queue = 1
-let g:lsp_signature_help_enabled = 1
-let g:lsp_log_file = expand("~/vim-lsp.log")
-nnoremap <leader>gc :LspDeclaration<cr>
-
 autocmd FileType c,cpp let b:vcm_tab_complete = "omni"
 autocmd FileType lua let b:vcm_tab_complete = "omni"
 autocmd FileType python let b:vcm_tab_complete = "omni"
-autocmd FileType markdown,txt setlocal complete+=k/usr/share/dict/words
 
+" sets the dictionary for autocompletion with <C-n> and <C-p> for the
+" filetypes
+set dictionary+=/usr/share/dict/words
+autocmd FileType markdown,text,vimwiki setlocal complete+=k
+
+"fzf
+map <leader>f <Esc><Esc>:Files!<CR>
