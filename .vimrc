@@ -160,6 +160,10 @@ Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
 Plugin 'rhysd/vim-llvm'
 Plugin 'rhysd/vim-gfm-syntax'
+Plugin 'haya14busa/is.vim'
+Plugin 'haya14busa/vim-asterisk'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'haya14busa/vim-edgemotion'
 Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
 Plugin 'ajh17/VimCompletesMe'
@@ -171,7 +175,6 @@ Plugin 'ajh17/VimCompletesMe'
 "Plugin 'mattn/vim-lsp-settings'
 call vundle#end()
 filetype plugin indent on
-
 
 let g:gfm_syntax_enable_always = 0
 let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
@@ -613,8 +616,9 @@ nnoremap ,pypy :1read $HOME/scripts/snippets/main.py<CR>
 nnoremap ,sh :1read $HOME/scripts/snippets/shebang.sh<CR>
 
 "highlight search
-highlight Search ctermfg=White ctermbg=DarkBlue cterm=Bold
-highlight IncSearch ctermfg=White ctermbg=DarkGreen cterm=Bold
+highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
+highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
+highlight WildMenu ctermfg=DarkBlue ctermbg=DarkGreen cterm=Bold
 
 iab pritn print
 iab retrun return
@@ -643,3 +647,18 @@ autocmd FileType markdown,text,vimwiki setlocal complete+=k
 
 "fzf
 map <leader>f <Esc><Esc>:Files!<CR>
+
+"asterisk.vim, is.vim, incsearch.vim, edgemotion
+map *   <Plug>(asterisk-*)
+map #   <Plug>(asterisk-#)
+map g*  <Plug>(asterisk-g*)
+map g#  <Plug>(asterisk-g#)
+map z*  <Plug>(asterisk-z*)
+map gz* <Plug>(asterisk-gz*)
+map z#  <Plug>(asterisk-z#)
+map gz# <Plug>(asterisk-gz#)
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map <C-j> <Plug>(edgemotion-j)
+map <C-k> <Plug>(edgemotion-k)
