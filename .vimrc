@@ -93,6 +93,7 @@ Plugin 'tomlion/vim-solidity'
 "Plugin 'bloodstalker/csound-vim'
 "Plugin 'https://github.com/rhysd/open-pdf.vim'
 Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 "Bundle 'gabrielelana/vim-markdown'
 Plugin 'chrisbra/NrrwRgn'
@@ -108,10 +109,12 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'junegunn/limelight.vim'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-rhubarb'
 "Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
@@ -210,6 +213,7 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
+let g:cpp_posix_standard = 1
 
 hi Normal ctermbg=None
 
@@ -662,3 +666,20 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 map <C-j> <Plug>(edgemotion-j)
 map <C-k> <Plug>(edgemotion-k)
+
+let g:semanticTermColors = [27,33,2,3,4,5,6,7,25,9,10,34,12,13,14,15,16,125,124,19]
+
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
+" camelcase and snakecase motions
+"let g:camelchar = "A-Z"
+"let g:camelchar = "A-Z0-9"
+let g:camelchar = "A-Z0-9.,;:{([`'\"_"
+nnoremap <silent><C-Left> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+nnoremap <silent><C-Right> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+inoremap <silent><C-Left> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+inoremap <silent><C-Right> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+vnoremap <silent><C-Left> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
+vnoremap <silent><C-Right> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
+
