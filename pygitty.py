@@ -13,7 +13,7 @@ class Argparser(object):
 def main():
     argparser = Argparser()
     passwd = json.load(open("/home/bloodstalker/scripts/github.json"))["pass"]
-    g = Github("bloodstalker", passwd)
+    g = Github(passwd)
     repo = g.get_repo(argparser.args.repo)
     print(repo.stargazers_count)
 
