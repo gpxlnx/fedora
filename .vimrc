@@ -109,6 +109,8 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'mhinz/vim-grepper'
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'junegunn/limelight.vim'
@@ -161,6 +163,7 @@ Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
 "Plugin 'Shougo/vimshell.vim'
 Plugin 'hattya/vcs-info.vim'
+"Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'aklt/plantuml-syntax'
 Plugin 'LnL7/vim-nix'
 Plugin 'zah/nim.vim'
@@ -607,6 +610,11 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_show_hidden = 1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 "supertab
 let g:SuperTabSetDefaultCompletionType = "context"
@@ -686,3 +694,6 @@ inoremap <silent><C-l> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']
 vnoremap <silent><C-h> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
 vnoremap <silent><C-l> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
 
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
