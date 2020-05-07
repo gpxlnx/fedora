@@ -699,3 +699,10 @@ vnoremap <silent><C-l> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camel
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"ycm
+nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nmap <leader>D <plug>(YCMHover)
