@@ -37,6 +37,7 @@ set tm=500
 set ai
 set si
 set wrap
+set diffopt=internal,algorithm:patience
 set fillchars+=vert:\ " whitespace signifacant
 "set exrc
 set secure
@@ -110,6 +111,7 @@ Plugin 'xolox/vim-misc'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
+Plugin 'chrisbra/Recover.vim'
 Plugin 'honza/vim-snippets'
 Plugin 'mhinz/vim-grepper'
 Plugin 'vim-utils/vim-troll-stopper'
