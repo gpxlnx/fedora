@@ -84,7 +84,6 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
 "Plugin 'tpope/vim-capslock'
-"Plugin 'craigemery/vim-autotag'
 "Plugin 'Yggdroot/indentLine'
 "Plugin 'Lokaltog/vim-powerline'
 "Plugin 'powerline/powerline'
@@ -110,14 +109,15 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'unblevable/quick-scope'
 Plugin 'SirVer/ultisnips'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'honza/vim-snippets'
+Plugin 'rhysd/git-messenger.vim'
 Plugin 'mhinz/vim-grepper'
 Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'junegunn/limelight.vim'
 Plugin 'valloric/MatchTagAlways'
-"Plugin 'othree/html5.vim'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
@@ -132,7 +132,6 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/vim-scratchpad'
 "Plugin 'python-mode/python-mode'
 Plugin 'tmux-plugins/vim-tmux'
-"Plugin 'camelcasemotion'
 Plugin 'rust-lang/rust.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'cespare/vim-toml'
@@ -178,12 +177,6 @@ Plugin 'haya14busa/vim-edgemotion'
 Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
 Plugin 'ajh17/VimCompletesMe'
-"Plugin 'vim-latex/vim-latex'
-"Plugin 'prabirshrestha/async.vim'
-"Plugin 'prabirshrestha/asyncomplete.vim'
-"Plugin 'prabirshrestha/asyncomplete-lsp.vim'
-"Plugin 'prabirshrestha/vim-lsp'
-"Plugin 'mattn/vim-lsp-settings'
 call vundle#end()
 filetype plugin indent on
 
@@ -263,14 +256,14 @@ nmap <PageDown> <Nop>
 
 "imap <Backspace> <Nop>
 "imap <Delete> <Nop>
-"imap <Left> <Nop>
-"imap <Down> <Nop>
-"imap <Up> <Nop>
-"imap <Right> <Nop>
+imap <Left> <Nop>
+imap <Down> <Nop>
+imap <Up> <Nop>
+imap <Right> <Nop>
 imap <PageUp> <Nop>
 imap <PageDown> <Nop>
 " end of n00b stuff
-"
+
 au BufRead,BufNewFile .i3blocks.conf set filetype=i3blocks
 au BufRead,BufNewFile *.zsh-theme set filetype=zsh
 au BufEnter,FileType cpp set syntax=cpp.doxygen
@@ -279,15 +272,7 @@ au BufEnter,FileType c set syntax=cpp.doxygen
 " to be bothered to change the name of my rc that i pass to neomutt
 au BufNewFile,BufRead .muttrc set filetype=neomuttrc
 
-" elm autocommands
-" au BufNewFile,BufEnter *.elm colorscheme iceberg
-"au BufEnter * IndentLinesReset
 au BufNewFile,BufEnter *.s set ft=nasm
-"au BufEnter * RainbowParenthesesActivate
-"au BufEnter * RainbowParenthesesLoadRound
-"au BufEnter * RainbowParenthesesLoadSquare
-"au BufEnter * RainbowParenthesesLoadBraces
-"au BufEnter * RainbowParenthesesLoadChevrons
 au BufEnter,FileType *.wast set syntax=wast
 au BufEnter,FileType *.wat set syntax=wast
 
@@ -302,15 +287,6 @@ au BufNewFile,BufEnter *.py set autoindent
 au BufNewFile,BufEnter *.py set fileformat=unix
 
 let python_highlight_all = 1
-"py3 << EOL
-"import os
-"import sys
-"if 'VIRTUAL_ENV' in os.environ:
-  "project_base_dir = os.environ['VIRTUAL_ENV']
-  "activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  "execfile(activate_this, dict(__file__=activate_this))
-"EOL
-" end of python configs
 
 "mapping fast keycodes
 set timeoutlen=1000 ttimeoutlen=100
@@ -358,6 +334,7 @@ map <F8> :TagbarToggle<CR>
 "nnoremap <S-F11> <Plug>(vimshell_split_create)
 nnoremap <S-F12> :VimShellClose<CR>
 nnoremap <S-F11> :VimShell<CR>
+nmap Y y$
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
@@ -621,11 +598,6 @@ endif
 "supertab
 let g:SuperTabSetDefaultCompletionType = "context"
 
-"yankstack
-"let g:yankstack_map_keys = 0
-"nmap <Space>p <Plug>yankstack_substitute_older_paste
-"nmap <S-Space>p <Plug>yankstack_substitute_newer_paste
-
 "snippets
 nnoremap ,cmain :1read $HOME/scripts/snippets/cmain.c<CR>
 nnoremap ,cppmain :1read $HOME/scripts/snippets/cppmain.cpp<CR>
@@ -703,6 +675,21 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "ycm
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nmap <leader>D <plug>(YCMHover)
+
+let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
+
+let g:git_messenger_always_into_popup=v:true
+
+"vim-haskell
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursivedo = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
+let g:haskell_backpack = 1
+let g:haskell_disable_TH = 0

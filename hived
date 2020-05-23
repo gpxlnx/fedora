@@ -58,6 +58,7 @@ class Argparser(object):
         self.parser.add_argument("--al2", action="store_true", help="alert2", default=False)
         self.parser.add_argument("--al3", action="store_true", help="alert3", default=False)
         self.parser.add_argument("--al4", action="store_true", help="alert4", default=False)
+        self.parser.add_argument("--al5", action="store_true", help="alert5", default=False)
         self.parser.add_argument("--dbg", action="store_true", help="debug", default=False)
         self.parser.add_argument("--alive", action="store_true", help="is hived up", default=False)
         self.parser.add_argument("--tg", action="store_true", help="tg", default=False)
@@ -387,6 +388,13 @@ def alert_4():
     print("%.2f" %(value*float(res1)/float(res2)))
     if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_4.ogg")
 
+def alert_5():
+    res1 = get_info_w_name(api_url_base, "bat")["USD"]
+    res2 = get_info_w_name(api_url_base, "eth")["USD"]
+    value = 4013
+    print("%.2f" %(value*float(res1)/float(res2)))
+    if value*float(res1)/float(res2) > 2: vocalize("./mila/alert_4.ogg")
+
 def highpercentdump_bot():
     return highpercentdump(22)
 
@@ -517,6 +525,7 @@ def premain(argparser):
             if argparser.args.al2: alert_2()
             if argparser.args.al3: alert_3()
             if argparser.args.al4: alert_4()
+            if argparser.args.al5: alert_5()
             if argparser.args.avass: com_avass(argparser)
             if argparser.args.cglistall: com_cglistall(argparser)
             if argparser.args.watchlist: com_watchlist(argparser)
