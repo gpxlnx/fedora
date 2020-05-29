@@ -35,9 +35,17 @@ api_url_base_shapeshift = "https://shapeshift.io/getcoins"
 test_url = "https://api.coinmarketcap.com/v1/ticker/?start=0&limit=300"
 cryptocompare_price_url = "https://min-api.cryptocompare.com/data/price?"
 
+#argument parser calls sys.exit() on exception, we don't want that.
+class ArgumentParseError(Exception): pass
+
+class ArgumentParserWithoutExit(argparse.ArgumentParser):
+    def error(self, message):
+        raise ArgumentParseError(message)
+
 class Argparser(object):
     def __init__(self):
-        self.parser = argparse.ArgumentParser()
+        #self.parser = argparse.ArgumentParser()
+        self.parser = ArgumentParserWithoutExit()
         self.parser.add_argument("--name", type=str, help="price of the chose crypto")
         self.parser.add_argument("--worth", type=str, help="single asset worth")
         self.parser.add_argument("--xx", type=str, nargs=2, help="convert")
@@ -107,8 +115,9 @@ def changelly():
     return (response.json()['result'])
 
 def vocalize(sound):
-    pass
+    #for whatever weird reason this causes a hang
     #subprocess.call([os.path.expanduser("~")+"/scripts/voice.sh", sound])
+    pass
 
 def trim(num, dig):
     from math import log10, floor, ceil
@@ -546,9 +555,12 @@ def premain(argparser):
         if hasattr(e, "__doc__"):
             print(e.__doc__)
     finally:
-        vocalize("./mila/hivedown.ogg")
+        #vocalize("./mila/hivedown.ogg")
         #sock.shutdown(socket.SHUT_RDWR)
-        sock.close()
+        #connection.shutdown(socket.SHUT_RDWR)
+        #sock.close()
+        #connection.close()
+        time.sleep(60)
 
 def main():
     argparser = Argparser()

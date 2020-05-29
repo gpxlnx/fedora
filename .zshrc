@@ -224,8 +224,10 @@ function fixtheme {
 export PATH=$PATH:/home/bloodstalker/extra/cov-analysis-linux64-2019.03/bin
 #export PATH=:$PATH:/home/bloodstalker/extra/llvm-6/build/bin
 #export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole145/llvm7/build/bin
-export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
-export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/lib
+#export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/bin
+#export PATH=:$PATH:/home/bloodstalker/extra/llvm-clang-4/build/lib
+export PATH=:$PATH:/home/bloodstalker/extra/llvm-11/llvm-project/build/bin
+export PATH=:$PATH:/home/bloodstalker/extra/llvm-11/llvm-project/build/lib
 export PATH=:$PATH:/home/bloodstalker/arcanist/arcanist/bin
 export PATH=:$PATH:/home/bloodstalker/devi/abbatoir/hole58/solidity_0.4.18/build/solc
 export PATH=:$PATH:/home/bloodstalker/binaryen/bin
