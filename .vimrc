@@ -1,3 +1,4 @@
+set encoding=UTF-8
 set nocompatible
 set completeopt-=preview
 filetype off
@@ -62,7 +63,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
 "Plugin 'Townk/vim-autoclose'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
@@ -178,6 +180,7 @@ Plugin 'haya14busa/vim-edgemotion'
 Plugin 'lervag/vimtex'
 Plugin 'vim-utils/vim-man'
 Plugin 'ajh17/VimCompletesMe'
+Plugin 'ryanoasis/vim-devicons'
 call vundle#end()
 filetype plugin indent on
 
@@ -677,6 +680,7 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
+"ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -702,3 +706,6 @@ let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1
 let g:haskell_disable_TH = 0
+
+"vim-markdown
+let g:vim_markdown_strikethrough = 1

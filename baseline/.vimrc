@@ -10,7 +10,7 @@ Plugin 'nanotech/jellybeans.vim'
 call vundle#end()
 filetype plugin indent on
 
-set exrc
+"set exrc
 set secure
 set list
 set showmatch
@@ -62,7 +62,7 @@ endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * hi statusline ctermfg=15 ctermbg=24
-hi statusline ctermfg=24 ctermbg=15
+hi statusline ctermfg=15 ctermbg=24
 hi statuslineNC ctermfg=0 ctermbg=24 term=bold
 set statusline=[%f]                             "file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
