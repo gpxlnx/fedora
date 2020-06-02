@@ -709,3 +709,31 @@ let g:haskell_disable_TH = 0
 
 "vim-markdown
 let g:vim_markdown_strikethrough = 1
+
+"keeps track of the cursor in insert mode, pull it back by one so it appears
+"not to move when exiting insert
+let CursorColumnI = 0
+autocmd InsertEnter * let CursorColumnI = col('.')
+autocmd CursorMovedI * let CursorColumnI = col('.')
+autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) | endif
+
+"window resizing
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+endif
+
+"Tab navigation
+nnoremap <C-PageDown> :tabprevious<CR>
+nnoremap <C-PageUp>   :tabnext<CR>
+nnoremap <C-Insert> :tabnew<CR>
+nnoremap <C-Delete> :tabclose<CR>
+inoremap <C-PageDown> <Esc>:tabprevious<CR>
+inoremap <C-PageUp>   <Esc>:tabnext<CR>
+inoremap <C-Insert> <Esc>:tabnew<CR>
+inoremap <C-Delete> <Esc>:tabclose<CR>
+
+"copy and paste between different Vim sessions
+nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
+vmap _Y :w! ~/.vi_tmp<CR>
+nmap _P :r ~/.vi_tmp<CR>
