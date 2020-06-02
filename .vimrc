@@ -322,6 +322,22 @@ map! <F18> <S-F11>
 set <F19>=^[[24;2~
 map <F19> <S-F12>
 map! <F19> <S-F12>
+"Ctrl+Del
+set <F20>=[3;5~
+map <F20> <C-Delete>
+map! <F20> <C-Delete>
+"Ctrl+Ins
+set <F21>=[2;5~
+map <F21> <C-Insert>
+map! <F21> <C-Insert>
+"Ctrl+PageDown
+set <F22>=[6;5~
+map <F22> <C-PageDown>
+map! <F22> <C-PageDown>
+"Ctrl+PageUp
+set <F23>=[5;5~
+map <F23> <C-PageUp>
+map! <F23> <C-PageUp>
 
 "cnoremap help vert help
 map <F1> <Plug>(expand_region_shrink)
