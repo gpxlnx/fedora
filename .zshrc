@@ -161,6 +161,7 @@ alias ddgr="ddgr --colorize always -r us-en -n 15"
 alias pirate-get="pirate-get -S ~/magnets/"
 alias vps="ssh 5.56.132.89 -l ubuntu"
 alias pytags="ctags --fields=+l --languages=python --python-kinds=-iv -R ."
+alias v="vim"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
