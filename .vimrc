@@ -45,6 +45,7 @@ set secure
 "set cursorline
 "set cursorcolumn
 set tags=./tags,tags;$HOME
+set spelllang=en_us,de_de
 
 set hlsearch
 set incsearch
@@ -293,33 +294,34 @@ au BufNewFile,BufEnter *.py set fileformat=unix
 let python_highlight_all = 1
 
 "mapping fast keycodes
+"the key codes are for my build of st
 set timeoutlen=1000 ttimeoutlen=100
 "Shift+F10
-set <F13>=^[[21;2~
+set <F13>=[21;2~
 map <F13> <S-F10>
 map! <F13> <S-F10>
 "Shift+F9
-set <F14>=^[[20;2~
+set <F14>=[20;2~
 map <F14> <S-F9>
 map! <F14> <S-F9>
 "Shift+F5
-set <F15>=^[[15;2~
+set <F15>=[15;2~
 map <F15> <S-F5>
 map! <F15> <S-F5>
 "Shift+F1
-set <F16>=^[[1;2P
+set <F16>=[1;2P
 map <F16> <S-F1>
 map! <F16> <S-F1>
 "Shift+F2
-set <F17>=^[[1;2Q
+set <F17>=[1;2Q
 map <F17> <S-F2>
 map! <F17> <S-F2>
 "Shift+F11
-set <F18>=^[[23;2~
+set <F18>=[23;2~
 map <F18> <S-F11>
 map! <F18> <S-F11>
 "Shift+F12
-set <F19>=^[[24;2~
+set <F19>=[24;5~
 map <F19> <S-F12>
 map! <F19> <S-F12>
 "Ctrl+Del
@@ -338,6 +340,10 @@ map! <F22> <C-PageDown>
 set <F23>=[5;5~
 map <F23> <C-PageUp>
 map! <F23> <C-PageUp>
+"Shift+Del
+set <F24>=[3;2~
+map <F24> <S-Delete>
+map! <F24> <S-Delete>
 
 "cnoremap help vert help
 map <F1> <Plug>(expand_region_shrink)
@@ -355,6 +361,8 @@ map <F8> :TagbarToggle<CR>
 nnoremap <S-F12> :VimShellClose<CR>
 nnoremap <S-F11> :VimShell<CR>
 nmap Y y$
+nnoremap <S-Delete> :bd<CR>
+nnoremap <Space> :call clearmatches()<CR>
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
@@ -727,7 +735,7 @@ inoremap <silent><C-h> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']
 inoremap <silent><C-l> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
 vnoremap <silent><C-h> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
 vnoremap <silent><C-l> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
-"wont work with set paste
+"auto-close these characters-wont work with set paste
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
