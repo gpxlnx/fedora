@@ -38,6 +38,7 @@ set tm=500
 set ai
 set si
 set wrap
+set tagbsearch
 set diffopt=internal,algorithm:patience
 set fillchars+=vert:\ " whitespace signifacant
 "set exrc
@@ -117,6 +118,9 @@ Plugin 'SirVer/ultisnips'
 "Plugin 'metakirby5/codi.vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'honza/vim-snippets'
+"Plugin 'vim-scripts/tagexplorer.vim'
+"Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'wellle/targets.vim'
 Plugin 'rhysd/git-messenger.vim'
 Plugin 'mhinz/vim-grepper'
 Plugin 'vim-utils/vim-troll-stopper'
@@ -756,6 +760,35 @@ nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nmap <leader>D <plug>(YCMHover)
+
+augroup YCMHoverCFamilySyntaxHi
+  autocmd!
+  autocmd FileType c,cpp let b:ycm_hover = {
+    \ 'command': 'GetDoc',
+    \ 'syntax': &filetype
+    \ }
+augroup END
+augroup YCMHoverJSSyntaxHi
+  autocmd!
+  autocmd FileType javascript let b:ycm_hover = {
+    \ 'command': 'GetDoc',
+    \ 'syntax': &filetype
+    \ }
+augroup END
+augroup YCMHoverPySyntaxHi
+  autocmd!
+  autocmd FileType python let b:ycm_hover = {
+    \ 'command': 'GetDoc',
+    \ 'syntax': &filetype
+    \ }
+augroup END
+
+let g:ycm_language_server = [
+      \ {'name': 'vim',
+      \     'filetypes': [ 'vim' ],
+      \     'cmdline': [ 'vim-language-server', '--stdio' ]
+      \   },
+      \]
 
 let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
 
