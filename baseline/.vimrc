@@ -5,8 +5,16 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'adelarsq/vim-matchit'
+Plugin 'chrisbra/Recover.vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'unblevable/quick-scope'
+Plugin 'tpope/vim-repeat'
+Plugin 'adelarsq/vim-matchit'
+Plugin 'majutsushi/tagbar'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'mbbill/undotree'
 call vundle#end()
 filetype plugin indent on
 
@@ -17,6 +25,7 @@ set showmatch
 set number
 set relativenumber
 set noerrorbells
+set hidden
 set novisualbell
 set expandtab
 set smarttab
@@ -24,7 +33,11 @@ set autoindent
 set autoread
 set ignorecase smartcase
 set lazyredraw
+set ttyfast
+set tagbsearch
 set wildmenu
+set diffopt=internal,algorithm:patience
+set tags=./tags,tags;$HOME
 syntax on
 colo jellybeans
 set directory^=$HOME/.vim/tmp//
@@ -40,7 +53,8 @@ imap <PageUp> <Nop>
 imap <PageDown> <Nop>
 map <F3> :bp<CR>
 map <F4> :bn<CR>
-map <F5> <C-w>
+nnoremap <F7> :Vexplore<CR>
+nnoremap <F12> :UndotreeToggle<cr>
 map <C-e> :q<cr>
 set timeoutlen=1000 ttimeoutlen=100
 set <F13>=^[[21;2~
@@ -113,3 +127,36 @@ nnoremap <silent> <leader>7 :call HighInterestingWord(7)<cr>
 nnoremap <silent> <leader>8 :call HighInterestingWord(8)<cr>
 nnoremap <silent> <leader>9 :call HighInterestingWord(9)<cr>
 nnoremap <silent> <leader>0 :call HighInterestingWord(0)<cr>
+
+au BufNewFile,BufEnter *.s set ft=nasm
+
+"copy and paste between different Vim sessions
+nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
+vmap _Y :w! ~/.vi_tmp<CR>
+nmap _P :r ~/.vi_tmp<CR>
+
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
+iab pritn print
+iab retrun return
+iab fucntion function
+iab funciton function
+
+nmap Y y$
+nnoremap <S-Delete> :bd<CR>
+nnoremap <Space> :call clearmatches()<CR>
+
+let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
+
+" undotree
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
+let g:undotree_WindowLayout = 4
+
+"highlight search
+highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
+highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
+highlight WildMenu ctermfg=DarkBlue ctermbg=DarkGreen cterm=Bold
