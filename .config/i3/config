@@ -130,6 +130,9 @@ exec /home/bloodstalker/scripts/hived --demon &
 #exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
 exec setxkbmap -option ctrl:nocaps
 
+# removes the title bar
+new_window 1pixel
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

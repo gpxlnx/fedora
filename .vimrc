@@ -110,6 +110,7 @@ Plugin 'chrisbra/csv.vim'
 "Plugin 'xolox/vim-easytags'
 "Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
+"Plugin 'liuchengxu/vista.vim'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
@@ -354,7 +355,6 @@ map <F1> <Plug>(expand_region_shrink)
 map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
 map <F4> :bn<CR>
-map <F5> <C-w>
 map <C-e> :q<cr>
 nnoremap <F7> :Vexplore<CR>
 nnoremap <F12> :UndotreeToggle<cr>
@@ -547,14 +547,7 @@ let g:tagbar_type_go = {
   \ 'ctagsargs' : '-sort -silent'
 \ }
 
-" rust options
 let g:autofmt_autosave = 1
-let g:racer_experimental_completer = 1
-let g:racer_cmd = "/home/bloodstalker/.cargo/bin/racer"
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " undotree
 if has("persistent_undo")
@@ -834,3 +827,6 @@ inoremap <C-Delete> <Esc>:tabclose<CR>
 nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
 vmap _Y :w! ~/.vi_tmp<CR>
 nmap _P :r ~/.vi_tmp<CR>
+
+"this should be here at the end so nothing else could override it
+hi Pmenu ctermbg=233
