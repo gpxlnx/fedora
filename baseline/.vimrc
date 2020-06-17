@@ -188,3 +188,8 @@ let g:netrw_winsize = 15
 let g:netrw_fastbrowse = 1
 let g:netrw_sort_by = 'name'
 let g:netrw_sort_direction = 'normal'
+
+"tagbar
+let g:tagbar_compact = 1
+let g:tagbar_show_linenumbers = 2
+let g:tagbar_width = 50
