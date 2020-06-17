@@ -6,7 +6,6 @@ call vundle#begin()
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'adelarsq/vim-matchit'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'unblevable/quick-scope'
@@ -17,6 +16,24 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'mbbill/undotree'
 call vundle#end()
 filetype plugin indent on
+
+" jellybeans
+colo jellybeans
+set background=dark
+let g:gruvbox_italics = 1
+let g:jellybeans_overrides = {
+\    'Todo': { 'guifg': '000000', 'guibg': '00cc00',
+\              'ctermfg': 'Black', 'ctermbg': 'Blue',
+\              'attr': 'bold' },
+\    'Comment': { 'guifg': '339966' },
+\    'background': { "guibg": "000000", "ctermbg":"none"},
+\    'StorageClass': {"guifg": '9966ff' },
+\    'Exception': {"guifg": "99cc00"},
+\    "Ignore": {"guifg": "336699"},
+\    "SpecialComment": {"guifg": "009900"},
+\    "Macro": {"guifg": "0099cc"}
+\}
+let g:jellybeans_use_term_italics = 1
 
 "set exrc
 set secure
@@ -39,7 +56,6 @@ set wildmenu
 set diffopt=internal,algorithm:patience
 set tags=./tags,tags;$HOME
 syntax on
-colo jellybeans
 set directory^=$HOME/.vim/tmp//
 nmap <Backspace> <Nop>
 nmap <Delete> <Nop>
