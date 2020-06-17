@@ -54,6 +54,7 @@ imap <PageDown> <Nop>
 map <F3> :bp<CR>
 map <F4> :bn<CR>
 nnoremap <F7> :Vexplore<CR>
+map <F8> :TagbarToggle<CR>
 nnoremap <F12> :UndotreeToggle<cr>
 map <C-e> :q<cr>
 set timeoutlen=1000 ttimeoutlen=100
@@ -160,3 +161,14 @@ let g:undotree_WindowLayout = 4
 highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
 highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
 highlight WildMenu ctermfg=DarkBlue ctermbg=DarkGreen cterm=Bold
+
+"netrw
+let g:netrw_sort_by = 'date'
+let g:netrw_sort_direction = 'reverse'
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 1
+let g:netrw_winsize = 15
+let g:netrw_fastbrowse = 1
+let g:netrw_sort_by = 'name'
+let g:netrw_sort_direction = 'normal'
