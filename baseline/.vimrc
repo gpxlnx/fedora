@@ -193,3 +193,4 @@ let g:netrw_sort_direction = 'normal'
 let g:tagbar_compact = 1
 let g:tagbar_show_linenumbers = 2
 let g:tagbar_width = 50
+highlight TagbarSignature ctermfg=DarkBlue
