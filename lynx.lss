@@ -57,6 +57,13 @@ whereis:reverse+underline:magenta:cyan
 #high:bold:brightmagenta
 forwbackw.arrow:reverse
 
+menu.bg:normal:black:lightgray
+menu.frame:normal:black:lightgray
+menu.entry:normal:lightgray:black
+menu.n:normal:red:gray
+menu.active:normal:yellow:black
+menu.sb:normal:brightred:lightgray
+
 # Styles with classes - <ul class=red> etc.
 ul.red:underline:brightred
 ul.blue:bold:brightblue
