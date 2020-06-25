@@ -62,12 +62,12 @@ set rtp+=/usr/bin/fzf
 "set rtp+=/usr/local/bin/pyls
 call vundle#begin()
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
 "Plugin 'Townk/vim-autoclose'
 "Plugin 'kien/ctrlp.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
@@ -81,6 +81,7 @@ Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'mhinz/vim-signify'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'vimwiki/vimwiki'
+"Plugin 'nanotech/jellybeans.vim'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'Rip-Rip/clang_complete'
 "Plugin 'kien/rainbow_parentheses.vim'
@@ -115,6 +116,8 @@ Plugin 'xolox/vim-misc'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'elzr/vim-json'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'skywind3000/gutentags_plus'
 Plugin 'unblevable/quick-scope'
 Plugin 'SirVer/ultisnips'
 "Plugin 'metakirby5/codi.vim'
@@ -146,6 +149,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'cespare/vim-toml'
 Plugin 'maralla/vim-toml-enhance'
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 "Plugin 'Valloric/ListToggle'
 "Plugin 'racer-rust/vim-racer'
@@ -702,6 +706,7 @@ autocmd FileType markdown,text,vimwiki setlocal complete+=k
 
 "fzf
 map <leader>f <Esc><Esc>:Files!<CR>
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
 
 "asterisk.vim, is.vim, incsearch.vim, edgemotion
 map *   <Plug>(asterisk-*)
@@ -749,10 +754,14 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "ycm
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
+nnoremap <leader>jj :YcmCompleter GoTo<CR>
+nnoremap <leader>jt :YcmCompleter GoToType<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <leader>rr :YcmCompleter RefactorRename<space>
 nmap <leader>D <plug>(YCMHover)
 
 augroup YCMHoverCFamilySyntaxHi
@@ -831,3 +840,10 @@ nmap _P :r ~/.vi_tmp<CR>
 
 "this should be here at the end so nothing else could override it
 hi Pmenu ctermbg=233
+
+"gutentags
+let g:gutentags_generate_on_empty_buffer = 1
+let g:gutentags_plus_nomap = 1
+
+"man
+map <leader>v <Plug>(Vman)

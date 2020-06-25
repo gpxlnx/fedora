@@ -234,17 +234,27 @@ function rebuildquery {
 # bind R only in vicmd keymapping
 #bindkey -M vicmd 'R' vi-replace-mode-widget
 
+#https://raw.githubusercontent.com/alfredodeza/zsh-plugins/master/vi/zle_vi_visual.zsh
+#this gives us vivis and vivli
+source ~/.oh-my-zsh/plugins/zle-vi-visual/zle_vi_visual.zsh
+
 function zle-line-init zle-keymap-select {
-    VIM_PROMPT_NORMAL="%{$fg_bold[green]%}% [% NORMAL]% %{$reset_color%}"
-    VIM_PROMPT_INSERT="%{$fg_bold[blue]%}% [% INSERT/MAIN]% %{$reset_color%}"
-    VIM_PROMPT_REPLACE="%{$fg_bold[red]%}% [% REPLACE]% %{$reset_color%}"
-    VIM_PROMPT_VISUAL="%{$fg_bold[red]%}% [% VISUAL]% %{$reset_color%}"
-    if [[ $KEYMAP == visual ]]; then
-      RPS1="$VIM_PROMPT_INSERT %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    VIM_PROMPT_INSERT="%{$fg_bold[cyan]%}% [% INS]% %{$reset_color%}"
+    VIM_PROMPT_MAIN="%{$fg_bold[blue]%}% [% INSERT]% %{$reset_color%}"
+    VIM_PROMPT_REPLACE="%{$fg_bold[black]%}% %{$bg_bold[red]%}% [% REPLACE]% %{$reset_color%}"
+    VIM_PROMPT_VISUAL_LINE="%{$fg_bold[red]%}% [% VISUAL-LINE]% %{$reset_color%}"
+    VIM_PROMPT_VISUAL_CHAR="%{$fg_bold[red]%}% [% VISUAL]% %{$reset_color%}"
+    VIM_PROMPT_CMD="%{$fg_bold[green]%}% [% NORMAL]% %{$reset_color%}"
+    if [[ $KEYMAP == vivis ]]; then
+      RPS1="$VIM_PROMPT_VISUAL_CHAR %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    elif [[ $KEYMAP == vivli ]]; then
+      RPS1="$VIM_PROMPT_VISUAL_LINE %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
     elif [[ $KEYMAP == vicmd ]];then
-      RPS1="$VIM_PROMPT_NORMAL %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
-    elif [[ $KEYMAP == main || KEYMAP == viins ]]; then
+      RPS1="$VIM_PROMPT_CMD %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    elif [[ $KEYMAP == viins ]]; then
       RPS1="$VIM_PROMPT_INSERT %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
+    elif [[ $KEYMAP == main ]]; then
+      RPS1="$VIM_PROMPT_MAIN %{$lorange%}%?↵%{$reset_color%} %{$batcolor%}$(batcharge_printer)%%{$reset_color%}"
       VI_MODE_R_ENTERED="no"
     fi
     zle reset-prompt
