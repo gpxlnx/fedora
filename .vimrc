@@ -8,12 +8,14 @@ set hidden
 set tabstop=2
 set conceallevel=1
 set shiftwidth=2
+set shell=ksh
+"set shell=zsh
 set directory^=$HOME/.vim/tmp//
 set expandtab
 set smarttab
 set autoindent
 set cindent
-set complete=.,w,b,u,t
+set complete=.,w,b,u,t,i
 set foldmethod=manual
 set nofoldenable
 set autoread
@@ -116,6 +118,7 @@ Plugin 'xolox/vim-misc'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'elzr/vim-json'
+Plugin 'wellle/context.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'skywind3000/gutentags_plus'
 Plugin 'unblevable/quick-scope'
@@ -360,11 +363,12 @@ map <F1> <Plug>(expand_region_shrink)
 map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
 map <F4> :bn<CR>
-map <C-e> :q<cr>
-nnoremap <F7> :Vexplore<CR>
-nnoremap <F12> :UndotreeToggle<cr>
+noremap <C-e> :q<cr>
+nnoremap <F7> :NERDTreeToggle<CR>
+nnoremap <F12> :UndotreeToggle<CR>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
+nnoremap <F5> :ContextToggle<CR>
 map <F8> :TagbarToggle<CR>
 "nnoremap <S-F11> <Plug>(vimshell_split_create)
 nnoremap <S-F12> :VimShellClose<CR>
@@ -654,6 +658,19 @@ endfunction
 command! -complete=shellcmd -nargs=0 CompilerExplorer call s:compiler_explorer()
 vmap <S-F9> :<C-U>CompilerExplorer<cr>
 
+"view the python docs for the word under cursor in a split window
+function! s:pythondoc()
+  let l:vword = expand("<cword>")
+  botright vnew
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  execute ".!pydoc3 " . l:vword
+  setlocal nomodifiable
+  set syntax=man
+  1
+endfunction
+command! -complete=shellcmd -nargs=0 PythonDoc call s:pythondoc()
+nnoremap <buffer> <leader>h :<C-U>PythonDoc<cr>
+
 "ctrlp
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -845,5 +862,15 @@ hi Pmenu ctermbg=233
 let g:gutentags_generate_on_empty_buffer = 1
 let g:gutentags_plus_nomap = 1
 
-"man
+"run Vman for the word under the cursor
 map <leader>v <Plug>(Vman)
+
+"context
+let g:context_enabled = 0
+let g:context_add_mappings = 0
+let g:context_presenter = 'vim-popup'
+
+augroup SpellingStuff
+  autocmd!
+  autocmd FileType markdown,txt,vimwiki set spell
+augroup END

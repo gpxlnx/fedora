@@ -162,6 +162,8 @@ alias pirate-get="pirate-get -S ~/magnets/"
 alias vps="ssh 5.56.132.89 -l ubuntu"
 alias pytags="ctags --fields=+l --languages=python --python-kinds=-iv -R ."
 alias v="vim"
+alias kshrc="vim ~/scripts/.kshrc"
+alias fixkshrc="cp ~/scripts/.kshrc ~/.kshrc"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
@@ -326,8 +328,7 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 . /home/bloodstalker/.nix-profile/etc/profile.d/nix.sh
 
 # fixes the weird delete key behaviour in vi mode
-bindkey "^[[3~" delete-char
-bindkey "^[3;5~" delete-char
+#bindkey "[3~" delete-char
 
 # make normal mode the default mode
 # zle-line-init() {zle -K vicmd;}
