@@ -669,7 +669,7 @@ function! s:pythondoc()
   1
 endfunction
 command! -complete=shellcmd -nargs=0 PythonDoc call s:pythondoc()
-nnoremap <buffer> <leader>h :<C-U>PythonDoc<cr>
+nnoremap <leader>h :<C-U>PythonDoc<cr>
 
 "ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -874,3 +874,56 @@ augroup SpellingStuff
   autocmd!
   autocmd FileType markdown,txt,vimwiki set spell
 augroup END
+
+nnoremap <F6> :Make<CR>
+command -nargs=* Make call s:make(<q-args>)
+
+let s:making = 0
+function s:make(args) abort
+  if s:making
+    if bufwinid(s:make_buf) == -1
+      " show making buffer
+      exe 'sbuffer' s:make_buf
+      wincmd p
+    else
+      " hide making buffer
+      exe printf('%d wincmd q', bufwinnr(s:make_buf))
+    endif
+    return
+  endif
+
+  " delete last result
+  if exists('s:make_buf') && bufexists(s:make_buf)
+    silent! exe 'bdelete' s:make_buf
+  endif
+
+  " spawn new make
+  let cmd = 'make'
+  if !empty(a:args)
+    let cmd.= ' ' . a:args
+  endif
+
+  let options = {'close_cb': function('s:make_callback'), 'term_rows': 10}
+    let s:make_buf = term_start(cmd, options)
+    let s:making = 1
+    wincmd p
+endfunction
+
+function s:make_callback(channel)
+  " look, you can not get buffer content directly here.
+  call timer_start(10, function('s:make_callback_impl'))
+endfunction
+
+function s:make_callback_impl(timer) abort
+  exe 'cgetbuffer' s:make_buf
+  " consider entry with num zero bufnr and lnum an error or warning
+  let qfl = filter(getqflist(), {k,v -> v.bufnr != 0 && v.lnum != 0})
+  if empty(qfl)
+    echo "make successful"
+  else
+    echohl WarningMsg
+    echom printf('found %d qf entries', len(qfl))
+    echohl None
+  endif
+  let s:making = 0
+endfunction
