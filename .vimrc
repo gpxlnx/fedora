@@ -33,6 +33,7 @@ set wildmode=list:longest,full
 set confirm
 set wildmenu
 set magic
+set scrolloff=0
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -257,6 +258,8 @@ function! Airline_Custom()
   \])
 endfunction
 autocmd user AirlineAfterInit call Airline_Custom()
+let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
+let g:airline#extensions#xkblayout#enabled = 1
 
 "set syntax=cpp.doxygen
 syntax on
