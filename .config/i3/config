@@ -129,6 +129,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 exec /home/bloodstalker/scripts/hived --demon &
 #exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
 exec setxkbmap -option ctrl:nocaps
+exec /home/bloodstalker/scripts/keymap.sh
 
 # removes the title bar
 new_window 1pixel
