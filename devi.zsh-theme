@@ -60,7 +60,7 @@ zstyle ':vcs_info:*' enable git svn
 
 # check-for-changes can be really slow.
 # you should disable it, if you work with large repositories
-zstyle ':vcs_info:*:prompt:*' check-for-changes true
+#zstyle ':vcs_info:*:prompt:*' check-for-changes true
 
 # set formats
 # %b - branchname
