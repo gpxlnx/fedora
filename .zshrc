@@ -49,7 +49,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git svn zsh-syntax-highlighting autojump virtualenv virtualenvwrapper cargo nvm npm docker rustup zle-vi-visual)
+plugins=(git svn zsh-syntax-highlighting autojump virtualenv virtualenvwrapper cargo nvm npm docker rustup zle-vi-visual fzf)
 
 # User configuration
 
@@ -336,6 +336,7 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
+# jellybeans takes forever to load. iceberg is very fast.
 function vman {
-  vim -c "Man $1 $2" -c 'silent only'
+  vim -c "Man $1 $2" -c 'silent only' -c 'colo iceberg' -c 'highligh Normal ctermbg=None'
 }

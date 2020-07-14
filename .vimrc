@@ -1,7 +1,7 @@
+let mapleader = " "
 set encoding=UTF-8
 set nocompatible
 set completeopt-=preview
-filetype off
 set showmatch
 set list
 set hidden
@@ -46,7 +46,7 @@ set diffopt=internal,algorithm:patience
 set fillchars+=vert:\ " whitespace signifacant
 "set exrc
 set secure
-"set cursorline
+set cursorline
 "set cursorcolumn
 set tags=./tags,tags;$HOME
 set spelllang=en_us,de_de
@@ -75,6 +75,7 @@ Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'scrooloose/nerdtree'
+"Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'sickill/vim-pasta'
 Plugin 'adelarsq/vim-matchit'
 Plugin 'makerj/vim-pdf'
@@ -207,7 +208,6 @@ autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 " jellybeans
 colo jellybeans
 set background=dark
-let g:gruvbox_italics = 1
 let g:jellybeans_overrides = {
 \    'Todo': { 'guifg': '000000', 'guibg': '00cc00',
 \              'ctermfg': 'Black', 'ctermbg': 'Blue',
@@ -221,7 +221,6 @@ let g:jellybeans_overrides = {
 \    "Macro": {"guifg": "0099cc"}
 \}
 let g:jellybeans_use_term_italics = 1
-"hi Normal ctermbg=None
 
 " Disable Background Color Erase (BCE) so that color schemes
 " work properly when Vim is used inside tmux and GNU screen.
@@ -276,8 +275,8 @@ nmap <Right> <Nop>
 nmap <PageUp> <Nop>
 nmap <PageDown> <Nop>
 
-"imap <Backspace> <Nop>
-"imap <Delete> <Nop>
+imap <Backspace> <Nop>
+imap <Delete> <Nop>
 imap <Left> <Nop>
 imap <Down> <Nop>
 imap <Up> <Nop>
@@ -367,6 +366,7 @@ map <F1> <Plug>(expand_region_shrink)
 map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
 map <F4> :bn<CR>
+map <leader>s :w<CR>
 noremap <C-e> :q<cr>
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F12> :UndotreeToggle<CR>
@@ -374,27 +374,24 @@ nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
 nnoremap <F5> :ContextToggle<CR>
 map <F8> :TagbarToggle<CR>
+"reserved for tmux use
+map <F6> <nop>
 "nnoremap <S-F11> <Plug>(vimshell_split_create)
 nnoremap <S-F12> :VimShellClose<CR>
 nnoremap <S-F11> :VimShell<CR>
-nmap Y y$
+"messes up some other bindings
+"nmap Y y$
 nnoremap <S-Delete> :bd<CR>
-nnoremap <Space> :call clearmatches()<CR>
+nnoremap <leader>c :call clearmatches()<CR>
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+nnoremap <leader>t :bel term<CR>
+"execute current buffer
+nnoremap <leader>r :!%:p<CR>
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
 let g:session_autosave = "no"
-
-" ocaml/merlin/ocp
-let no_ocaml_comments = 0
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-set rtp^="/home/bloodstalker/.opam/4.05.0/share/ocp-indent/vim"
-"autocmd FileType ocaml source '"$(opam config var prefix)"'/share/typerex/ocp-indent/ocp-indent.vim
-let g:syntastic_ocaml_checkers = ['merlin']
-" ocaml/merlin/ocp end
-let ocaml_revised = 1
-let ocaml_noend_error = 1
 
 " NERDTree
 let g:NERDTreeIndicatorMapCustom = {
@@ -409,6 +406,35 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
+"NERDTree File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('c', 28, 'none', 'green', '#151515')
+call NERDTreeHighlightFile('c.doxygen', 28, 'none', 'green', '#151515')
+call NERDTreeHighlightFile('cpp', 28, 'none', 'green', '#151515')
+call NERDTreeHighlightFile('cpp.doxygen', 28, 'none', 'green', '#151515')
+call NERDTreeHighlightFile('md', 27, 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 27, 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 25, 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 25, 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 25, 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 23, 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('python', 22, 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('js', 160, 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('lua', 39, 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('sh', 63, 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('make', 29, 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('xml', 53, 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('vim', 37, 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('tex', 203, 'none', '#ff00ff', '#151515')
+
+let NERDTreeShowHidden=1
+highlight Directory ctermfg=28
+let NERDTreeShowLineNumbers = 1
+autocmd Filetype nerdtree setlocal relativenumber
 
 "tagbar
 let g:tagbar_compact = 1
@@ -746,9 +772,6 @@ map <C-k> <Plug>(edgemotion-k)
 
 let g:semanticTermColors = [27,33,2,3,4,5,6,7,25,9,10,34,12,13,14,15,16,125,124,19]
 
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
-
 " camelcase and snakecase motions
 "let g:camelchar = "A-Z"
 "let g:camelchar = "A-Z0-9"
@@ -876,10 +899,10 @@ let g:context_presenter = 'vim-popup'
 
 augroup SpellingStuff
   autocmd!
-  autocmd FileType markdown,txt,vimwiki set spell
+  autocmd FileType markdown,txt,vimwiki,tex set spell
 augroup END
 
-nnoremap <F6> :Make<CR>
+nnoremap <leader>b :Make<CR>
 command -nargs=* Make call s:make(<q-args>)
 
 let s:making = 0
@@ -931,3 +954,5 @@ function s:make_callback_impl(timer) abort
   endif
   let s:making = 0
 endfunction
+
+autocmd Filetype syntax on
