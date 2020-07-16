@@ -1,3 +1,4 @@
+let mapleader = " "
 set nocompatible
 set completeopt-=preview
 filetype off
@@ -49,8 +50,10 @@ set smarttab
 set autoindent
 set autoread
 set ignorecase smartcase
+set magic
 set lazyredraw
 set ttyfast
+set scrolloff=0
 set tagbsearch
 set wildmenu
 set diffopt=internal,algorithm:patience
@@ -162,7 +165,9 @@ iab funciton function
 
 nmap Y y$
 nnoremap <S-Delete> :bd<CR>
-nnoremap <Space> :call clearmatches()<CR>
+nnoremap <leader>c :call clearmatches()<CR>
+nnoremap <leader>t :bel term<CR>
+nnoremap <leader>r :!%:p<CR>
 
 let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
 
@@ -194,3 +199,32 @@ let g:tagbar_compact = 1
 let g:tagbar_show_linenumbers = 2
 let g:tagbar_width = 50
 highlight TagbarSignature ctermfg=DarkBlue
+
+"view the python docs for the word under cursor in a split window
+function! s:pythondoc()
+  let l:vword = expand("<cword>")
+  botright vnew
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  execute ".!pydoc3 " . l:vword
+  setlocal nomodifiable
+  set syntax=man
+  1
+endfunction
+command! -complete=shellcmd -nargs=0 PythonDoc call s:pythondoc()
+nnoremap <leader>h :<C-U>PythonDoc<cr>
+
+"camel and snake case motion
+let g:camelchar = "A-Z0-9.,;:{([`'\"_"
+nnoremap <silent><C-h> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+nnoremap <silent><C-l> :<C-u>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+inoremap <silent><C-h> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>
+inoremap <silent><C-l> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
+vnoremap <silent><C-h> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
+vnoremap <silent><C-l> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
+
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O

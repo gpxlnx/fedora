@@ -102,7 +102,7 @@ Plugin 'tomlion/vim-solidity'
 "Plugin 'bloodstalker/csound-vim'
 "Plugin 'https://github.com/rhysd/open-pdf.vim'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'jaxbot/semantic-highlight.vim'
+"Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 "Bundle 'gabrielelana/vim-markdown'
 Plugin 'chrisbra/NrrwRgn'
@@ -162,7 +162,8 @@ Plugin 'junegunn/fzf.vim'
 "Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'chiel92/vim-autoformat'
-Plugin 'wakatime/vim-wakatime'
+Plugin 'vim-scripts/ZoomWin'
+"Plugin 'wakatime/vim-wakatime'
 Plugin 'terryma/vim-expand-region'
 "Plugin 'scrooloose/syntastic'
 "Plugin 'vim-scripts/indentpython.vim'
@@ -244,10 +245,9 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#branch#enabled = 1
-"let g:airline_theme = 'jellybeans'
+let g:airline_theme = 'jellybeans'
 function! Airline_Custom()
   let l:spc = g:airline_symbols.space
-  "let g:airline_section_c = '[%f] [%b][0x%B]'
   let g:airline_section_z = airline#section#create([
     \ 'windowswap',
     \ '%3p%%'.l:spc,
@@ -261,7 +261,6 @@ autocmd user AirlineAfterInit call Airline_Custom()
 let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
 let g:airline#extensions#xkblayout#enabled = 1
 
-"set syntax=cpp.doxygen
 syntax on
 let python_highlight_all = 1
 
@@ -296,6 +295,7 @@ au BufNewFile,BufRead .muttrc set filetype=neomuttrc
 au BufNewFile,BufEnter *.s set ft=nasm
 au BufEnter,FileType *.wast set syntax=wast
 au BufEnter,FileType *.wat set syntax=wast
+au BufEnter,FileType *.uml set syntax=plantuml
 
 " python configs
 " PEP-8
@@ -598,7 +598,7 @@ let g:undotree_WindowLayout = 4
 " narrow region
 let g:nrrw_rgn_vert = 1
 let g:nrrw_rgn_resize_window = "relative"
-vnoremap <S-F5> :<C-U>NRV<cr>
+vnoremap <S-F5> :<C-U>NR<cr>
 
 "runs shell command, opens new buffer with syntax=nasm, prints command output
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -749,7 +749,7 @@ autocmd FileType python let b:vcm_tab_complete = "omni"
 " sets the dictionary for autocompletion with <C-n> and <C-p> for the
 " filetypes
 set dictionary+=/usr/share/dict/words
-autocmd FileType markdown,text,vimwiki setlocal complete+=k
+autocmd FileType markdown,text,vimwiki,tex setlocal complete+=k
 
 "fzf
 map <leader>f <Esc><Esc>:Files!<CR>
@@ -891,6 +891,7 @@ let g:gutentags_plus_nomap = 1
 
 "run Vman for the word under the cursor
 map <leader>v <Plug>(Vman)
+autocmd Filetype man setlocal relativenumber
 
 "context
 let g:context_enabled = 0
@@ -954,5 +955,3 @@ function s:make_callback_impl(timer) abort
   endif
   let s:making = 0
 endfunction
-
-autocmd Filetype syntax on
