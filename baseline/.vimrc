@@ -163,9 +163,10 @@ iab retrun return
 iab fucntion function
 iab funciton function
 
-nmap Y y$
 nnoremap <S-Delete> :bd<CR>
+map <F6> <nop>
 nnoremap <leader>c :call clearmatches()<CR>
+map <leader>s :w<CR>
 nnoremap <leader>t :bel term<CR>
 nnoremap <leader>r :!%:p<CR>
 

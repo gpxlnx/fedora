@@ -50,6 +50,7 @@ set sidebar_indent_string = "...."
 subscribe ^cfe-dev@lists.llvm.org$
 subscribe ^llvm-dev@lists.llvm.org$
 subscribe -group lua lua-l@lists.lua.org
+subscribe -group cygwin cygwin@cygwin.com
 
 # for background in 16 color terminal, valid background colors include:
 # base03, bg, black, any of the non brights
@@ -172,6 +173,10 @@ color body          brightcolor39   default        "((@(([0-9a-z-]+\\.)*[0-9a-z-
 # simplified regex for URL & email
 #color body		magenta		default	"(ftp|https?|gopher|news|telnet|finger)://[^ \"\t\r\n]+"
 #color body		magenta		default	"[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+#highlight the mail subject and from in the body as well
+color body color28 default "(^Subject:.*$)"
+color body color27 default "(^From:.*$)"
 
 # _underline_
 color body          blue            default         "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
