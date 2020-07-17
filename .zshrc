@@ -164,6 +164,8 @@ alias pytags="ctags --fields=+l --languages=python --python-kinds=-iv -R ."
 alias v="vim"
 alias kshrc="vim ~/scripts/.kshrc"
 alias fixkshrc="cp ~/scripts/.kshrc ~/.kshrc"
+alias rangerrc="vim ~/scripts/.config/ranger/rc.conf"
+alias fixrangerrc="cp ~/scripts/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
