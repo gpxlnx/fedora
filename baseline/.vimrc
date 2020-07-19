@@ -95,8 +95,8 @@ function! InsertStatuslineColor(mode)
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=15 ctermbg=24
-hi statusline ctermfg=15 ctermbg=24
+au InsertLeave * hi statusline ctermfg=24 ctermbg=15
+hi statusline ctermfg=24 ctermbg=15
 hi statuslineNC ctermfg=0 ctermbg=24 term=bold
 set statusline=[%f]                             "file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
