@@ -86,9 +86,9 @@ nnoremap <S-F10> :sp<cr>
 set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline ctermfg=15 ctermbg=22
+    hi statusline ctermfg=22 ctermbg=15
   elseif a:mode == 'r'
-    hi statusline ctermfg=15 ctermbg=52
+    hi statusline ctermfg=52 ctermbg=15
   else
     hi statusline ctermfg=63 ctermbg=25
   endif
