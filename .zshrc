@@ -340,5 +340,5 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 
 # jellybeans takes forever to load. iceberg is very fast.
 function vman {
-  vim -c "Man $1 $2" -c 'silent only' -c 'colo iceberg' -c 'highligh Normal ctermbg=None'
+  vim -c "Man $1 $2" -c 'silent only' -c 'colo iceberg' -c 'highlight Normal ctermbg=None' -c 'highlight lineNr ctermbg=16' -c 'hi EndOfBuffer ctermbg=16'
 }

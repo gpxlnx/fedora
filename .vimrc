@@ -8,12 +8,13 @@ set hidden
 set tabstop=2
 set conceallevel=1
 set shiftwidth=2
+"ksh is fater in more ways than one
 set shell=ksh
-"set shell=zsh
 set directory^=$HOME/.vim/tmp//
 set expandtab
 set smarttab
 set autoindent
+set history=1000
 set cindent
 set complete=.,w,b,u,t,i
 set foldmethod=manual
@@ -24,7 +25,7 @@ set numberwidth=5
 set laststatus=2
 set smartcase
 set lazyredraw
-set synmaxcol=200
+set synmaxcol=800
 syntax sync minlines=64
 set ttyfast
 set relativenumber
@@ -41,12 +42,17 @@ set tm=500
 set ai
 set si
 set wrap
+let &showbreak = '↪ '
 set tagbsearch
+set showfulltag
 set diffopt=internal,algorithm:patience
 set fillchars+=vert:\ " whitespace signifacant
 "set exrc
 set secure
 set cursorline
+" if im in insert mode i probably dont need a visual indicator...probably...
+autocmd InsertLeave * set cursorline
+autocmd InsertEnter * set nocursorline
 "set cursorcolumn
 set tags=./tags,tags;$HOME
 set spelllang=en_us,de_de
@@ -106,6 +112,8 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 "Bundle 'gabrielelana/vim-markdown'
 Plugin 'chrisbra/NrrwRgn'
+Plugin 'kana/vim-arpeggio'
+" Plugin 'kana/vim-submode'
 Plugin 'easymotion/vim-easymotion'
 "Plugin 'tpope/vim-speeddating'
 Plugin 'neovimhaskell/haskell-vim'
@@ -142,7 +150,7 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-rhubarb'
 "Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'JuliaEditorSupport/julia-vim'
@@ -376,9 +384,6 @@ nnoremap <F5> :ContextToggle<CR>
 map <F8> :TagbarToggle<CR>
 "reserved for tmux use
 map <F6> <nop>
-"nnoremap <S-F11> <Plug>(vimshell_split_create)
-nnoremap <S-F12> :VimShellClose<CR>
-nnoremap <S-F11> :VimShell<CR>
 "messes up some other bindings
 "nmap Y y$
 nnoremap <S-Delete> :bd<CR>
@@ -388,6 +393,9 @@ inoremap <c-e> <esc>A
 nnoremap <leader>t :bel term<CR>
 "execute current buffer
 nnoremap <leader>r :!%:p<CR>
+nnoremap <leader>cd :cd %:p:h<cr>
+"terminal vim wont do weird things when you paste things in
+set pastetoggle=<F11>
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
@@ -431,6 +439,7 @@ call NERDTreeHighlightFile('xml', 53, 'none', '#ff00ff', '#151515')
 call NERDTreeHighlightFile('vim', 37, 'none', '#ff00ff', '#151515')
 call NERDTreeHighlightFile('tex', 203, 'none', '#ff00ff', '#151515')
 
+let NERDTreeDirArrows = 1
 let NERDTreeShowHidden=1
 highlight Directory ctermfg=28
 let NERDTreeShowLineNumbers = 1
@@ -589,6 +598,7 @@ let g:tagbar_type_go = {
 let g:autofmt_autosave = 1
 
 " undotree
+set undolevels=1000
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
@@ -726,10 +736,12 @@ highlight Search ctermfg=White ctermbg=DarkGreen cterm=Bold
 highlight IncSearch ctermfg=White ctermbg=DarkBlue cterm=Bold
 highlight WildMenu ctermfg=DarkBlue ctermbg=DarkGreen cterm=Bold
 
+"typos
 iab pritn print
 iab retrun return
 iab fucntion function
 iab funciton function
+iab tehn then
 
 "netrw
 let g:netrw_sort_by = 'date'
@@ -742,9 +754,12 @@ let g:netrw_fastbrowse = 1
 let g:netrw_sort_by = 'name'
 let g:netrw_sort_direction = 'normal'
 
+"vimcompletesme
+let g:vcm_default_maps = 0
 autocmd FileType c,cpp let b:vcm_tab_complete = "omni"
 autocmd FileType lua let b:vcm_tab_complete = "omni"
 autocmd FileType python let b:vcm_tab_complete = "omni"
+autocmd FileType javasript let b:vcm_tab_complete = "omni"
 
 " sets the dictionary for autocompletion with <C-n> and <C-p> for the
 " filetypes
@@ -782,7 +797,7 @@ inoremap <silent><C-h> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']
 inoremap <silent><C-l> <C-o>:call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>
 vnoremap <silent><C-h> :<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%^','bW')<CR>v`>o
 vnoremap <silent><C-l> <Esc>`>:<C-U>call search('\C\<\<Bar>\%(^\<Bar>[^'.g:camelchar.']\@<=\)['.g:camelchar.']\<Bar>['.g:camelchar.']\ze\%([^'.g:camelchar.']\&\>\@!\)\<Bar>\%$','W')<CR>v`<o
-"auto-close these characters-wont work with set paste
+"auto-close these characters-wont work with paste set...obviously...
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
@@ -808,21 +823,21 @@ nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nnoremap <leader>rr :YcmCompleter RefactorRename<space>
 nmap <leader>D <plug>(YCMHover)
 
-augroup YCMHoverCFamilySyntaxHi
+augroup YCMDocCFam
   autocmd!
   autocmd FileType c,cpp let b:ycm_hover = {
     \ 'command': 'GetDoc',
     \ 'syntax': &filetype
     \ }
 augroup END
-augroup YCMHoverJSSyntaxHi
+augroup YCMDocJS
   autocmd!
   autocmd FileType javascript let b:ycm_hover = {
     \ 'command': 'GetDoc',
     \ 'syntax': &filetype
     \ }
 augroup END
-augroup YCMHoverPySyntaxHi
+augroup YCMDocPy
   autocmd!
   autocmd FileType python let b:ycm_hover = {
     \ 'command': 'GetDoc',
@@ -865,6 +880,8 @@ autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) 
 if bufwinnr(1)
   map + <C-W>+
   map - <C-W>-
+  map > <C-W>>
+  map < <C-W><
 endif
 
 "Tab navigation
@@ -882,9 +899,6 @@ nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
 vmap _Y :w! ~/.vi_tmp<CR>
 nmap _P :r ~/.vi_tmp<CR>
 
-"this should be here at the end so nothing else could override it
-hi Pmenu ctermbg=233
-
 "gutentags
 let g:gutentags_generate_on_empty_buffer = 1
 let g:gutentags_plus_nomap = 1
@@ -898,7 +912,7 @@ let g:context_enabled = 0
 let g:context_add_mappings = 0
 let g:context_presenter = 'vim-popup'
 
-augroup SpellingStuff
+augroup AUSpell
   autocmd!
   autocmd FileType markdown,txt,vimwiki,tex set spell
 augroup END
@@ -955,3 +969,10 @@ function s:make_callback_impl(timer) abort
   endif
   let s:making = 0
 endfunction
+
+"arpeggio mappings
+call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+
+"this should be here at the end so nothing else could override it
+hi Pmenu ctermbg=233
+hi SignColumn ctermbg=16
