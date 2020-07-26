@@ -421,9 +421,7 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 endfunction
 
 call NERDTreeHighlightFile('c', 28, 'none', 'green', '#151515')
-call NERDTreeHighlightFile('c.doxygen', 28, 'none', 'green', '#151515')
 call NERDTreeHighlightFile('cpp', 28, 'none', 'green', '#151515')
-call NERDTreeHighlightFile('cpp.doxygen', 28, 'none', 'green', '#151515')
 call NERDTreeHighlightFile('md', 27, 'none', '#3366FF', '#151515')
 call NERDTreeHighlightFile('yml', 27, 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('config', 25, 'none', 'yellow', '#151515')
@@ -444,6 +442,9 @@ let NERDTreeShowHidden=1
 highlight Directory ctermfg=28
 let NERDTreeShowLineNumbers = 1
 autocmd Filetype nerdtree setlocal relativenumber
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsOS = 'unix'
 
 "tagbar
 let g:tagbar_compact = 1
