@@ -711,6 +711,7 @@ function! s:pythondoc()
 endfunction
 command! -complete=shellcmd -nargs=0 PythonDoc call s:pythondoc()
 nnoremap <leader>h :<C-U>PythonDoc<cr>
+vnoremap <leader>h :<C-U>PythonDoc<cr>
 
 "ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -851,6 +852,11 @@ let g:ycm_language_server = [
       \     'filetypes': [ 'vim' ],
       \     'cmdline': [ 'vim-language-server', '--stdio' ]
       \   },
+      \ {
+      \     'name': 'bash',
+      \     'cmdline': [ 'bash-language-server' , 'start' ],
+      \     'filetypes': [ 'sh', 'bash' ],
+      \   },
       \]
 
 let g:qs_highlight_on_keys = ["f", "F", "t", "T"]
@@ -881,8 +887,6 @@ autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) 
 if bufwinnr(1)
   map + <C-W>+
   map - <C-W>-
-  map > <C-W>>
-  map < <C-W><
 endif
 
 "Tab navigation
@@ -974,6 +978,14 @@ endfunction
 "arpeggio mappings
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 
+let g:limelight_conceal_ctermfg = 240
+let g:limelight_default_coefficient = 0.7
+let g:limelight_paragraph_span = 1
+
+let g:goyo_width = 120
+let g:goyo_height = 85
+
 "this should be here at the end so nothing else could override it
+hi SpecialKey ctermbg=16
 hi Pmenu ctermbg=233
 hi SignColumn ctermbg=16

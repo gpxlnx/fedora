@@ -36,6 +36,18 @@ MEM_SWAP() {
   echo -n "$RESULT"
 }
 
+HOME_FREE() {
+	"df" | grep "/home$" | gawk '{print int($4/100000)/10"G"}'
+}
+
+ROOT_FREE() {
+	"df" | grep "/$" | gawk '{print int($4/100000)/10"G"}'
+}
+
+EXTRA_FREE() {
+	"df" | grep "/extra$" | gawk '{print int($4/100000)/10"G"}'
+}
+
 while true; do
   echo -e "%{r}%{F#ff1d1f21}%{B$color_net}$sep_left%{R} S:$(MEM_SWAP)%{F#ffcc6666}%{B#ff1d1f21}$sep_left%{R} M:$(MEM_RAM)%{F$color_cpu}%{B#ffcc6666}$sep_left%{R} $(DATETIME)$NORMAL"
   sleep 1

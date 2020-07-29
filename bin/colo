@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+# _*_ coding=utf-8 _*_
+
+import argparse
+import code
+import readline
+import signal
+import sys
+from html.parser import HTMLParser
+import subprocess
+from io import TextIOWrapper, BytesIO
+
+
+BASH_STR = 'printf "\x1b[38;5;XXXmcolour YYY \x1b[0m\t";'
+
+def SigHandler_SIGINT(signum, frame):
+    print()
+    sys.exit(0)
+
+class Argparser(object):
+    def __init__(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--string", type=str, help="string")
+        parser.add_argument("--all", action="store_true", help="bool", default=False)
+        parser.add_argument("--hsl", action="store_true", help="bool", default=False)
+        parser.add_argument("--rgb", action="store_true", help="bool", default=False)
+        parser.add_argument("--number", action="store_true", help="bool", default=False)
+        parser.add_argument("--name", action="store_true", help="bool", default=False)
+        parser.add_argument("--hex", action="store_true", help="bool", default=False)
+        parser.add_argument("--dbg", action="store_true", help="debug", default=False)
+        self.args = parser.parse_args()
+
+class ColoParser(HTMLParser):
+    def handle_data(self, data):
+        print(data)
+
+# write code here
+def premain(argparser):
+    signal.signal(signal.SIGINT, SigHandler_SIGINT)
+    #here
+    colo_list = []
+    with open("/home/bloodstalker/scripts/bin/index.html", "r") as colo:
+        lines = colo.readlines()
+        for line in lines:
+            old_stdout = sys.stdout
+            sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+            parser = ColoParser()
+            colo_data = parser.feed(line)
+            sys.stdout.seek(0)
+            colo_list.append(sys.stdout.read())
+            sys.stdout.close()
+            sys.stdout = old_stdout
+    i = 1
+    for elem in colo_list:
+        if i % 8 == 0: print()
+        i = i + 1
+        if argparser.args.hsl:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[4]).replace("%", "")], shell=True)
+        elif argparser.args.rgb:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[3])], shell=True)
+        elif argparser.args.number:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[0])], shell=True)
+        elif argparser.args.name:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[1])], shell=True)
+        elif argparser.args.hex:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[2])], shell=True)
+        else:
+            subprocess.run([BASH_STR.replace("XXX", elem.split("\n")[0]).replace("YYY", elem.split("\n")[0])], shell=True)
+    print()
+
+def main():
+    argparser = Argparser()
+    if argparser.args.dbg:
+        try:
+            premain(argparser)
+        except Exception as e:
+            if hasattr(e, "__doc__"):
+                print(e.__doc__)
+            if hasattr(e, "message"):
+                print(e.message)
+            variables = globals().copy()
+            variables.update(locals())
+            shell = code.InteractiveConsole(variables)
+            shell.interact(banner="DEBUG REPL")
+    else:
+        premain(argparser)
+
+if __name__ == "__main__":
+    main()
