@@ -21,9 +21,11 @@ set foldmethod=manual
 set nofoldenable
 set autoread
 set number
+set showtabline=0
 set numberwidth=5
 set laststatus=2
 set smartcase
+set more
 set lazyredraw
 set synmaxcol=800
 syntax sync minlines=64
@@ -42,6 +44,8 @@ set tm=500
 set ai
 set si
 set wrap
+set linebreak
+set breakindent
 let &showbreak = '↪ '
 set tagbsearch
 set showfulltag
@@ -128,9 +132,12 @@ Plugin 'xolox/vim-misc'
 "Plugin 'jpalardy/vim-slime'
 "Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'wellle/context.vim'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'stephpy/vim-yaml'
 Plugin 'skywind3000/gutentags_plus'
 Plugin 'unblevable/quick-scope'
 Plugin 'SirVer/ultisnips'
@@ -192,7 +199,7 @@ Plugin 'amix/vim-zenroom2'
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
 "Plugin 'Shougo/vimshell.vim'
-Plugin 'hattya/vcs-info.vim'
+" Plugin 'hattya/vcs-info.vim'
 "Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'aklt/plantuml-syntax'
 Plugin 'LnL7/vim-nix'
@@ -282,8 +289,8 @@ nmap <Right> <Nop>
 nmap <PageUp> <Nop>
 nmap <PageDown> <Nop>
 
-imap <Backspace> <Nop>
-imap <Delete> <Nop>
+" imap <Backspace> <Nop>
+" imap <Delete> <Nop>
 imap <Left> <Nop>
 imap <Down> <Nop>
 imap <Up> <Nop>
@@ -374,7 +381,7 @@ map <F1> <Plug>(expand_region_shrink)
 map <F2> <Plug>(expand_region_expand)
 map <F3> :bp<CR>
 map <F4> :bn<CR>
-map <leader>s :w<CR>
+map <leader>w :w<CR>
 noremap <C-e> :q<cr>
 nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <F12> :UndotreeToggle<CR>
@@ -771,6 +778,20 @@ autocmd FileType markdown,text,vimwiki,tex setlocal complete+=k
 "fzf
 map <leader>f <Esc><Esc>:Files!<CR>
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 "asterisk.vim, is.vim, incsearch.vim, edgemotion
 map *   <Plug>(asterisk-*)
@@ -885,8 +906,10 @@ autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) 
 
 "window resizing
 if bufwinnr(1)
-  map + <C-W>+
-  map - <C-W>-
+  nnoremap <right>   <c-w>>
+  nnoremap <left>  <c-w><
+  nnoremap <up>     <c-w>-
+  nnoremap <down>   <c-w>+
 endif
 
 "Tab navigation
@@ -899,7 +922,7 @@ inoremap <C-PageUp>   <Esc>:tabnext<CR>
 inoremap <C-Insert> <Esc>:tabnew<CR>
 inoremap <C-Delete> <Esc>:tabclose<CR>
 
-"copy and paste between different Vim sessions
+"copy and paste between different Vim instances
 nmap _Y :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
 vmap _Y :w! ~/.vi_tmp<CR>
 nmap _P :r ~/.vi_tmp<CR>
@@ -976,6 +999,7 @@ function s:make_callback_impl(timer) abort
 endfunction
 
 "arpeggio mappings
+"this thing has huge potential
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 
 let g:limelight_conceal_ctermfg = 240
@@ -984,6 +1008,10 @@ let g:limelight_paragraph_span = 1
 
 let g:goyo_width = 120
 let g:goyo_height = 85
+
+nnoremap <leader>ss :SignifyToggleHighligh<CR>
+let g:startify_files_number = 20
+let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16

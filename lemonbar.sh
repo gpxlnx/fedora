@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#./lemonbar.sh| lemonbar -f "DejaVu Sans Mono for Powerline:size=11.3" -g "x16"
+#./lemonbar.sh| lemonbar -f "DejaVu Sans Mono for Powerline:size=11" -g "x16"
 
 NORMAL="%{F-}%{B-}"
 sep_left=""
@@ -7,48 +7,44 @@ sep_right=""
 sep_l_left=""
 sep_l_right=""
 
-color_back="#FF1D1F21"
-color_fore="#FFC5C8C6"
-color_head="#FFB5BD68"
-color_sec_b1="#FF282A2E"
-color_sec_b2="#FF454A4F"
-color_sec_b3="#FF60676E"
-color_icon="#FF979997"
-color_mail="#FFCE935F"
-color_chat="#FFCC6666"
-color_cpu="#FF5F819D"
-color_net="#FF5E8D87"
-color_disable="#FF1D1F21"
-color_wsp="#FF8C9440"
-
 DATETIME() {
   DATETIME=$(date "+%a %b %d, %T")
-  echo -n "$DATETIME"
+  echo -n " $DATETIME"
 }
 
 MEM_RAM() {
   RESULT=$(free -m | sed "1d"| gawk '{if (NR==1){print int($3/100)/10"G""/"int($2/100)/10"G"}}')
-  echo -n "$RESULT"
+  echo -n " M:$RESULT"
 }
 
 MEM_SWAP() {
   RESULT=$(free -m | sed "1d"| gawk '{if (NR==2){print int($3/100)/10"G""/"int($2/100)/10"G"}}')
-  echo -n "$RESULT"
+  echo -n " S:$RESULT"
 }
 
 HOME_FREE() {
-	"df" | grep "/home$" | gawk '{print int($4/100000)/10"G"}'
+  RESULT=$("df" | grep "/home$" | gawk '{print int($4/100000)/10"G"}')
+  echo -n " HOME:$RESULT"
 }
 
 ROOT_FREE() {
-	"df" | grep "/$" | gawk '{print int($4/100000)/10"G"}'
+  RESULT=$("df" | grep "/$" | gawk '{print int($4/100000)/10"G"}')
+  echo -n " ROOT:$RESULT"
 }
 
 EXTRA_FREE() {
-	"df" | grep "/extra$" | gawk '{print int($4/100000)/10"G"}'
+  RESULT=$("df" | grep "/extra$" | gawk '{print int($4/100000)/10"G"}')
+  echo -n " EXTRA:$RESULT"
 }
 
+DATETIME_SEGMENT="%{B#ff005f5f}%{F#ffcc6666}$sep_left%{B#ffcc6666}%{F#ffeeeeee}$(DATETIME)"
+MEM_RAM_SEGMENT="%{B#ff0087ff}%{F#ff005f5f}$sep_left%{B#ff005f5f}%{F#ffeeeeee}$(MEM_RAM)"
+MEM_SWAP_SEGMENT="%{B#ffff5f00}%{F#ff0087ff}$sep_left%{B#ff0087ff}%{F#ffeeeeee}$(MEM_SWAP)"
+EXTRA_FREE_SEGMENT="%{B#ff875fd7}%{F#ffff5f00}$sep_left%{B#ffff5f00}%{F#ffeeeeee}$(EXTRA_FREE)"
+HOME_FREE_SEGMENT="%{B#ff5f00ff}%{F#ff875fd7}$sep_left%{B#ff875fd7}%{F#ffeeeeee}$(HOME_FREE)"
+ROOT_FREE_SEGMENT="%{B#ff000000}%{F#ff5f00ff}$sep_left%{B#ff5f00ff}%{F#ffeeeeee}$(ROOT_FREE)"
+
 while true; do
-  echo -e "%{r}%{F#ff1d1f21}%{B$color_net}$sep_left%{R} S:$(MEM_SWAP)%{F#ffcc6666}%{B#ff1d1f21}$sep_left%{R} M:$(MEM_RAM)%{F$color_cpu}%{B#ffcc6666}$sep_left%{R} $(DATETIME)$NORMAL"
-  sleep 1
+  echo -e "%{r} $ROOT_FREE_SEGMENT $HOME_FREE_SEGMENT $EXTRA_FREE_SEGMENT $MEM_SWAP_SEGMENT $MEM_RAM_SEGMENT $DATETIME_SEGMENT $NORMAL"
+  sleep 60
 done

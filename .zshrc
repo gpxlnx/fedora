@@ -49,7 +49,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git svn zsh-syntax-highlighting autojump virtualenv virtualenvwrapper cargo nvm npm docker rustup zle-vi-visual fzf)
+plugins=(git svn zsh-syntax-highlighting autojump virtualenv virtualenvwrapper cargo nvm npm docker rustup zle-vi-visual)
 
 # User configuration
 
@@ -166,6 +166,12 @@ alias kshrc="vim ~/scripts/.kshrc"
 alias fixkshrc="cp ~/scripts/.kshrc ~/.kshrc"
 alias rangerrc="vim ~/scripts/.config/ranger/rc.conf"
 alias fixrangerrc="cp ~/scripts/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
+alias zathurarc="vim ~/scripts/zathurarc"
+alias fixzathurarc="cp ~/scripts/zathurarc ~/.config/zathura/"
+
+function lemon {
+  /home/bloodstalker/scripts/lemonbar.sh | lemonbar -f "DejaVu Sans Mono for Powerline:size=11" -g "x16"
+}
 
 function docpp {
   cp ~/scripts/makefilecpp ./makefile
