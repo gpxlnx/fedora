@@ -1,7 +1,9 @@
 let mapleader = " "
+let maplocalleader = ","
 set encoding=UTF-8
 set nocompatible
 set completeopt-=preview
+set completeopt+=popup
 set showmatch
 set list
 set hidden
@@ -108,6 +110,7 @@ Plugin 'sngn/vim-i3blocks-syntax'
 "Plugin 'powerline/powerline'
 Plugin 'rhysd/vim-wasm'
 Plugin 'tomlion/vim-solidity'
+Plugin 'dense-analysis/ale'
 "Plugin 'rhysd/open-pdf.vim'
 "Plugin 'bloodstalker/csound-vim'
 "Plugin 'https://github.com/rhysd/open-pdf.vim'
@@ -137,8 +140,8 @@ Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'elzr/vim-json'
 Plugin 'wellle/context.vim'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'stephpy/vim-yaml'
 Plugin 'skywind3000/gutentags_plus'
+Plugin 'stephpy/vim-yaml'
 Plugin 'unblevable/quick-scope'
 Plugin 'SirVer/ultisnips'
 "Plugin 'metakirby5/codi.vim'
@@ -389,6 +392,10 @@ nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
 nnoremap <F5> :ContextToggle<CR>
 map <F8> :TagbarToggle<CR>
+augroup LatexAU
+  autocmd!
+  autocmd filetype tex map <F8> :VimtexTocToggle<CR>
+augroup END
 "reserved for tmux use
 map <F6> <nop>
 "messes up some other bindings
@@ -403,6 +410,9 @@ nnoremap <leader>r :!%:p<CR>
 nnoremap <leader>cd :cd %:p:h<cr>
 "terminal vim wont do weird things when you paste things in
 set pastetoggle=<F11>
+nnoremap <leader>l :ALEToggle<CR>
+nnoremap <leader>u :GutentagsUpdate<CR>
+nnoremap <localleader>v :VimtexView<CR>
 
 " vim.session options
 let g:session_directory = "~/.vim/session"
@@ -422,31 +432,57 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 "NERDTree File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+function! NERDTreeHighlightFile(extension, fg, bg)
+  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg
+  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*\.'. a:extension .'$#'
 endfunction
 
-call NERDTreeHighlightFile('c', 28, 'none', 'green', '#151515')
-call NERDTreeHighlightFile('cpp', 28, 'none', 'green', '#151515')
-call NERDTreeHighlightFile('md', 27, 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 27, 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 25, 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 25, 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 25, 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 23, 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('python', 22, 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('js', 160, 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('lua', 39, 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('sh', 63, 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('make', 29, 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('xml', 53, 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('vim', 37, 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('tex', 203, 'none', '#ff00ff', '#151515')
+augroup NerdTreeFileTypeHighlight
+  autocmd!
+  exec 'autocmd filetype nerdtree highlight csource ctermbg=none ctermfg=29'
+  exec 'autocmd filetype nerdtree syn match csource #^\s\+.*\.c$#'
+  exec 'autocmd filetype nerdtree highlight makef1 ctermbg=none ctermfg=98'
+  exec 'autocmd filetype nerdtree syn match makef1 #^\s\+.*makefile$#'
+  exec 'autocmd filetype nerdtree syn match makef1 #^\s\+.*Makefile$#'
+augroup END
+call NERDTreeHighlightFile('o', 146, 'none')
+call NERDTreeHighlightFile('a', 146, 'none')
+call NERDTreeHighlightFile('h', 29, 'none')
+call NERDTreeHighlightFile('cpp', 32, 'none')
+call NERDTreeHighlightFile('cc', 32, 'none')
+call NERDTreeHighlightFile('hpp', 32, 'none')
+call NERDTreeHighlightFile('makefile', 98, 'none')
+call NERDTreeHighlightFile('Makefile', 98, 'none')
+call NERDTreeHighlightFile('md', 27, 'none')
+call NERDTreeHighlightFile('yml', 27, 'none')
+call NERDTreeHighlightFile('config', 25, 'none')
+call NERDTreeHighlightFile('conf', 25, 'none')
+call NERDTreeHighlightFile('cfg', 25, 'none')
+call NERDTreeHighlightFile('json', 25, 'none')
+call NERDTreeHighlightFile('html', 23, 'none')
+call NERDTreeHighlightFile('py', 22, 'none')
+call NERDTreeHighlightFile('js', 202, 'none')
+call NERDTreeHighlightFile('lua', 39, 'none')
+call NERDTreeHighlightFile('sh', 63, 'none')
+call NERDTreeHighlightFile('make', 29, 'none')
+call NERDTreeHighlightFile('xml', 53, 'none')
+call NERDTreeHighlightFile('vim', 37, 'none')
+call NERDTreeHighlightFile('tex', 106, 'none')
+call NERDTreeHighlightFile('pdf', 160, 'none')
+call NERDTreeHighlightFile('tags', 75, 'none')
+call NERDTreeHighlightFile('ahk', 89, 'none')
+call NERDTreeHighlightFile('vimrc', 70, 'none')
+call NERDTreeHighlightFile('hs', 63, 'none')
+call NERDTreeHighlightFile('go', 33, 'none')
+call NERDTreeHighlightFile('txt', 131, 'none')
+call NERDTreeHighlightFile('uml', 69, 'none')
+call NERDTreeHighlightFile('so', 146, 'none')
+call NERDTreeHighlightFile('swp', 58, 'none')
 
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden=1
 highlight Directory ctermfg=28
+highlight Title ctermfg=36
 let NERDTreeShowLineNumbers = 1
 autocmd Filetype nerdtree setlocal relativenumber
 let g:DevIconsEnableFoldersOpenClose = 1
@@ -724,6 +760,7 @@ vnoremap <leader>h :<C-U>PythonDoc<cr>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_root_markers = ['.root']
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 if executable('rg')
   set grepprg=rg\ --color=never
@@ -835,6 +872,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "ycm
+let g:ycm_auto_hover = ""
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>jf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jr :YcmCompleter GoToReferences<CR>
@@ -906,10 +944,10 @@ autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) 
 
 "window resizing
 if bufwinnr(1)
-  nnoremap <right>   <c-w>>
-  nnoremap <left>  <c-w><
-  nnoremap <up>     <c-w>-
-  nnoremap <down>   <c-w>+
+  nnoremap <right> <c-w>>
+  nnoremap <left> <c-w><
+  nnoremap <up> <c-w>-
+  nnoremap <down> <c-w>+
 endif
 
 "Tab navigation
@@ -999,7 +1037,6 @@ function s:make_callback_impl(timer) abort
 endfunction
 
 "arpeggio mappings
-"this thing has huge potential
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 
 let g:limelight_conceal_ctermfg = 240
@@ -1012,6 +1049,30 @@ let g:goyo_height = 85
 nnoremap <leader>ss :SignifyToggleHighligh<CR>
 let g:startify_files_number = 20
 let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
+
+"ale
+let g:ale_linters_explicit = 1
+let g:ale_completion_enabled = 0
+let g:airline#extensions#ale#enabled = 1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_disable_lsp = 1
+let g:ale_change_sign_column_color = 1
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+augroup ALEJS
+  autocmd!
+  autocmd FileType javascript let b:ale_linters = {'javascript': ['eslint']}
+augroup END
+augroup ALEPY
+  autocmd!
+  autocmd FileType python let b:ale_linters = {'python': ['flake8']}
+  autocmd FileType python let b:ale_fixers = {'python': ['autopep8']}
+augroup END
+
+"latex
+let g:tex_flavor = 'latex'
+let g:vimtex_matchparen_enabled = 0
+let g:vimtex_view_method = 'zathura'
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16
