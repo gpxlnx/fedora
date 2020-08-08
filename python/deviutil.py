@@ -2,11 +2,11 @@
 
 import argparse
 import code
-import readline
 import signal
 import sys
 import socket
 from abc import ABCMeta, abstractmethod
+
 
 class Colors:
     purple = '\033[95m'
@@ -21,19 +21,24 @@ class Colors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+
 def SigHandler_SIGINT(signum, frame):
     print()
     sys.exit(0)
+
 
 class Argparser(object):
     def __init__(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("--string", type=str, help="string")
-        parser.add_argument("--bool", action="store_true", help="bool", default=False)
-        parser.add_argument("--dbg", action="store_true", help="debug", default=False)
+        parser.add_argument("--bool", action="store_true",
+                            help="bool", default=False)
+        parser.add_argument("--dbg", action="store_true",
+                            help="debug", default=False)
         self.args = parser.parse_args()
 
-def ffs(offset,header_list, numbered, *args):
+
+def ffs(offset, header_list, numbered, *args):
     cn = Colors.green
     ch = Colors.cyan
     cd = Colors.blue
@@ -47,7 +52,8 @@ def ffs(offset,header_list, numbered, *args):
 
     if numbered:
         numbers_f.extend(range(1, len(args[-1])+1))
-        max_column_width.append(max([len(repr(number)) for number in numbers_f]))
+        max_column_width.append(
+            max([len(repr(number)) for number in numbers_f]))
         header_list.insert(0, "idx")
 
     for arg in args:
@@ -75,6 +81,7 @@ def ffs(offset,header_list, numbered, *args):
         dummy.clear()
     return lines
 
+
 class Demon_Father:
     __metalclass__ = ABCMeta
 
@@ -86,7 +93,8 @@ class Demon_Father:
     def daemonize(self):
         try:
             pid = os.fork()
-            if pid > 0: sys.exit(0)
+            if pid > 0:
+                sys.exit(0)
         except OSError as err:
             sys.stderr.write('fork #1 failed: {0}\n'.format(err))
             sys.exit(1)
@@ -95,7 +103,8 @@ class Demon_Father:
         os.umask(0)
         try:
             pid = os.fork()
-            if pid > 0: sys.exit(0)
+            if pid > 0:
+                sys.exit(0)
         except OSError as err:
             sys.stderr.write('fork #2 failed: {0}\n'.format(err))
             sys.exit(1)
@@ -109,7 +118,8 @@ class Demon_Father:
         os.dup2(se.fileno(), sys.stderr.fileno())
         atexit.register(self.delpid)
         pid = str(os.getpid())
-        with open(self.pidfile,'w+') as f: f.write(pid + '\n')
+        with open(self.pidfile, 'w+') as f:
+            f.write(pid + '\n')
 
     def delpid(self):
         self.pidfile.close()
@@ -118,7 +128,7 @@ class Demon_Father:
     def start(self):
         self.daemonize()
         try:
-            with open(self.pidfile,'r') as pf:
+            with open(self.pidfile, 'r') as pf:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
@@ -132,7 +142,7 @@ class Demon_Father:
 
     def stop(self):
         try:
-            with open(self.pidfile,'r') as pf:
+            with open(self.pidfile, 'r') as pf:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
@@ -150,7 +160,7 @@ class Demon_Father:
                 if os.path.exists(self.pidfile):
                     os.remove(self.pidfile)
             else:
-                print (str(err.args))
+                print(str(err.args))
                 sys.exit(1)
 
     def restart(self):
@@ -161,14 +171,17 @@ class Demon_Father:
     def run(self):
         pass
 
+
 def hexdump(obj):
     count = int()
     strrep = []
     for byte in obj:
-        if count%16 == 0:
+        if count % 16 == 0:
             for ch in strrep:
-                if ord(ch) > 32 and ord(ch) < 127: print(ch, end = '')
-                else: pass
+                if ord(ch) > 32 and ord(ch) < 127:
+                    print(ch, end='')
+                else:
+                    pass
             print()
             strrep = []
             print(format(count, "06x"), ': ', end='')
@@ -179,20 +192,24 @@ def hexdump(obj):
             strrep += str(chr(byte))
             print(format(byte, '02x') + ' ', end='')
         count += 1
-    for i in range(0, 16-count%16): print("   ", end="")
+    for i in range(0, 16-count % 16):
+        print("   ", end="")
     for ch in strrep:
-            if ord(ch) > 32 and ord(ch) < 127: print(ch, end = '')
-            else: pass
+        if ord(ch) > 32 and ord(ch) < 127:
+            print(ch, end='')
+        else:
+            pass
     print()
 
 
 # write code here
 def premain(argparser):
     signal.signal(signal.SIGINT, SigHandler_SIGINT)
-    #here
+    # here
     a = [0x2f, 0x6c, 0x69, 0x62, 0x36, 0x34, 0x2f, 0x6c, 0x64, 0x2d, 0x6c,
-               0x69, 0x6e, 0x75, 0x78, 0x2d, 0x78, 0x38, 0x36, 0x2d, 0x36, 0x34, 0x2e, 0x73, 0x6f, 0x2e, 0x32, 0x00]
+         0x69, 0x6e, 0x75, 0x78, 0x2d, 0x78, 0x38, 0x36, 0x2d, 0x36, 0x34, 0x2e, 0x73, 0x6f, 0x2e, 0x32, 0x00]
     hexdump(a)
+
 
 def main():
     argparser = Argparser()
@@ -206,6 +223,7 @@ def main():
             shell.interact(banner="DEBUG REPL")
     else:
         premain(argparser)
+
 
 if __name__ == "__main__":
     main()
