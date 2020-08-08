@@ -309,6 +309,7 @@ au BufEnter,FileType c set syntax=cpp.doxygen
 " sets filetype for muttrc to neomuttrc not muttrc since i'm too lazy
 " to be bothered to change the name of my rc that i pass to neomutt
 au BufNewFile,BufRead .muttrc set filetype=neomuttrc
+au BufNewFile,BufRead,BufEnter *.toml set filetype=toml
 
 au BufNewFile,BufEnter *.s set ft=nasm
 au BufEnter,FileType *.wast set syntax=wast
