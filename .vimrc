@@ -873,7 +873,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "ycm
-let g:ycm_auto_hover = ""
+" let g:ycm_auto_hover = ""
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>jf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jr :YcmCompleter GoToReferences<CR>

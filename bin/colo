@@ -39,7 +39,6 @@ class Argparser(object):
 
 class ColoParser(HTMLParser):
     def handle_data(self, data):
-        # print(data)
         if data == "\n":
             pass
         else:
@@ -103,7 +102,6 @@ def premain(argparser):
             PRINT_LIST += BASH_STR.replace("XXX", NUMBER_COLO_LIST[i]).replace(
                 "YYY", NUMBER_COLO_LIST[i])
     print(PRINT_LIST)
-    print()
 
 
 def main():

@@ -1,3 +1,6 @@
+#!/usr/bin/env ksh
+
+set -o vi
 
 alias ..="cd ../"
 alias ...="cd ../../"
