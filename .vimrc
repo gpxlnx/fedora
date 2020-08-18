@@ -10,7 +10,7 @@ set hidden
 set tabstop=2
 set conceallevel=1
 set shiftwidth=2
-"ksh is fater in more ways than one
+"ksh is faster in more ways than one
 set shell=ksh
 set directory^=$HOME/.vim/tmp//
 set expandtab
@@ -81,7 +81,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mbbill/undotree'
 Plugin 'mhinz/vim-startify'
 "Plugin 'Townk/vim-autoclose'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kh3phr3n/python-syntax'
 Plugin 'VundleVim/Vundle.vim'
@@ -91,7 +90,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'sickill/vim-pasta'
 Plugin 'adelarsq/vim-matchit'
 Plugin 'makerj/vim-pdf'
-Plugin 'ElmCast/elm-vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'mhinz/vim-signify'
@@ -99,41 +97,28 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'vimwiki/vimwiki'
 "Plugin 'nanotech/jellybeans.vim'
 Plugin 'flazz/vim-colorschemes'
-"Plugin 'Rip-Rip/clang_complete'
-"Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'neomutt/neomutt.vim'
 Plugin 'sngn/vim-i3blocks-syntax'
 "Plugin 'tpope/vim-capslock'
-"Plugin 'Yggdroot/indentLine'
-"Plugin 'Lokaltog/vim-powerline'
-"Plugin 'powerline/powerline'
 Plugin 'rhysd/vim-wasm'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tomlion/vim-solidity'
 Plugin 'dense-analysis/ale'
-"Plugin 'rhysd/open-pdf.vim'
-"Plugin 'bloodstalker/csound-vim'
-"Plugin 'https://github.com/rhysd/open-pdf.vim'
 Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
-"Bundle 'gabrielelana/vim-markdown'
 Plugin 'chrisbra/NrrwRgn'
 Plugin 'kana/vim-arpeggio'
 " Plugin 'kana/vim-submode'
 Plugin 'easymotion/vim-easymotion'
 "Plugin 'tpope/vim-speeddating'
 Plugin 'neovimhaskell/haskell-vim'
-"Plugin 'xolox/vim-notes'
 Plugin 'majutsushi/tagbar'
 "Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'chrisbra/csv.vim'
-"Plugin 'xolox/vim-easytags'
-"Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 "Plugin 'liuchengxu/vista.vim'
-"Plugin 'jpalardy/vim-slime'
-"Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
@@ -156,18 +141,16 @@ Plugin 'vim-utils/vim-troll-stopper'
 Plugin 'junegunn/limelight.vim'
 Plugin 'valloric/MatchTagAlways'
 Plugin 'junegunn/vim-peekaboo'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-rhubarb'
-"Plugin 'jmcantrell/vim-virtualenv'
 " Plugin 'ervandew/supertab'
 Plugin 'rgrinberg/vim-ocaml'
 Plugin 'terryma/vim-multiple-cursors'
-"Plugin 'JuliaEditorSupport/julia-vim'
 "its super slow for some reason
 Plugin 'kshenoy/vim-signature'
 Plugin 'Konfekt/vim-scratchpad'
-"Plugin 'python-mode/python-mode'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'rust-lang/rust.vim'
 Plugin 'tpope/vim-repeat'
@@ -176,37 +159,29 @@ Plugin 'maralla/vim-toml-enhance'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 "Plugin 'Valloric/ListToggle'
-"Plugin 'racer-rust/vim-racer'
 "Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'chiel92/vim-autoformat'
+Plugin 'godlygeek/csapprox'
 Plugin 'vim-scripts/ZoomWin'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'terryma/vim-expand-region'
 "Plugin 'scrooloose/syntastic'
-"Plugin 'vim-scripts/indentpython.vim'
-"Plugin 'nvie/vim-flake8'
 "Plugin 'Yggdroot/hiPairs'
 "Plugin 'maxbrunsfeld/vim-yankstack'
 "Plugin 'gcmt/wildfire.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/DoxyGen-Syntax'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
+" Plugin 'luochen1990/rainbow'
 Plugin 'szymonmaszke/vimpyter'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
-"Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'ludwig/split-manpage.vim'
 Plugin 'raimon49/requirements.txt.vim'
 Plugin 'Shougo/vimproc.vim'
-"Plugin 'Shougo/vimshell.vim'
-" Plugin 'hattya/vcs-info.vim'
 "Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'aklt/plantuml-syntax'
-Plugin 'LnL7/vim-nix'
-Plugin 'zah/nim.vim'
 Plugin 'rhysd/vim-llvm'
 Plugin 'rhysd/vim-gfm-syntax'
 Plugin 'haya14busa/is.vim'
@@ -884,6 +859,8 @@ nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nnoremap <leader>rr :YcmCompleter RefactorRename<space>
 nmap <leader>D <plug>(YCMHover)
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
 
 augroup YCMDocCFam
   autocmd!
@@ -1063,6 +1040,7 @@ let g:ale_sign_column_always = 1
 augroup ALEJS
   autocmd!
   autocmd FileType javascript let b:ale_linters = {'javascript': ['eslint']}
+  autocmd FileType javascript let b:ale_fixers = {'javascript': ['prettier']}
 augroup END
 augroup ALEPY
   autocmd!
@@ -1074,6 +1052,13 @@ augroup END
 let g:tex_flavor = 'latex'
 let g:vimtex_matchparen_enabled = 0
 let g:vimtex_view_method = 'zathura'
+
+"indent guide
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'man', 'vimwiki']
+let g:indent_guides_default_mapping = 0
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16

@@ -189,5 +189,3 @@ client.urgent #d33682 #d33682 #fdf6e3 #dc322f
 
 #font xft:DejaVu Sans Mono for Powerline Book 12
 font pango:DejaVu Sans Mono for Powerline Book 10
-
-set show_marks yes

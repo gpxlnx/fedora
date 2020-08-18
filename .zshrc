@@ -186,6 +186,7 @@ export PATH=:$PATH:/home/bloodstalker/extra/geckodriver
 export PATH=:$PATH:/home/bloodstalker/extra/cppcheck
 export PATH=:$PATH:/home/bloodstalker/extra/binaryen-version_91
 export PATH=:$PATH:/home/bloodstalker/extra/wabt-1.0.13/
+export PATH=:$PATH:/home/bloodstalker/devi/tabbed/tabbed-0.6
 #emscripten
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten/clang/tag-e1.39.11/build_tag-e1.39.11_64/bin

@@ -131,7 +131,9 @@ def get_info_w_name(api_url, name):
 def changelly():
     API_URL = 'https://api.changelly.com'
     API_KEY = '1a17d70c8b624a398c3ec1e4dbffbaa5'
-    API_SECRET = '4b7a4226869ef3f4b512e7beac21ea41b4a5127d54e076cd9350f6d5059ee6a7'
+    # API_SECRET = '4b7a4226869ef3f4b512e7beac21ea41b4a5127d54e076cd9350f6d5059ee6a7'
+    API_SECRET = json.load(
+        open("/home/bloodstalker/scripts/changelly_api_secret.json"))["key"]
     message = {
         'jsonrpc': '2.0',
         'id': 1,
@@ -145,7 +147,10 @@ def changelly():
     headers = {'api-key': API_KEY, 'sign': sign,
                'Content-type': 'application/json'}
     response = requests.post(API_URL, headers=headers, data=serialized_data)
-    return (response.json()['result'])
+    if response.status_code == 200:
+        return (response.json()['result'])
+    else:
+        return None
 
 
 def vocalize(sound):
@@ -541,10 +546,11 @@ def com_xx(argparser):
 
 def com_ava(argparser):
     currencies = changelly()
-    for currency in currencies:
-        if currency == argparser.args.ava:
-            print("YES")
-            return
+    if currencies is not None:
+        for currency in currencies:
+            if currency == argparser.args.ava:
+                print("YES")
+                return
     print("NO")
 
 
@@ -559,20 +565,22 @@ def com_avass(argparser):
 
 def com_cglistall(argparser):
     currencies = changelly()
-    for currency in currencies:
-        print(currency + " ", end="")
+    if currencies is not None:
+        for currency in currencies:
+            print(currency + " ", end="")
     print()
 
 
 def com_watchlist(argparser):
     ret = []
     currencies = changelly()
-    for currency in currencies:
-        for item in argparser.args.watchlist:
-            if currency == item:
-                ret.append(item)
-    for item in ret:
-        print(item.upper() + " ", end="")
+    if currencies is not None:
+        for currency in currencies:
+            for item in argparser.args.watchlist:
+                if currency == item:
+                    ret.append(item)
+        for item in ret:
+            print(item.upper() + " ", end="")
     print()
 
 
