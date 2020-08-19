@@ -131,7 +131,6 @@ def get_info_w_name(api_url, name):
 def changelly():
     API_URL = 'https://api.changelly.com'
     API_KEY = '1a17d70c8b624a398c3ec1e4dbffbaa5'
-    # API_SECRET = '4b7a4226869ef3f4b512e7beac21ea41b4a5127d54e076cd9350f6d5059ee6a7'
     API_SECRET = json.load(
         open("/home/bloodstalker/scripts/changelly_api_secret.json"))["key"]
     message = {
