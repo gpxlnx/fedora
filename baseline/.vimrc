@@ -86,17 +86,17 @@ nnoremap <S-F10> :sp<cr>
 set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline ctermfg=22 ctermbg=15
+    hi statusline ctermfg=15 ctermbg=22
   elseif a:mode == 'r'
-    hi statusline ctermfg=52 ctermbg=15
+    hi statusline ctermfg=15 ctermbg=52
   else
     hi statusline ctermfg=63 ctermbg=25
   endif
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=24 ctermbg=15
-hi statusline ctermfg=24 ctermbg=15
+au InsertLeave * hi statusline ctermfg=15 ctermbg=24
+hi statusline ctermfg=15 ctermbg=24
 hi statuslineNC ctermfg=0 ctermbg=24 term=bold
 set statusline=[%f]                             "file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding

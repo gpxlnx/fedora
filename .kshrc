@@ -16,9 +16,15 @@ alias quit="exit"
 alias xx="dtrx"
 alias mv="mv -i"
 alias cp="cp -i"
+alias df='df -h'
 alias digg="dig && clear"
 alias clean="clear"
 alias quit="exit"
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
 
 PS1='$(print -n "`logname`@`hostname`:";if [[ "${PWD#$HOME}" != "$PWD" ]] then; print -n "~${PWD#$HOME}"; else; print -n "$PWD";fi;print "$ ")'
 
