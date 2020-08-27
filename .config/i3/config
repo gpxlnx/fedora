@@ -133,6 +133,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 exec /home/bloodstalker/scripts/hived --demon &
 #exec telegram-cli -D -s /home/bloodstalker/scripts/tg.lua &
 exec setxkbmap -option ctrl:nocaps
+exec service start tor
 exec /home/bloodstalker/scripts/keymap.sh
 
 # removes the title bar
@@ -185,7 +186,7 @@ bar {
 client.focused #66ccff #333366 #66ccff #66ccff
 client.focused_inactive #111111 #073642 #eee8d5 #6c71c4
 client.unfocused #006633 #073642 #93a1a1 #586e75
-client.urgent #d33682 #d33682 #fdf6e3 #dc322f
+client.urgent #00af00 #00af00 #fdf6e3 #dc322f
 
 #font xft:DejaVu Sans Mono for Powerline Book 12
 font pango:DejaVu Sans Mono for Powerline Book 10

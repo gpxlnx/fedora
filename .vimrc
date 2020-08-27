@@ -162,7 +162,6 @@ Plugin 'junegunn/fzf.vim'
 "Plugin 'neomake/neomake'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'chiel92/vim-autoformat'
-Plugin 'godlygeek/csapprox'
 Plugin 'vim-scripts/ZoomWin'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'terryma/vim-expand-region'
@@ -1059,6 +1058,11 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'man', 'vimwiki']
 let g:indent_guides_default_mapping = 0
+
+"ctrlspace
+if executable("rg")
+	let g:CtrlSpaceGlobCommand = 'rg -l --color never -g ""'
+endif
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16
