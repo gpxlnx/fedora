@@ -109,7 +109,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'chrisbra/NrrwRgn'
-Plugin 'kana/vim-arpeggio'
+" Plugin 'kana/vim-arpeggio'
 " Plugin 'kana/vim-submode'
 Plugin 'easymotion/vim-easymotion'
 "Plugin 'tpope/vim-speeddating'
@@ -199,7 +199,7 @@ let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
 autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
 
 " jellybeans
-colo jellybeans
+silent! colo jellybeans
 set background=dark
 let g:jellybeans_overrides = {
 \    'Todo': { 'guifg': '000000', 'guibg': '00cc00',
@@ -252,6 +252,7 @@ endfunction
 autocmd user AirlineAfterInit call Airline_Custom()
 let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
 let g:airline#extensions#xkblayout#enabled = 1
+let g:airline_exclude_preview = 1
 
 syntax on
 let python_highlight_all = 1
@@ -1061,8 +1062,12 @@ let g:indent_guides_default_mapping = 0
 
 "ctrlspace
 if executable("rg")
-	let g:CtrlSpaceGlobCommand = 'rg -l --color never -g ""'
+  let g:CtrlSpaceGlobCommand = 'rg -l --color never -g ""'
 endif
+hi CtrlSpaceNormal ctermfg=36 ctermbg=NONE
+hi CtrlSpaceSelected ctermbg=27 ctermfg=15
+hi CtrlSpaceSearch ctermfg=25 ctermbg=NONE
+hi CtrlSpaceStatusLine ctermfg=99 ctermbg=NONE cterm=bold
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16
