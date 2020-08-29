@@ -232,11 +232,16 @@ hi Normal ctermbg=None
 
 " airline options
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#branch#enabled = 1
+try
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline#extensions#tabline#formatter = 'default'
+  let g:airline#extensions#ale#enabled = 1
+  let g:airline#extensions#branch#enabled = 1
+  let g:airline#extensions#xkblayout#enabled = 1
+catch
+endtry
 let g:airline_theme = 'jellybeans'
 function! Airline_Custom()
   let l:spc = g:airline_symbols.space
@@ -251,7 +256,6 @@ function! Airline_Custom()
 endfunction
 autocmd user AirlineAfterInit call Airline_Custom()
 let g:XkbSwitchLib = '/usr/local/lib/libxkbswitch.so'
-let g:airline#extensions#xkblayout#enabled = 1
 let g:airline_exclude_preview = 1
 
 syntax on
@@ -1015,7 +1019,10 @@ function s:make_callback_impl(timer) abort
 endfunction
 
 "arpeggio mappings
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+try
+  call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+catch
+endtry
 
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_default_coefficient = 0.7
@@ -1031,7 +1038,6 @@ let g:startify_custom_header = 'startify#pad(startify#fortune#boxed())'
 "ale
 let g:ale_linters_explicit = 1
 let g:ale_completion_enabled = 0
-let g:airline#extensions#ale#enabled = 1
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_disable_lsp = 1
 let g:ale_change_sign_column_color = 1
