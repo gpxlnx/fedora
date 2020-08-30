@@ -14,9 +14,15 @@ get_tmux_cwd() {
 tmux_path=$(get_tmux_cwd)
 cd $tmux_path
 IFS='/' read -ra tmux_path_array <<< "$tmux_path"
+pos=$(( ${#tmux_path_array[*]} - 1 ))
+last=${tmux_path_array[$pos]}
 for i in "${tmux_path_array[@]}"
 do
-  shortened_path+=${i:0:1}/
+  if [[ $i == $last ]]; then
+    shortened_path+=$i
+  else
+    shortened_path+=${i:0:1}/
+  fi
 done
 
 function gitadditions {
