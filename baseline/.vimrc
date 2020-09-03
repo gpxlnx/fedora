@@ -37,6 +37,11 @@ let g:jellybeans_overrides = {
 let g:jellybeans_use_term_italics = 1
 
 "set exrc
+set encoding=UTF-8
+set linebreak
+set breakindent
+set wrap
+set tagbsearch
 set secure
 set list
 set showmatch
@@ -48,8 +53,12 @@ set novisualbell
 set expandtab
 set smarttab
 set autoindent
+set shell=ksh
 set autoread
-set ignorecase smartcase
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
 set magic
 set lazyredraw
 set ttyfast
@@ -82,7 +91,9 @@ map <F13> <S-F10>
 map! <F13> <S-F10>
 nnoremap <F10> :vsp<cr>
 nnoremap <S-F10> :sp<cr>
-"hi statusline ctermfg=blue ctermbg=white
+set pastetoggle=<F11>
+nnoremap <leader>cd :cd %:p:h<cr>
+
 set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
@@ -229,3 +240,11 @@ inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
+
+"window resizing
+if bufwinnr(1)
+  nnoremap <right> <c-w>>
+  nnoremap <left> <c-w><
+  nnoremap <up> <c-w>-
+  nnoremap <down> <c-w>+
+endif

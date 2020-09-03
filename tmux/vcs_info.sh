@@ -49,9 +49,17 @@ function git_untracked_info {
   fi
 }
 
+function git_branch_info {
+  git rev-parse --git-dir > /dev/null 2>&1
+  if [[ $? == 0 ]]; then
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    echo " "$branch
+  fi
+}
+
 tmux_session_info=" #S:#I.#P"
-branch_info="#[fg=colour255 bg=colour65]"$(git rev-parse --abbrev-ref HEAD)
-untracked_info="#[fg=colour255 bg=colour244]"$(echo ⋯ $(git ls-files --others --exclude-standard | wc -w))
+branch_info="#[fg=colour24]#[fg=colour255 bg=colour65]"$(git_branch_info)
+untracked_info="#[fg=colour255 bg=colour244]"$(git_untracked_info)
 deletions_info="#[fg=colour255 bg=colour1]"$(gitdeletions)
 additions__info="#[fg=colour255 bg=colour22]"$(gitadditions)
 
