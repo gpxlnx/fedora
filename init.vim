@@ -34,12 +34,12 @@ set tagbsearch
 set wildmenu
 
  function! OnUIEnter(event)
-	 let l:ui = nvim_get_chan_info(a:event.chan)
-	 if has_key(l:ui, 'client') && has_key(l:ui.client, 'name')
-		 if l:ui.client.name ==# 'Firenvim'
-			 set guifont=DejaVuSansMono\ NF:h12
-		 endif
-	 endif
+   let l:ui = nvim_get_chan_info(a:event.chan)
+   if has_key(l:ui, 'client') && has_key(l:ui.client, 'name')
+     if l:ui.client.name ==# 'Firenvim'
+       set guifont=DejaVuSansMono\ NF:h12
+     endif
+   endif
  endfunction
  " autocmd QueInit UIEnter * call OnUIEnter(deepcopy(v:event))
 
