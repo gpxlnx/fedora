@@ -15,6 +15,7 @@ Plugin 'adelarsq/vim-matchit'
 Plugin 'majutsushi/tagbar'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'mbbill/undotree'
+Plugin 'tpope/vim-commentary'
 call vundle#end()
 filetype plugin indent on
 
@@ -97,18 +98,18 @@ nnoremap <leader>cd :cd %:p:h<cr>
 set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline ctermfg=15 ctermbg=22
+    hi statusline ctermfg=22 ctermbg=15 guibg=#005f00 guifg=#ffffff
   elseif a:mode == 'r'
-    hi statusline ctermfg=15 ctermbg=52
+    hi statusline ctermfg=52 ctermbg=15 guibg=#5f0000 guifg=#ffffff
   else
-    hi statusline ctermfg=63 ctermbg=25
+    hi statusline ctermfg=25 ctermbg=63 guibg=#005faf guifg=#5f5fff
   endif
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=15 ctermbg=24
-hi statusline ctermfg=15 ctermbg=24
-hi statuslineNC ctermfg=0 ctermbg=24 term=bold
+au InsertLeave * hi statusline ctermfg=24 ctermbg=15 guibg=#005f87 guifg=#ffffff
+hi statusline ctermfg=24 ctermbg=15 guibg=#005f87 guifg=#ffffff
+hi statuslineNC ctermfg=0 ctermbg=24 term=bold guifg=#000000 guibg=#005f87
 set statusline=[%f]                             "file name
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
