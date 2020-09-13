@@ -1,3 +1,4 @@
+set encoding=UTF-8
 let mapleader = " "
 set nocompatible
 set completeopt-=preview
@@ -6,6 +7,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'nanotech/jellybeans.vim'
@@ -123,19 +125,19 @@ set statusline+=\ Buf:%n                    " Buffer number
 set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 
 set fillchars+=vert:\ " whitespace signifacant
-hi VertSplit ctermbg=0 ctermfg=0
+hi VertSplit ctermbg=0 ctermfg=0 guibg=#000000 guifg=#000000
 
 " highlight groups
-hi def InterestingWord1 ctermfg=16 ctermbg=214
-hi def InterestingWord2 ctermfg=16 ctermbg=154
-hi def InterestingWord3 ctermfg=16 ctermbg=121
-hi def InterestingWord4 ctermfg=16 ctermbg=137
-hi def InterestingWord5 ctermfg=16 ctermbg=211
-hi def InterestingWord6 ctermfg=16 ctermbg=195
-hi def InterestingWord7 ctermfg=16 ctermbg=99
-hi def InterestingWord8 ctermfg=16 ctermbg=35
-hi def InterestingWord9 ctermfg=16 ctermbg=57
-hi def InterestingWord0 ctermfg=16 ctermbg=39
+hi def InterestingWord1 ctermfg=16 ctermbg=214 guifg=#000000 guibg=#ffaf00
+hi def InterestingWord2 ctermfg=16 ctermbg=154 guifg=#000000 guibg=#afff00
+hi def InterestingWord3 ctermfg=16 ctermbg=121 guifg=#000000 guibg=#87ffaf
+hi def InterestingWord4 ctermfg=16 ctermbg=137 guifg=#000000 guibg=#af875f
+hi def InterestingWord5 ctermfg=16 ctermbg=211 guifg=#000000 guibg=#ff87af
+hi def InterestingWord6 ctermfg=16 ctermbg=195 guifg=#000000 guibg=#d7ffff
+hi def InterestingWord7 ctermfg=16 ctermbg=99 guifg=#000000 guibg=#875fff
+hi def InterestingWord8 ctermfg=16 ctermbg=35 guifg=#000000 guibg=#00af5f
+hi def InterestingWord9 ctermfg=16 ctermbg=57 guifg=#000000 guibg=#5f00ff
+hi def InterestingWord0 ctermfg=16 ctermbg=39 guifg=#000000 guibg=#00afff
 
 " Steve Losh's highlight function
 function HighInterestingWord(n)
@@ -178,7 +180,7 @@ iab funciton function
 nnoremap <S-Delete> :bd<CR>
 map <F6> <nop>
 nnoremap <leader>c :call clearmatches()<CR>
-map <leader>s :w<CR>
+map <leader>w :w<CR>
 nnoremap <leader>t :bel term<CR>
 nnoremap <leader>r :!%:p<CR>
 
@@ -248,4 +250,12 @@ if bufwinnr(1)
   nnoremap <left> <c-w><
   nnoremap <up> <c-w>-
   nnoremap <down> <c-w>+
+endif
+
+if has("gui")
+  set guifont=DejaVu_Sans_Mono_for_Powerline:h10
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=L
+  set guioptions-=r
 endif
