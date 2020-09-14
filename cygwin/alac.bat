@@ -1,2 +1,2 @@
-"C:\Program Files\Alacritty\alacritty.exe" E:\cygwin\bin\zsh.exe -l -i -
+"C:\Program Files\Alacritty\alacritty.exe" -e E:\cygwin\bin\zsh.exe -l -i
 pause
