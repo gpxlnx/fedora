@@ -13,8 +13,12 @@ call plug#begin('~/AppData/Local/nvim/plugged')
  Plug 'tpope/vim-repeat'
  call plug#end()
 
+set encoding=UTF-8
+set linebreak
+set breakindent
 set secure
 set list
+set wrap
 set showmatch
 set number
 set relativenumber
@@ -29,6 +33,7 @@ set ignorecase smartcase
 set magic
 set lazyredraw
 set ttyfast
+set hlsearch
 set scrolloff=0
 set tagbsearch
 set wildmenu

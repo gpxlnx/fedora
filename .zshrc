@@ -70,11 +70,11 @@ alias tg="telegram-cli"
 alias telebot="/home/bloodstalker/scripts/telebot.py > /dev/null 2>&1 &"
 alias dw="~/df/df_linux/df"
 alias clean="clear"
-alias lynx="lynx -lss ~/scripts/lynx.lss -cfg ~/scripts/lynx.cfg -prettysrc -vikeys"
+alias lynx="lynx -lss ~/scripts/lynx.lss -cfg ~/scripts/lynx.cfg -prettysrc"
 alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
 alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
 alias tt="transmission-cli -u 1 -w ~/winshare/"
-alias w3m="torsocks w3m"
+alias w3m="torsocks w3m -F -graph"
 #alias make="colormake"
 #alias gcc="COLORMAKE_COMMAND=gcc colormake"
 #alias clang="COLORMAKE_COMMAND=clang colormake"
@@ -98,6 +98,8 @@ alias rangerrc="vim ~/scripts/.config/ranger/rc.conf"
 alias fixrangerrc="cp ~/scripts/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
 alias zathurarc="vim ~/scripts/zathurarc"
 alias fixzathurarc="cp ~/scripts/zathurarc ~/.config/zathura/"
+alias lynxcfg="cp ~/scripts/lynx.cfg"
+alias lynxlss="cp ~/scripts/lynx.lss"
 
 function lemon {
   /home/bloodstalker/scripts/lemonbar.sh | lemonbar -f "DejaVu Sans Mono for Powerline:size=11" -g "x16"
@@ -283,3 +285,18 @@ export NVM_DIR="/home/bloodstalker/.nvm"
 function vman {
   vim -c "Man $1 $2" -c 'silent only' -c 'colo iceberg' -c 'highlight Normal ctermbg=None' -c 'highlight lineNr ctermbg=16' -c 'hi EndOfBuffer ctermbg=16'
 }
+
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+setopt HIST_VERIFY
+setopt SHARE_HISTORY
+setopt AUTO_CD
+setopt AUTO_PUSHD
