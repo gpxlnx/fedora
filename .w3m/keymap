@@ -111,3 +111,5 @@ keymap C    CHARSET
 
 keymap Q EXIT
 
+# external stuff
+keymap \\\r COMMAND "SHELL 'readable $W3M_URL -p html-title,html-content > /tmp/readable.html'; LOAD /tmp/readable.html"

@@ -387,6 +387,10 @@ inoremap <c-e> <esc>A
 nnoremap <leader>t :bel term<CR>
 "execute current buffer
 nnoremap <leader>r :!%:p<CR>
+augroup GoLangRun
+  autocmd!
+  autocmd FileType go nmap <leader>r <Plug>(go-run)
+augroup end
 nnoremap <leader>cd :cd %:p:h<cr>
 "terminal vim wont do weird things when you paste things in
 set pastetoggle=<F11>
@@ -768,6 +772,7 @@ iab retrun return
 iab fucntion function
 iab funciton function
 iab tehn then
+iab coutn count
 
 "netrw
 let g:netrw_sort_by = 'date'
@@ -883,6 +888,13 @@ augroup END
 augroup YCMDocPy
   autocmd!
   autocmd FileType python let b:ycm_hover = {
+    \ 'command': 'GetDoc',
+    \ 'syntax': &filetype
+    \ }
+augroup END
+augroup YCMDocGo
+  autocmd!
+  autocmd FileType go let b:ycm_hover = {
     \ 'command': 'GetDoc',
     \ 'syntax': &filetype
     \ }
@@ -1074,6 +1086,16 @@ hi CtrlSpaceNormal ctermfg=36 ctermbg=NONE
 hi CtrlSpaceSelected ctermbg=27 ctermfg=15
 hi CtrlSpaceSearch ctermfg=25 ctermbg=NONE
 hi CtrlSpaceStatusLine ctermfg=99 ctermbg=NONE cterm=bold
+
+"vim-go
+let g:go_auto_sameids = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_function_parameters = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
 
 "this should be here at the end so nothing else could override it
 hi SpecialKey ctermbg=16
