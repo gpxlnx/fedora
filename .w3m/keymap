@@ -10,7 +10,7 @@
 # Right : RIGHT, ^[[C
 # Left  : LEFT, ^[[D
 
-# Page/Cursor motion 
+# Page/Cursor motion
 keymap C-f NEXT_PAGE
 keymap C-b PREV_PAGE
 keymap l MOVE_RIGHT
@@ -78,7 +78,7 @@ keymap d CLOSE_TAB
 keymap ESC-b VIEW_BOOKMARK
 keymap ESC-a ADD_BOOKMARK
 
-# Search 
+# Search
 keymap / ISEARCH
 keymap ? ISEARCH_BACK
 keymap n SEARCH_NEXT
@@ -113,3 +113,5 @@ keymap Q EXIT
 
 # external stuff
 keymap \\\r COMMAND "SHELL 'readable $W3M_URL -p html-title,html-content > /tmp/readable.html'; LOAD /tmp/readable.html"
+keymap xs COMMAND "SHELL /home/bloodstalker/scripts/bin/fzf_surfraw; GOTO /home/bloodstalker/scripts/bin/goto_clipboard"
+keymap XS COMMAND "SHELL /home/bloodstalker/scripts/bin/fzf_surfraw; TAB_GOTO /home/bloodstalker/scripts/bin/goto_clipboard"
