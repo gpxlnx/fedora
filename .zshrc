@@ -74,7 +74,7 @@ alias lynx="lynx -lss ~/scripts/lynx.lss -cfg ~/scripts/lynx.cfg -prettysrc"
 alias hplovecraft="lynx http://www.hplovecraft.com/writings/texts/"
 alias casmith="lynx http://www.eldritchdark.com/writings/short-stories/"
 alias tt="transmission-cli -u 1 -w ~/winshare/"
-alias w3m="torsocks w3m -F -graph"
+alias w3m="torsocks w3m -graph"
 #alias make="colormake"
 #alias gcc="COLORMAKE_COMMAND=gcc colormake"
 #alias clang="COLORMAKE_COMMAND=clang colormake"
@@ -149,6 +149,7 @@ function pid {
 REPORTTIME=4
 STARDICT_DATA_DIR="/home/bloodstalker/.stardict"
 export STARDICT_DATA_DIR
+export DISPLAY=":0"
 alias def="sdcv --color"
 
 export LESS='-R'

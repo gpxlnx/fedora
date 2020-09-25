@@ -47,6 +47,8 @@ bindsym $mod+d exec dmenu_run -nhb "dark slate gray" -nhf white -shb "forest gre
 # run quick term command
 bindsym $mod+t exec --no-startup-id ~/scripts/bin/run_with_dmenu.sh
 bindsym $mod+m exec --no-startup-id ~/scripts/bin/manga_dmenu.sh
+bindsym $mod+p exec --no-startup-id ~/scripts/bin/postit.sh
+bindsym $mod+c exec clipmenu
 
 # change focus
 bindsym $mod+j focus left

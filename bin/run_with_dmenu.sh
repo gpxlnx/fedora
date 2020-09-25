@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-set -o pipefail
+# set -o pipefail
 source ~/scripts/zshrc_stripped.sh
-COMMAND=$(echo "" | dmenu -p "Quick Term:")
+COMMAND=$(echo "" | dmenu -h 20 -p "Quick Term:")
 RESULT=$(eval "$COMMAND")
-echo $RESULT | dmenu -p "Quick Term Out:" > /dev/null
+echo $RESULT | dmenu -h 20 -p "Quick Term Out:" > /dev/null
