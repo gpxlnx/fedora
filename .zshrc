@@ -100,6 +100,10 @@ alias zathurarc="vim ~/scripts/zathurarc"
 alias fixzathurarc="cp ~/scripts/zathurarc ~/.config/zathura/"
 alias lynxcfg="cp ~/scripts/lynx.cfg"
 alias lynxlss="cp ~/scripts/lynx.lss"
+alias w3mkeymap="vim ~/scripts/.w3m/keymap"
+alias w3mconfig="vim ~/scripts/.w3m/config"
+alias fixw3mkeymap="cp ~/scripts/.w3m/keymap ~/.w3m/"
+alias fixw3mconfig="cp ~/scripts/.w3m/config ~/.w3m/"
 
 function lemon {
   /home/bloodstalker/scripts/lemonbar.sh | lemonbar -f "DejaVu Sans Mono for Powerline:size=11" -g "x16"
@@ -150,6 +154,7 @@ REPORTTIME=4
 STARDICT_DATA_DIR="/home/bloodstalker/.stardict"
 export STARDICT_DATA_DIR
 export DISPLAY=":0"
+export WWW_HOME="duckduckgo.com"
 alias def="sdcv --color"
 
 export LESS='-R'
@@ -198,7 +203,7 @@ export PATH=:$PATH:/home/bloodstalker/extra/emscripten/node/8.9.1_64bit/bin
 export PATH=:$PATH:/home/bloodstalker/extra/emscripten/emscripten/tag-1.39.11
 
 export EDITOR=vim
-export BROWSER=lynx
+export BROWSER=w3m
 
 function dig {
   globalholecounter=0
