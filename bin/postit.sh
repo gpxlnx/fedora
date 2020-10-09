@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 
-RESULT=$(cat ~/devi/abbatoir/postit | dmenu -l 20 -p "Select Postit:")
-xsel -p $RESULT
+POSTIT=$(cat ~/devi/abbatoir/postit | dmenu -l 20 -p "Select Postit:")
+echo -n "${POSTIT:0:${#POSTIT}}" | xsel -ip

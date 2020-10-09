@@ -156,6 +156,9 @@ export STARDICT_DATA_DIR
 export DISPLAY=":0"
 export WWW_HOME="duckduckgo.com"
 alias def="sdcv --color"
+#goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
 
 export LESS='-R'
 export LESSOPEN='|~/scripts/lesscolor.sh %s'
@@ -306,3 +309,7 @@ setopt HIST_VERIFY
 setopt SHARE_HISTORY
 setopt AUTO_CD
 setopt AUTO_PUSHD
+
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
